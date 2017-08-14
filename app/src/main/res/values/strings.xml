@@ -2,6 +2,6 @@
     <string name="app_name">JAVi</string>
     <string name="jav_vie">Nhật-Việt</string>
     <string name="vie_jav">Việt-Nhật</string>
-    <string name="kanji">Hán tự</string>
-    <string name="grammar">Ngữ pháp</string>
+    <string name="kanji"> Hán tự  </string>
+    <string name="grammar">Ngữ pháp </string>
 </resources>
