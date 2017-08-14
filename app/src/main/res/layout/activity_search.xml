@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tmd.dictionary.screen.activity.search.SearchViewModel"
+            />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".screen.activity.search.SearchActivity"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_50"
+                android:layout_margin="@dimen/dp_5"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="@dimen/sp_25"/>
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_margin="@dimen/dp_5"
+                android:src="@drawable/ic_photo_camera_white_24px"/>
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_margin="@dimen/dp_5"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_pencil"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimaryDark"
+            bind:setViewPager="@{(viewPager)}"
+            bind:tabIndicatorColor="@android:color/white"
+            bind:tabIndicatorHeight="@dimen/dp_2"
+            bind:tabMode="fixed"
+            bind:tabSelectedTextColor="@android:color/white"
+            bind:tabTextColor="@android:color/darker_gray"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            bind:setPagerAdapter="@{viewModel.pagerAdapter}"/>
+    </LinearLayout>
+    
+</layout>
