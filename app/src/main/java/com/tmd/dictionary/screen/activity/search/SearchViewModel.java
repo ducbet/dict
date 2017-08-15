@@ -3,6 +3,8 @@ package com.tmd.dictionary.screen.activity.search;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class SearchViewModel implements SearchContract.ViewModel {
     private Context mContext;
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
-    private List<Fragment> mListFragments = new ArrayList<>();
+    private List<Fragment> mListFragments;
 
     public SearchViewModel(Context context) {
         mContext = context;
@@ -21,6 +23,8 @@ public class SearchViewModel implements SearchContract.ViewModel {
     }
 
     private void initViewPager() {
+        mListFragments = new ArrayList<>();
+        mListFragments.add(JavVieFragment.newInstance(this));
         mPagerAdapter = new SearchPagerAdapter(
             ((SearchActivity) mContext).getSupportFragmentManager(),
             mListFragments);
