@@ -21,6 +21,38 @@
         tools:context=".screen.activity.search.SearchActivity"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_50"
+                android:layout_margin="@dimen/dp_5"
+                android:layout_weight="1"
+                android:hint="abc"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_25"/>
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_margin="@dimen/dp_5"
+                android:src="@drawable/ic_photo_camera_white_24px"/>
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_margin="@dimen/dp_5"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ic_pencil"/>
+        </LinearLayout>
+
         <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +63,7 @@
             bind:tabIndicatorHeight="@dimen/dp_2"
             bind:tabMode="fixed"
             bind:tabSelectedTextColor="@android:color/white"
-            bind:tabTextColor="@color/colorAccent"/>
+            bind:tabTextColor="@android:color/darker_gray"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
