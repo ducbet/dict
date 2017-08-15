@@ -38,6 +38,10 @@ public class SearchViewModel implements SearchContract.ViewModel {
         return mListFragments;
     }
 
+    public Context getContext() {
+        return mContext;
+    }
+
     public SearchPagerAdapter getPagerAdapter() {
         return mPagerAdapter;
     }
