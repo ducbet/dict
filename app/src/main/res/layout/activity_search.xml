@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -8,16 +9,30 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.search.SearchViewModel"
+            type="com.tmd.dictionary.screen.activity.search.SearchViewModel"
             />
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.tmd.dictionary.screen.search.SearchActivity"
+        android:orientation="vertical"
+        tools:context=".screen.activity.search.SearchActivity"
         >
 
-    </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            bind:setViewPager="@{(viewPager)}"
+            bind:tabIndicatorColor="@color/colorPrimary"
+            bind:tabIndicatorHeight="@dimen/dp_2"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:setPagerAdapter="@{viewModel.pagerAdapter}"/>
+    </LinearLayout>
 </layout>
