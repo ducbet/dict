@@ -3,6 +3,7 @@ package com.tmd.dictionary.screen.activity.search;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
+import com.tmd.dictionary.screen.fragment.Grammar.GrammarFragment;
 import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
 import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
 import com.tmd.dictionary.screen.fragment.VieJav.VieJavFragment;
@@ -29,6 +30,7 @@ public class SearchViewModel implements SearchContract.ViewModel {
         mListFragments.add(JavVieFragment.newInstance(this));
         mListFragments.add(VieJavFragment.newInstance(this));
         mListFragments.add(KanjiFragment.newInstance(this));
+        mListFragments.add(GrammarFragment.newInstance(this));
         mPagerAdapter = new SearchPagerAdapter(mContext, mListFragments);
     }
 
