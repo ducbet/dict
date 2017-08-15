@@ -19,5 +19,13 @@
         tools:context=".screen.fragment.JavVie.JavVieActivity"
         >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Jav Vie Fragment"
+            android:textColor="@android:color/white"
+            />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

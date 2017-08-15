@@ -1,15 +1,15 @@
-package com.tmd.dictionary.screen.fragment.JavVie;
+package com.tmd.dictionary.screen.fragment.VieJav;
 
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
 /**
- * Exposes the data to be used in the JavVie screen.
+ * Exposes the data to be used in the VieJav screen.
  */
-public class JavVieViewModel implements JavVieContract.ViewModel {
+public class VieJavViewModel implements VieJavContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
-    private JavVieContract.Presenter mPresenter;
+    private VieJavContract.Presenter mPresenter;
 
-    public JavVieViewModel(SearchContract.ViewModel searchViewModel) {
+    public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
     }
 
@@ -24,7 +24,7 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void setPresenter(JavVieContract.Presenter presenter) {
+    public void setPresenter(VieJavContract.Presenter presenter) {
         mPresenter = presenter;
     }
 }
