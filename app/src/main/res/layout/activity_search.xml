@@ -72,4 +72,5 @@
             android:background="@color/colorPrimary"
             bind:setPagerAdapter="@{viewModel.pagerAdapter}"/>
     </LinearLayout>
+    
 </layout>
