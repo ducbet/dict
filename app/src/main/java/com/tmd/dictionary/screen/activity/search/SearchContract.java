@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.search;
+package com.tmd.dictionary.screen.activity.search;
 
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;

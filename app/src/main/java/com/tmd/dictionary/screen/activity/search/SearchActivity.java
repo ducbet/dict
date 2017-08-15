@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.search;
+package com.tmd.dictionary.screen.activity.search;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new SearchViewModel();
+        mViewModel = new SearchViewModel(this);
         SearchContract.Presenter presenter =
             new SearchPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
