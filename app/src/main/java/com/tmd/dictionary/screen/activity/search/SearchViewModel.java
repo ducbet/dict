@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
+import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
 import com.tmd.dictionary.screen.fragment.VieJav.VieJavFragment;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class SearchViewModel implements SearchContract.ViewModel {
         mListFragments = new ArrayList<>();
         mListFragments.add(JavVieFragment.newInstance(this));
         mListFragments.add(VieJavFragment.newInstance(this));
+        mListFragments.add(KanjiFragment.newInstance(this));
         mPagerAdapter = new SearchPagerAdapter(mContext, mListFragments);
     }
 
