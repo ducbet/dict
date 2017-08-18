@@ -1,8 +1,11 @@
 package com.tmd.dictionary.screen.activity.search;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.support.v4.app.Fragment;
 
+import com.tmd.dictionary.BR;
 import com.tmd.dictionary.screen.fragment.Grammar.GrammarFragment;
 import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
 import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
@@ -14,11 +17,12 @@ import java.util.List;
 /**
  * Exposes the data to be used in the Search screen.
  */
-public class SearchViewModel implements SearchContract.ViewModel {
+public class SearchViewModel extends BaseObservable implements SearchContract.ViewModel {
     private Context mContext;
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
     private List<Fragment> mListFragments;
+    private String mNeedSearch;
 
     public SearchViewModel(Context context) {
         mContext = context;
@@ -46,6 +50,19 @@ public class SearchViewModel implements SearchContract.ViewModel {
         return mPagerAdapter;
     }
 
+    @Bindable
+    public String getNeedSearch() {
+        return mNeedSearch;
+    }
+
+    public void setNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
+        notifyPropertyChanged(BR.needSearch);
+        if (!needSearch.isEmpty()) {
+            mPresenter.JpnVieDefinition(mNeedSearch);
+        }
+    }
+
     @Override
     public void onStart() {
         mPresenter.onStart();
@@ -59,5 +76,13 @@ public class SearchViewModel implements SearchContract.ViewModel {
     @Override
     public void setPresenter(SearchContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onSearch_1Success() {
+    }
+
+    @Override
+    public void onSearch_1Failed() {
     }
 }
