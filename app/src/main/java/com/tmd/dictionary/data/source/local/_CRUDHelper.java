@@ -1,11 +1,12 @@
 package com.tmd.dictionary.data.source.local;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 
 import java.util.ArrayList;
@@ -19,14 +20,13 @@ public class _CRUDHelper extends DatabaseHelper {
         super(context);
     }
 
-    public List<Word> JpnVieDefinition(String input) {
-        // SELECT c0origin, c1kana, c2definition FROM fts_main_content
-        // WHERE c0origin LIKE '%食%' ORDER BY c3priority DESC
+    public List<Word> searchJpnVieDefinition(String input) {
         SQLiteDatabase database = getReadableDatabase();
         List<Word> response = new ArrayList<>();
-        String[] selectionArgs = new String[]{"%" + input + "%"};
+        String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
         Cursor cursor =
-            database.rawQuery(mContext.getString(R.string.query_jpn_vie_definition), selectionArgs);
+            database.rawQuery(mContext.getString(R.string.query_jpn_vie_definition),
+                selectionArgs);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 Word word = new Word();
@@ -46,6 +46,15 @@ public class _CRUDHelper extends DatabaseHelper {
             }
             cursor.close();
         }
+        database.close();
+        return response;
+    }
+
+    public List<Kanji> searchKanji(String input) {
+        // SELECT * FROM fts_main_content
+        // WHERE c0origin LIKE '%食%' ORDER BY c3priority DESC
+        SQLiteDatabase database = getReadableDatabase();
+        List<Kanji> response = new ArrayList<>();
         database.close();
         return response;
     }

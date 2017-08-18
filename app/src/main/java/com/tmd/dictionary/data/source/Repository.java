@@ -1,5 +1,6 @@
 package com.tmd.dictionary.data.source;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
@@ -16,7 +17,12 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public List<Word> JpnVieDefinition(String input) {
-        return mLocalDataSource.JpnVieDefinition(input);
+    public List<Word> searchJpnVieDefinition(String input) {
+        return mLocalDataSource.searchJpnVieDefinition(input);
+    }
+
+    @Override
+    public List<Kanji> searchKanji(String input) {
+        return mLocalDataSource.searchKanji(input);
     }
 }
