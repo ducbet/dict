@@ -2,6 +2,7 @@ package com.tmd.dictionary.data.source.local;
 
 import android.content.Context;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
@@ -20,7 +21,12 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public List<Word> JpnVieDefinition(String input) {
-        return mCRUDHelper.JpnVieDefinition(input);
+    public List<Word> searchJpnVieDefinition(String input) {
+        return mCRUDHelper.searchJpnVieDefinition(input);
+    }
+
+    @Override
+    public List<Kanji> searchKanji(String input) {
+        return mCRUDHelper.searchKanji(input);
     }
 }

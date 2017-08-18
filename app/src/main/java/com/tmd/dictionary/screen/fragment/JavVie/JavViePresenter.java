@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.JavVie;
 
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
 import java.util.List;
@@ -28,7 +29,7 @@ final class JavViePresenter implements JavVieContract.Presenter {
 
     @Override
     public void search(String needSearch) {
-        List response = mRepository.JpnVieDefinition(needSearch);
+        List<Word> response = mRepository.searchJpnVieDefinition(needSearch);
         if (response.isEmpty()) {
             mViewModel.onSearchJpnVieDefinitionFailed();
             return;

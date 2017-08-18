@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentKanjiBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
+import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 
 /**
  * Kanji Screen.
@@ -37,7 +40,8 @@ public class KanjiFragment extends BaseFragment {
                 (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new KanjiViewModel(mSearchViewModel);
-        KanjiContract.Presenter presenter = new KanjiPresenter(mViewModel);
+        KanjiContract.Presenter presenter = new KanjiPresenter(mViewModel,
+            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 
