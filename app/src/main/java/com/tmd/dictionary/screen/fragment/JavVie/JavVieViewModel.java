@@ -39,7 +39,7 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void onSearchJpnVieDefinitionSuccess(List<Word> response) {
+    public void onSearchJpnVieDefinitionSuccess(Word response) {
         mAdapter.setSource(response);
     }
 
@@ -51,5 +51,10 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     public void onSetNeedSearch(String needSearch) {
         mNeedSearch = needSearch;
         mPresenter.search(needSearch);
+    }
+
+    @Override
+    public void onClearData() {
+        mAdapter.clearData();
     }
 }

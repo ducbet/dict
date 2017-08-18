@@ -33,6 +33,16 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void setSource(Word word) {
+        mList.add(word);
+        notifyItemInserted(mList.size() - 1);
+    }
+
+    public void clearData() {
+        mList.clear();
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemJpnVieBinding binding =
