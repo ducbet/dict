@@ -8,6 +8,7 @@ import com.tmd.dictionary.screen.activity.search.SearchContract;
 public class GrammarViewModel implements GrammarContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
     private GrammarContract.Presenter mPresenter;
+    private String mNeedSearch;
 
     public GrammarViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
@@ -26,5 +27,11 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     @Override
     public void setPresenter(GrammarContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
+        mPresenter.search(needSearch);
     }
 }

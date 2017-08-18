@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentJavVieBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
+import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 
 /**
  * JavVie Screen.
  */
 public class JavVieFragment extends BaseFragment {
+    private static final String TAG = JavVieFragment.class.getName();
     private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private JavVieContract.ViewModel mViewModel;
@@ -36,7 +40,8 @@ public class JavVieFragment extends BaseFragment {
                 (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new JavVieViewModel(mSearchViewModel);
-        JavVieContract.Presenter presenter = new JavViePresenter(mViewModel);
+        JavVieContract.Presenter presenter = new JavViePresenter(mViewModel,
+            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 
@@ -60,5 +65,13 @@ public class JavVieFragment extends BaseFragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        if (mViewModel == null) {
+            return;
+        }
+        mViewModel.onSetNeedSearch(needSearch);
     }
 }

@@ -4,6 +4,5 @@
     <string name="vie_jav">Việt-Nhật</string>
     <string name="kanji"> Hán tự  </string>
     <string name="grammar">Ngữ pháp </string>
-    <string name="query_jpn_vie_definition">SELECT c0origin, c1kana, c2definition FROM
-        fts_main_content WHERE c0origin LIKE ? ORDER BY c3priority DESC LIMIT 100</string>
+    <string name="query_jpn_vie_definition">SELECT * FROM fts_main_content WHERE c0origin LIKE ? ORDER BY c3priority DESC LIMIT 100</string>
 </resources>

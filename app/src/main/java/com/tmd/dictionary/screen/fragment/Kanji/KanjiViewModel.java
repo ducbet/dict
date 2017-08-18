@@ -8,6 +8,7 @@ import com.tmd.dictionary.screen.activity.search.SearchContract;
 public class KanjiViewModel implements KanjiContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
     private KanjiContract.Presenter mPresenter;
+    private String mNeedSearch;
 
     public KanjiViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
@@ -26,5 +27,11 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     @Override
     public void setPresenter(KanjiContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
+        mPresenter.search(needSearch);
     }
 }

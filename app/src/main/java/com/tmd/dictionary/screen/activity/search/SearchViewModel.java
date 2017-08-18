@@ -3,9 +3,9 @@ package com.tmd.dictionary.screen.activity.search;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.support.v4.app.Fragment;
 
 import com.tmd.dictionary.BR;
+import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.fragment.Grammar.GrammarFragment;
 import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
 import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
@@ -21,7 +21,7 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     private Context mContext;
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
-    private List<Fragment> mListFragments;
+    private List<BaseFragment> mListFragments;
     private String mNeedSearch;
 
     public SearchViewModel(Context context) {
@@ -38,7 +38,7 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
         mPagerAdapter = new SearchPagerAdapter(mContext, mListFragments);
     }
 
-    public List<Fragment> getListFragments() {
+    public List<BaseFragment> getListFragments() {
         return mListFragments;
     }
 
@@ -59,7 +59,7 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
         mNeedSearch = needSearch;
         notifyPropertyChanged(BR.needSearch);
         if (!needSearch.isEmpty()) {
-            mPresenter.JpnVieDefinition(mNeedSearch);
+            onSendToAllFragment(needSearch);
         }
     }
 
@@ -79,10 +79,9 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     }
 
     @Override
-    public void onSearch_1Success() {
-    }
-
-    @Override
-    public void onSearch_1Failed() {
+    public void onSendToAllFragment(String needSearch) {
+        for (BaseFragment fragment : mListFragments) {
+            fragment.onSetNeedSearch(needSearch);
+        }
     }
 }

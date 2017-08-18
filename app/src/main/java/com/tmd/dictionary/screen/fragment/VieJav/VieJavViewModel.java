@@ -8,6 +8,7 @@ import com.tmd.dictionary.screen.activity.search.SearchContract;
 public class VieJavViewModel implements VieJavContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
     private VieJavContract.Presenter mPresenter;
+    private String mNeedSearch;
 
     public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
@@ -26,5 +27,11 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     @Override
     public void setPresenter(VieJavContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
+        mPresenter.search(needSearch);
     }
 }

@@ -1,5 +1,6 @@
 package com.tmd.dictionary.data.source;
 
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public List<String> JpnVieDefinition(String input) {
+    public List<Word> JpnVieDefinition(String input) {
         return mLocalDataSource.JpnVieDefinition(input);
     }
 }

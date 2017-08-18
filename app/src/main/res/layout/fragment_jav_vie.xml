@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -11,6 +12,7 @@
             type="com.tmd.dictionary.screen.fragment.JavVie.JavVieViewModel"
             />
 
+        <import type="com.tmd.dictionary.util.LayoutManagers"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -19,13 +21,11 @@
         tools:context=".screen.fragment.JavVie.JavVieActivity"
         >
 
-        <TextView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Jav Vie Fragment"
-            android:textColor="@android:color/white"
-            />
+            bind:adapter="@{viewModel.adapter}"
+            bind:layoutManager="@{LayoutManagers.linear()}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

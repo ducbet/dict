@@ -19,4 +19,8 @@ final class GrammarPresenter implements GrammarContract.Presenter {
     @Override
     public void onStop() {
     }
+
+    @Override
+    public void search(String needSearch) {
+    }
 }

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.screen.BaseFragment;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class SearchPagerAdapter extends FragmentPagerAdapter {
     private Context mContext;
-    private List<Fragment> mListFragments;
+    private List<BaseFragment> mListFragments;
 
-    public SearchPagerAdapter(Context context, List<Fragment> listFragments) {
+    public SearchPagerAdapter(Context context, List<BaseFragment> listFragments) {
         super(((SearchActivity) context).getSupportFragmentManager());
         mContext = context;
         mListFragments = listFragments;
