@@ -6,6 +6,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 /**
  * Created by tmd on 16/08/2017.
  */
@@ -17,7 +19,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public List<Word> searchJpnVieDefinition(String input) {
+    public Observable<Word> searchJpnVieDefinition(String input) {
         return mLocalDataSource.searchJpnVieDefinition(input);
     }
 

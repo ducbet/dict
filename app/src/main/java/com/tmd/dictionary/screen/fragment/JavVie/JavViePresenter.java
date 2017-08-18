@@ -3,7 +3,11 @@ package com.tmd.dictionary.screen.fragment.JavVie;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
-import java.util.List;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Listens to user actions from the UI ({@link JavVieFragment}), retrieves the data and updates
@@ -28,12 +32,28 @@ final class JavViePresenter implements JavVieContract.Presenter {
     }
 
     @Override
-    public void search(String needSearch) {
-        List<Word> response = mRepository.searchJpnVieDefinition(needSearch);
-        if (response.isEmpty()) {
-            mViewModel.onSearchJpnVieDefinitionFailed();
-            return;
-        }
-        mViewModel.onSearchJpnVieDefinitionSuccess(response);
+    public void search(final String needSearch) {
+        mRepository.searchJpnVieDefinition(needSearch)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new Observer<Word>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+                    mViewModel.onClearData();
+                }
+
+                @Override
+                public void onNext(@NonNull Word words) {
+                    mViewModel.onSearchJpnVieDefinitionSuccess(words);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
     }
 }
