@@ -19,4 +19,8 @@ final class VieJavPresenter implements VieJavContract.Presenter {
     @Override
     public void onStop() {
     }
+
+    @Override
+    public void search(String needSearch) {
+    }
 }

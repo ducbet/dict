@@ -11,11 +11,13 @@ interface KanjiContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onSetNeedSearch(String needSearch);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void search(String needSearch);
     }
 }

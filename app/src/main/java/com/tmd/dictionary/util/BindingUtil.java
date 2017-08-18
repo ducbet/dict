@@ -3,6 +3,7 @@ package com.tmd.dictionary.util;
 import android.databinding.BindingAdapter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 
 import com.tmd.dictionary.screen.activity.search.SearchPagerAdapter;
 
@@ -18,5 +19,11 @@ public class BindingUtil {
     @BindingAdapter("setPagerAdapter")
     public static void setPagerAdapter(ViewPager viewPager, SearchPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
+    }
+
+    @BindingAdapter("layoutManager")
+    public static void setLayoutManager(RecyclerView recyclerView,
+                                        LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
+        recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
     }
 }

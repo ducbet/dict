@@ -54,6 +54,7 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_margin="@dimen/dp_5"
                 android:layout_weight="1"
+                android:backgroundTint="@color/color_orange_500"
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="@={viewModel.needSearch}"
@@ -74,6 +75,6 @@
                 android:padding="@dimen/dp_5"
                 android:src="@drawable/ic_pencil"/>
         </LinearLayout>
-        
+
     </LinearLayout>
 </layout>

@@ -16,6 +16,7 @@ import com.tmd.dictionary.screen.activity.search.SearchContract;
  * VieJav Screen.
  */
 public class VieJavFragment extends BaseFragment {
+    private static final String TAG = VieJavFragment.class.getName();
     private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private VieJavContract.ViewModel mViewModel;
@@ -60,5 +61,13 @@ public class VieJavFragment extends BaseFragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        if (mViewModel == null) {
+            return;
+        }
+        mViewModel.onSetNeedSearch(needSearch);
     }
 }

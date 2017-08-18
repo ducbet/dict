@@ -16,6 +16,7 @@ import com.tmd.dictionary.screen.activity.search.SearchContract;
  * Kanji Screen.
  */
 public class KanjiFragment extends BaseFragment {
+    private static final String TAG = KanjiFragment.class.getName();
     private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private KanjiContract.ViewModel mViewModel;
@@ -60,5 +61,13 @@ public class KanjiFragment extends BaseFragment {
     public void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public void onSetNeedSearch(String needSearch) {
+        if (mViewModel == null) {
+            return;
+        }
+        mViewModel.onSetNeedSearch(needSearch);
     }
 }
