@@ -13,11 +13,14 @@ public interface SearchContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter>, Serializable {
+        void onSearch_1Success();
+        void onSearch_1Failed();
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void JpnVieDefinition(String needSearch);
     }
 }
