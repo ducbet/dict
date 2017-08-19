@@ -55,4 +55,8 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     public void onClearData() {
         mAdapter.clearData();
     }
+
+    @Override
+    public void onItemClick(Word word) {
+    }
 }

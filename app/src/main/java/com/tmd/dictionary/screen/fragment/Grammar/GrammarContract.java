@@ -16,6 +16,7 @@ interface GrammarContract {
         void onSearchGrammarFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
+        void onItemClick(Word word);
     }
 
     /**
