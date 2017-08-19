@@ -1,8 +1,15 @@
 package com.tmd.dictionary.screen.fragment.Kanji;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.source.DataSource;
 
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Listens to user actions from the UI ({@link KanjiFragment}), retrieves the data and updates
@@ -27,12 +34,28 @@ final class KanjiPresenter implements KanjiContract.Presenter {
     }
 
     @Override
-    public void search(String needSearch) {
-        List response = mRepository.searchKanji(needSearch);
-        if (response.isEmpty()) {
-            mViewModel.onSearchKanjiFailed();
-            return;
-        }
-        mViewModel.onSearchKanjiSuccess(response);
+    public void search(final String needSearch) {
+        mRepository.searchKanjiMeaning(needSearch)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new Observer<List<Kanji>>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+                    mViewModel.onClearData();
+                }
+
+                @Override
+                public void onNext(@NonNull List<Kanji> kanji) {
+                    mViewModel.onSearchKanjiSuccess(kanji);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
     }
 }

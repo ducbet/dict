@@ -12,5 +12,5 @@ import io.reactivex.Observable;
  */
 public interface DataSource {
     Observable<Word> searchJpnVieDefinition(String input);
-    List<Kanji> searchKanji(String input);
+    Observable<List<Kanji>> searchKanjiMeaning(String input);
 }

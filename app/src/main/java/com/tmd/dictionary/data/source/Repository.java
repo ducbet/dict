@@ -24,7 +24,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public List<Kanji> searchKanji(String input) {
-        return mLocalDataSource.searchKanji(input);
+    public Observable<List<Kanji>> searchKanjiMeaning(String input) {
+        return mLocalDataSource.searchKanjiMeaning(input);
     }
 }
