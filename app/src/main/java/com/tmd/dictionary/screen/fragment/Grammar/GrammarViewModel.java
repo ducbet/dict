@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.Grammar;
 
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
 /**
@@ -9,9 +10,15 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
     private GrammarContract.Presenter mPresenter;
     private String mNeedSearch;
+    private GrammarAdapter mAdapter;
 
     public GrammarViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
+        mAdapter = new GrammarAdapter(this);
+    }
+
+    public GrammarAdapter getAdapter() {
+        return mAdapter;
     }
 
     @Override
@@ -30,8 +37,22 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
+    public void onSearchGrammarSuccess(Word response) {
+        mAdapter.setSource(response);
+    }
+
+    @Override
+    public void onSearchGrammarFailed() {
+    }
+
+    @Override
     public void onSetNeedSearch(String needSearch) {
         mNeedSearch = needSearch;
         mPresenter.search(needSearch);
+    }
+
+    @Override
+    public void onClearData() {
+        mAdapter.clearData();
     }
 }
