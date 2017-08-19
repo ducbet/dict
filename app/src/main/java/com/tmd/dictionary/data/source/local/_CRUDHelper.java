@@ -25,7 +25,7 @@ public class _CRUDHelper extends DatabaseHelper {
         super(context);
     }
 
-    public Observable<Word> searchJpnVieDefinition(final String input) {
+    public Observable<Word> searchJpnVie(final String input) {
         // SELECT * FROM jpn_vie_main WHERE c0origin LIKE ?
         // OR c1kana LIKE ? ORDER BY c3priority DESC LIMIT 100
         return Observable.create(new ObservableOnSubscribe<Word>() {
@@ -33,34 +33,80 @@ public class _CRUDHelper extends DatabaseHelper {
             public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
                 SQLiteDatabase database = getReadableDatabase();
                 String selection =
-                    DatabaseContract.JpnVieContract.MainContent.COLUMN_ORIGIN + " LIKE ? OR " +
-                        DatabaseContract.JpnVieContract.MainContent.COLUMN_KANA + " LIKE ?";
+                    DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN + " LIKE ? OR " +
+                        DatabaseContract.JpnVieContract.Main.COLUMN_KANA + " LIKE ?";
                 String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
                 String limit = mContext.getString(R.string.result_limit);
                 Cursor cursor = database.query(
-                    DatabaseContract.JpnVieContract.MainContent.TABLE_NAME,
+                    DatabaseContract.JpnVieContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
                     selectionArgs,
                     null,// group by
                     null,// group by args
-                    DatabaseContract.JpnVieContract.MainContent.COLUMN_PRIORITY + " DESC",
+                    DatabaseContract.JpnVieContract.Main.COLUMN_PRIORITY + " DESC",
                     limit);
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
                         Word word = new Word();
                         String origin = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.MainContent.COLUMN_ORIGIN));
+                            DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN));
                         String kana = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.MainContent.COLUMN_KANA));
+                            DatabaseContract.JpnVieContract.Main.COLUMN_KANA));
                         String definition = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.MainContent.COLUMN_DEFINITION));
+                            DatabaseContract.JpnVieContract.Main.COLUMN_DEFINITION));
                         int priority = cursor.getInt(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.MainContent.COLUMN_PRIORITY));
+                            DatabaseContract.JpnVieContract.Main.COLUMN_PRIORITY));
                         word.setOrigin(origin);
                         word.setKana(kana);
                         word.setDefinition(definition);
                         word.setPriority(priority);
+                        ReformatString.formatWord(word);
+                        e.onNext(word);
+                    }
+                    cursor.close();
+                } else {
+                    database.close();
+                    e.onError(new NullPointerException(""));
+                }
+                database.close();
+                e.onComplete();
+            }
+        });
+    }
+
+    public Observable<Word> searchVieJpn(final String input) {
+        return Observable.create(new ObservableOnSubscribe<Word>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
+                SQLiteDatabase database = getReadableDatabase();
+                String selection =
+                    DatabaseContract.VieJpnContract.Main.COLUMN_ORIGIN +
+                        " LIKE ? COLLATE NOCASE OR " +
+                        DatabaseContract.VieJpnContract.Main.COLUMN_KANA + " LIKE ? COLLATE NOCASE";
+                String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
+                String limit = mContext.getString(R.string.result_limit);
+                Cursor cursor = database.query(
+                    DatabaseContract.VieJpnContract.Main.TABLE_NAME,
+                    null,// columns// *
+                    selection,
+                    selectionArgs,
+                    null,// group by
+                    null,// group by args
+                    null,// order by
+                    limit);
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        Word word = new Word();
+                        String origin = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.VieJpnContract.Main.COLUMN_ORIGIN));
+                        String kana = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.VieJpnContract.Main.COLUMN_KANA));
+                        String definition = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.VieJpnContract.Main.COLUMN_DEFINITION));
+                        word.setOrigin(origin);
+                        word.setKana(kana);
+                        word.setDefinition(definition);
                         ReformatString.formatWord(word);
                         e.onNext(word);
                     }
@@ -82,11 +128,11 @@ public class _CRUDHelper extends DatabaseHelper {
             public void subscribe(@NonNull ObservableEmitter<List<Kanji>> e) throws Exception {
                 SQLiteDatabase database = getReadableDatabase();
                 List<Kanji> listKanjis = new ArrayList<>();
-                String selection = DatabaseContract.KanjiContract.KanjiBase.COLUMN_KANJI + " = ?";
+                String selection = DatabaseContract.KanjiContract.Main.COLUMN_KANJI + " = ?";
                 String[] selectionArgs = new String[]{input};
                 String limit = mContext.getString(R.string.result_limit);
                 Cursor cursor = database.query(
-                    DatabaseContract.KanjiContract.KanjiBase.TABLE_NAME,
+                    DatabaseContract.KanjiContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
                     selectionArgs,
@@ -98,15 +144,15 @@ public class _CRUDHelper extends DatabaseHelper {
                     while (cursor.moveToNext()) {
                         Kanji responseKanji = new Kanji();
                         String kanji = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.KanjiBase.COLUMN_KANJI));
+                            DatabaseContract.KanjiContract.Main.COLUMN_KANJI));
                         String hanviet = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.KanjiBase.COLUMN_HANVIET));
+                            DatabaseContract.KanjiContract.Main.COLUMN_HANVIET));
                         String onyomi = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.KanjiBase.COLUMN_ONYOMI));
+                            DatabaseContract.KanjiContract.Main.COLUMN_ONYOMI));
                         String kunyomi = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.KanjiBase.COLUMN_KUNYOMI));
+                            DatabaseContract.KanjiContract.Main.COLUMN_KUNYOMI));
                         String meaning = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.KanjiBase.COLUMN_MEANING));
+                            DatabaseContract.KanjiContract.Main.COLUMN_MEANING));
                         responseKanji.setKanji(kanji);
                         responseKanji.setHanViet(hanviet);
                         responseKanji.setOnyomi(onyomi);

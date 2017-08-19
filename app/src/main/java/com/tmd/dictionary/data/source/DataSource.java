@@ -11,6 +11,7 @@ import io.reactivex.Observable;
  * Created by tmd on 16/08/2017.
  */
 public interface DataSource {
-    Observable<Word> searchJpnVieDefinition(String input);
-    Observable<List<Kanji>> searchKanjiMeaning(String input);
+    Observable<Word> searchJpnVie(String input);
+    Observable<Word> searchVieJpn(String input);
+    Observable<List<Kanji>> searchKanji(String input);
 }

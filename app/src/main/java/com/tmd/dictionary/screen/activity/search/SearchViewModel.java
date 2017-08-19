@@ -32,8 +32,8 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     private void initViewPager() {
         mListFragments = new ArrayList<>();
         mListFragments.add(JavVieFragment.newInstance(this));
-        mListFragments.add(VieJavFragment.newInstance(this));
         mListFragments.add(KanjiFragment.newInstance(this));
+        mListFragments.add(VieJavFragment.newInstance(this));
         mListFragments.add(GrammarFragment.newInstance(this));
         mPagerAdapter = new SearchPagerAdapter(mContext, mListFragments);
     }

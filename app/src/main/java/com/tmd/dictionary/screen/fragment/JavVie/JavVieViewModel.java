@@ -39,12 +39,12 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void onSearchJpnVieDefinitionSuccess(Word response) {
+    public void onSearchJpnVieSuccess(Word response) {
         mAdapter.setSource(response);
     }
 
     @Override
-    public void onSearchJpnVieDefinitionFailed() {
+    public void onSearchJpnVieFailed() {
     }
 
     @Override

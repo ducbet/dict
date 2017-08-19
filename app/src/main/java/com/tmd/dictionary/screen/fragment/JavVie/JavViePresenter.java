@@ -33,7 +33,7 @@ final class JavViePresenter implements JavVieContract.Presenter {
 
     @Override
     public void search(final String needSearch) {
-        mRepository.searchJpnVieDefinition(needSearch)
+        mRepository.searchJpnVie(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new Observer<Word>() {
@@ -44,11 +44,12 @@ final class JavViePresenter implements JavVieContract.Presenter {
 
                 @Override
                 public void onNext(@NonNull Word words) {
-                    mViewModel.onSearchJpnVieDefinitionSuccess(words);
+                    mViewModel.onSearchJpnVieSuccess(words);
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
+                    mViewModel.onSearchJpnVieFailed();
                 }
 
                 @Override

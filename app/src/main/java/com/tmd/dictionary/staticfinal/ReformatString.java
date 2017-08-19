@@ -49,6 +49,7 @@ public class ReformatString {
         sWordType.put("suf", "hậu tố");
         sWordType.put("pref", "tiền tố");
         sWordType.put("sl", "    ");// tiếng lóng
+        sWordType.put("num", "số đếm");
         sWordType.put("adj-i", "tính từ đuôi \"i\"");
         sWordType.put("adj-na", "tính từ đuôi \"na\"");
         sWordType.put("adj-pn", "    ");
@@ -72,7 +73,7 @@ public class ReformatString {
         sWordType.put("hum", "    ");
         sWordType.put("pn", "    ");
         sWordType.put("prt", "    ");
-        sWordType.put("n", "Danh từ");
+        sWordType.put("n", "danh từ");
     }
 }
 
