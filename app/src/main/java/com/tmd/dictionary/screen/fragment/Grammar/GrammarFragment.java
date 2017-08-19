@@ -12,12 +12,13 @@ import com.tmd.dictionary.databinding.FragmentGrammarBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+
 /**
  * Grammar Screen.
  */
 public class GrammarFragment extends BaseFragment {
     private static final String TAG = GrammarFragment.class.getName();
-    private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private GrammarContract.ViewModel mViewModel;
 

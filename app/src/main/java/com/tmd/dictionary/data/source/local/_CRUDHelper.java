@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.staticfinal.ReformatString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class _CRUDHelper extends DatabaseHelper {
                         word.setKana(kana);
                         word.setDefinition(definition);
                         word.setPriority(priority);
+                        ReformatString.formatWord(word);
                         e.onNext(word);
                     }
                     cursor.close();
