@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
+            android:onClick="@{()->viewModel.onItemClick(word)}"
             android:orientation="vertical"
             android:padding="@dimen/dp_5"
             >

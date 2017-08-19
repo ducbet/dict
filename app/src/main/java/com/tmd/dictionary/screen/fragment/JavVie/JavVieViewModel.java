@@ -3,8 +3,6 @@ package com.tmd.dictionary.screen.fragment.JavVie;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
-import java.util.List;
-
 /**
  * Exposes the data to be used in the JavVie screen.
  */
@@ -56,5 +54,9 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     @Override
     public void onClearData() {
         mAdapter.clearData();
+    }
+
+    @Override
+    public void onItemClick(Word word) {
     }
 }

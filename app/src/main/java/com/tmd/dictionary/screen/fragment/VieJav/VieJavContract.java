@@ -16,6 +16,7 @@ interface VieJavContract {
         void onSearchVieJpnFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
+        void onItemClick(Word word);
     }
 
     /**

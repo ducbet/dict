@@ -19,6 +19,7 @@ interface KanjiContract {
         void onSearchKanjiFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
+        void onItemClick(Kanji kanji);
     }
 
     /**

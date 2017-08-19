@@ -18,6 +18,7 @@ interface JavVieContract {
         void onSearchJpnVieFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
+        void onItemClick(Word word);
     }
 
     /**
