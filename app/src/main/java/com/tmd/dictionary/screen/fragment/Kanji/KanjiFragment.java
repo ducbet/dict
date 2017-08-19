@@ -15,12 +15,13 @@ import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+
 /**
  * Kanji Screen.
  */
 public class KanjiFragment extends BaseFragment {
     private static final String TAG = KanjiFragment.class.getName();
-    private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private KanjiContract.ViewModel mViewModel;
 

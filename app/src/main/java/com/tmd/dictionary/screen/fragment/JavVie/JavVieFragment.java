@@ -15,12 +15,13 @@ import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+
 /**
  * JavVie Screen.
  */
 public class JavVieFragment extends BaseFragment {
     private static final String TAG = JavVieFragment.class.getName();
-    private static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
     private SearchContract.ViewModel mSearchViewModel;
     private JavVieContract.ViewModel mViewModel;
 
