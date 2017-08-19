@@ -35,7 +35,7 @@ final class KanjiPresenter implements KanjiContract.Presenter {
 
     @Override
     public void search(final String needSearch) {
-        mRepository.searchKanjiMeaning(needSearch)
+        mRepository.searchKanji(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new Observer<List<Kanji>>() {

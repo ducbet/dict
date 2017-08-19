@@ -23,12 +23,17 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<Word> searchJpnVieDefinition(String input) {
-        return mCRUDHelper.searchJpnVieDefinition(input);
+    public Observable<Word> searchJpnVie(String input) {
+        return mCRUDHelper.searchJpnVie(input);
     }
 
     @Override
-    public Observable<List<Kanji>> searchKanjiMeaning(String input) {
+    public Observable<Word> searchVieJpn(String input) {
+        return mCRUDHelper.searchVieJpn(input);
+    }
+
+    @Override
+    public Observable<List<Kanji>> searchKanji(String input) {
         return mCRUDHelper.searchKanjiMeaning(input);
     }
 }

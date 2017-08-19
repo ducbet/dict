@@ -19,12 +19,17 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Word> searchJpnVieDefinition(String input) {
-        return mLocalDataSource.searchJpnVieDefinition(input);
+    public Observable<Word> searchJpnVie(String input) {
+        return mLocalDataSource.searchJpnVie(input);
     }
 
     @Override
-    public Observable<List<Kanji>> searchKanjiMeaning(String input) {
-        return mLocalDataSource.searchKanjiMeaning(input);
+    public Observable<Word> searchVieJpn(String input) {
+        return mLocalDataSource.searchVieJpn(input);
+    }
+
+    @Override
+    public Observable<List<Kanji>> searchKanji(String input) {
+        return mLocalDataSource.searchKanji(input);
     }
 }

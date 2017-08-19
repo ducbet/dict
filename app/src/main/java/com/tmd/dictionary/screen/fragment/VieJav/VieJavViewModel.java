@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.VieJav;
 
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
 /**
@@ -9,9 +10,15 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
     private VieJavContract.Presenter mPresenter;
     private String mNeedSearch;
+    private VieJpnAdapter mAdapter;
 
     public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
+        mAdapter = new VieJpnAdapter(this);
+    }
+
+    public VieJpnAdapter getAdapter() {
+        return mAdapter;
     }
 
     @Override
@@ -30,8 +37,22 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     }
 
     @Override
+    public void onSearchVieJpnSuccess(Word response) {
+        mAdapter.setSource(response);
+    }
+
+    @Override
+    public void onSearchVieJpnFailed() {
+    }
+
+    @Override
     public void onSetNeedSearch(String needSearch) {
         mNeedSearch = needSearch;
         mPresenter.search(needSearch);
+    }
+
+    @Override
+    public void onClearData() {
+        mAdapter.clearData();
     }
 }

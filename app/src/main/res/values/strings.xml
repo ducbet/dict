@@ -4,5 +4,6 @@
     <string name="vie_jav">Việt-Nhật</string>
     <string name="kanji"> Hán tự  </string>
     <string name="grammar">Ngữ pháp </string>
+    <string name="double_click_back">Please click BACK again to exit</string>
     <string name="result_limit">100</string>
 </resources>

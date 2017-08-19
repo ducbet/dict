@@ -14,8 +14,8 @@ interface JavVieContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onSearchJpnVieDefinitionSuccess(Word response);
-        void onSearchJpnVieDefinitionFailed();
+        void onSearchJpnVieSuccess(Word response);
+        void onSearchJpnVieFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
     }

@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentVieJavBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
+import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
@@ -38,7 +41,8 @@ public class VieJavFragment extends BaseFragment {
                 (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new VieJavViewModel(mSearchViewModel);
-        VieJavContract.Presenter presenter = new VieJavPresenter(mViewModel);
+        VieJavContract.Presenter presenter = new VieJavPresenter(mViewModel,
+            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 

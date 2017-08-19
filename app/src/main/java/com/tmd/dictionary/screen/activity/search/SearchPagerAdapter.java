@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.screen.BaseFragment;
+import com.tmd.dictionary.screen.fragment.Grammar.GrammarFragment;
+import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
+import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
+import com.tmd.dictionary.screen.fragment.VieJav.VieJavFragment;
 
 import java.util.List;
 
@@ -34,17 +38,18 @@ public class SearchPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return mContext.getString(R.string.jav_vie);
-            case 1:
-                return mContext.getString(R.string.vie_jav);
-            case 2:
-                return mContext.getString(R.string.kanji);
-            case 3:
-                return mContext.getString(R.string.grammar);
-            default:
-                return "";
+        if (mListFragments.get(position) instanceof JavVieFragment) {
+            return mContext.getString(R.string.jav_vie);
         }
+        if (mListFragments.get(position) instanceof VieJavFragment) {
+            return mContext.getString(R.string.vie_jav);
+        }
+        if (mListFragments.get(position) instanceof KanjiFragment) {
+            return mContext.getString(R.string.kanji);
+        }
+        if (mListFragments.get(position) instanceof GrammarFragment) {
+            return mContext.getString(R.string.grammar);
+        }
+        return "";
     }
 }

@@ -10,4 +10,5 @@
     <dimen name="dp_50">50dp</dimen>
     <dimen name="sp_15">15sp</dimen>
     <dimen name="dp_15">15dp</dimen>
+    <dimen name="sp_17">17sp</dimen>
 </resources>
