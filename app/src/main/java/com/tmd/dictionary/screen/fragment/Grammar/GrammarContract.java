@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.Grammar;
 
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -11,7 +12,10 @@ interface GrammarContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onSearchGrammarSuccess(Word response);
+        void onSearchGrammarFailed();
         void onSetNeedSearch(String needSearch);
+        void onClearData();
     }
 
     /**

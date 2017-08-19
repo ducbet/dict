@@ -85,7 +85,7 @@ public class DatabaseContract {
         }
     }
 
-    public class Grammar {
+    public class GrammarContract {
         public class Examples implements BaseColumns {
             public static final String TABLE_NAME = "grammar_examples";
             public static final String COLUMN_EXAMPLE = "example";

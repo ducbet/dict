@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.JavVie.JavVieViewModel"
+            type="com.tmd.dictionary.screen.fragment.Grammar.GrammarViewModel"
             />
 
         <variable
@@ -35,12 +35,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
                 android:text="@{word.origin}"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_25"
+                android:textSize="@dimen/sp_17"
                 />
 
             <TextView

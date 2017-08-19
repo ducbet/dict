@@ -171,4 +171,44 @@ public class _CRUDHelper extends DatabaseHelper {
             }
         });
     }
+
+    public Observable<Word> searchGrammar(final String input) {
+        return Observable.create(new ObservableOnSubscribe<Word>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
+                SQLiteDatabase database = getReadableDatabase();
+                String selection = DatabaseContract.GrammarContract.Main.COLUMN_ORIGIN + " LIKE ?";
+                String[] selectionArgs = new String[]{"%" + input + "%"};
+                String limit = mContext.getString(R.string.result_limit);
+                Cursor cursor = database.query(
+                    DatabaseContract.GrammarContract.Main.TABLE_NAME,
+                    null,// columns// *
+                    selection,
+                    selectionArgs,
+                    null,// group by
+                    null,// group by args
+                    null,// order by
+                    limit);
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        Word word = new Word();
+                        String origin = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.GrammarContract.Main.COLUMN_ORIGIN));
+                        String definition = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.GrammarContract.Main.COLUMN_DEFINITION));
+                        word.setOrigin(origin);
+                        word.setDefinition(definition);
+                        ReformatString.formatWord(word);
+                        e.onNext(word);
+                    }
+                    cursor.close();
+                } else {
+                    database.close();
+                    e.onError(new NullPointerException(""));
+                }
+                database.close();
+                e.onComplete();
+            }
+        });
+    }
 }

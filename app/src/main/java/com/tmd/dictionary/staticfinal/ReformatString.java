@@ -23,6 +23,7 @@ public class ReformatString {
             indexOfNewLine = definition.indexOf("\n", indexOfAsterick);
             sub = definition.substring(indexOfAsterick, indexOfNewLine);
             replaced = sub.replace("*", "☆");
+            definition = definition.replace(sub, replaced);
             for (String target : sWordType.keySet()) {
                 if (sub.contains(target)) {
                     replaced = replaced.replace(target, sWordType.get(target));

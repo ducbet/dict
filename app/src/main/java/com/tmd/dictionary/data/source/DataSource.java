@@ -14,4 +14,5 @@ public interface DataSource {
     Observable<Word> searchJpnVie(String input);
     Observable<Word> searchVieJpn(String input);
     Observable<List<Kanji>> searchKanji(String input);
+    Observable<Word> searchGrammar(String input);
 }
