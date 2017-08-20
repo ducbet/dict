@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
@@ -86,5 +87,10 @@ public class MainViewModel implements MainContract.ViewModel {
 
     @Override
     public void onOpenGrammarDetailFragment(Word word) {
+        mFragmentManager
+            .beginTransaction()
+            .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this))
+            .addToBackStack(null)
+            .commit();
     }
 }
