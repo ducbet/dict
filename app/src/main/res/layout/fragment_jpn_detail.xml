@@ -8,22 +8,17 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.activity.main.MainViewModel"
+            type="com.tmd.dictionary.screen.fragment.jpnworddetail.JpnWordDetailViewModel"
             />
 
     </data>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.activity.main.MainActivity"
+        android:background="@color/colorPrimary"
+        tools:context=".screen.fragment.JpnWordDetail.JpnWordDetailActivity"
         >
 
-        <FrameLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>
