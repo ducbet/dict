@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.VieJav.VieJavViewModel"
+            type="com.tmd.dictionary.screen.fragment.level2.viejav.VieJavViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>

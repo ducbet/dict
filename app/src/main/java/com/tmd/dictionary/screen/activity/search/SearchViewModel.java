@@ -6,10 +6,10 @@ import android.databinding.Bindable;
 
 import com.tmd.dictionary.BR;
 import com.tmd.dictionary.screen.BaseFragment;
-import com.tmd.dictionary.screen.fragment.Grammar.GrammarFragment;
-import com.tmd.dictionary.screen.fragment.JavVie.JavVieFragment;
-import com.tmd.dictionary.screen.fragment.Kanji.KanjiFragment;
-import com.tmd.dictionary.screen.fragment.VieJav.VieJavFragment;
+import com.tmd.dictionary.screen.fragment.level2.grammar.GrammarFragment;
+import com.tmd.dictionary.screen.fragment.level2.javvie.JavVieFragment;
+import com.tmd.dictionary.screen.fragment.level2.kanji.KanjiFragment;
+import com.tmd.dictionary.screen.fragment.level2.viejav.VieJavFragment;
 
 import java.util.ArrayList;
 import java.util.List;

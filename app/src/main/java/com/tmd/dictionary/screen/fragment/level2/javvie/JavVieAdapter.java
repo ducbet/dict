@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.VieJav;
+package com.tmd.dictionary.screen.fragment.level2.javvie;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Word;
-import com.tmd.dictionary.databinding.ItemVieJpnBinding;
+import com.tmd.dictionary.databinding.ItemJpnVieBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by tmd on 18/08/2017.
  */
-public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder> {
-    private VieJavContract.ViewModel mViewModel;
+public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder> {
+    private JavVieContract.ViewModel mViewModel;
     private List<Word> mList = new ArrayList<>();
 
-    public VieJpnAdapter(VieJavContract.ViewModel viewModel) {
+    public JavVieAdapter(JavVieContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
@@ -43,9 +43,9 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemVieJpnBinding binding =
+        ItemJpnVieBinding binding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_vie_jpn, parent, false);
+                R.layout.item_jpn_vie, parent, false);
         return new ViewHolder(binding);
     }
 
@@ -61,15 +61,15 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemVieJpnBinding mBinding;
+        private ItemJpnVieBinding mBinding;
 
-        public ViewHolder(ItemVieJpnBinding binding) {
+        public ViewHolder(ItemJpnVieBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
 
         public void bind(Word word) {
-            mBinding.setViewModel((VieJavViewModel) mViewModel);
+            mBinding.setViewModel((JavVieViewModel) mViewModel);
             mBinding.setWord(word);
         }
     }

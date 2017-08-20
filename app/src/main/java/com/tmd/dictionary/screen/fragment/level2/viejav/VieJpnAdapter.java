@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.Kanji;
+package com.tmd.dictionary.screen.fragment.level2.viejav;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.databinding.ItemKanjiBinding;
+import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.databinding.ItemVieJpnBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.List;
 /**
  * Created by tmd on 18/08/2017.
  */
-public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> {
-    private KanjiContract.ViewModel mViewModel;
-    private List<Kanji> mList = new ArrayList<>();
+public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder> {
+    private VieJavContract.ViewModel mViewModel;
+    private List<Word> mList = new ArrayList<>();
 
-    public KanjiAdapter(KanjiContract.ViewModel viewModel) {
+    public VieJpnAdapter(VieJavContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<Kanji> list) {
+    public void setSource(List<Word> list) {
         if (list == null) {
             return;
         }
@@ -31,8 +31,8 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void setSource(Kanji kanji) {
-        mList.add(kanji);
+    public void setSource(Word word) {
+        mList.add(word);
         notifyItemInserted(mList.size() - 1);
     }
 
@@ -43,16 +43,16 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemKanjiBinding binding =
+        ItemVieJpnBinding binding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_kanji, parent, false);
+                R.layout.item_vie_jpn, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Kanji kanji = mList.get(position);
-        holder.bind(kanji);
+        Word word = mList.get(position);
+        holder.bind(word);
     }
 
     @Override
@@ -61,16 +61,16 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemKanjiBinding mBinding;
+        private ItemVieJpnBinding mBinding;
 
-        public ViewHolder(ItemKanjiBinding binding) {
+        public ViewHolder(ItemVieJpnBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
 
-        public void bind(Kanji kanji) {
-            mBinding.setViewModel((KanjiViewModel) mViewModel);
-            mBinding.setKanji(kanji);
+        public void bind(Word word) {
+            mBinding.setViewModel((VieJavViewModel) mViewModel);
+            mBinding.setWord(word);
         }
     }
 }

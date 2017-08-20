@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.Grammar;
+package com.tmd.dictionary.screen.fragment.level2.javvie;
 
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
@@ -10,15 +10,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Listens to user actions from the UI ({@link GrammarFragment}), retrieves the data and updates
+ * Listens to user actions from the UI ({@link JavVieFragment}), retrieves the data and updates
  * the UI as required.
  */
-final class GrammarPresenter implements GrammarContract.Presenter {
-    private static final String TAG = GrammarPresenter.class.getName();
-    private final GrammarContract.ViewModel mViewModel;
+final class JavViePresenter implements JavVieContract.Presenter {
+    private static final String TAG = JavViePresenter.class.getName();
+    private final JavVieContract.ViewModel mViewModel;
     private DataSource mRepository;
 
-    public GrammarPresenter(GrammarContract.ViewModel viewModel, DataSource repository) {
+    public JavViePresenter(JavVieContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
         mRepository = repository;
     }
@@ -32,8 +32,8 @@ final class GrammarPresenter implements GrammarContract.Presenter {
     }
 
     @Override
-    public void search(String needSearch) {
-        mRepository.searchGrammar(needSearch)
+    public void search(final String needSearch) {
+        mRepository.searchJpnVie(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new Observer<Word>() {
@@ -44,12 +44,12 @@ final class GrammarPresenter implements GrammarContract.Presenter {
 
                 @Override
                 public void onNext(@NonNull Word words) {
-                    mViewModel.onSearchGrammarSuccess(words);
+                    mViewModel.onSearchJpnVieSuccess(words);
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    mViewModel.onSearchGrammarFailed();
+                    mViewModel.onSearchJpnVieFailed();
                 }
 
                 @Override

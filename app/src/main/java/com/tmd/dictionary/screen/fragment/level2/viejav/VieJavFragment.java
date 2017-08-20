@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.JavVie;
+package com.tmd.dictionary.screen.fragment.level2.viejav;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.source.Repository;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
-import com.tmd.dictionary.databinding.FragmentJavVieBinding;
+import com.tmd.dictionary.databinding.FragmentVieJavBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 import com.tmd.dictionary.screen.activity.search.SearchViewModel;
@@ -18,19 +18,19 @@ import com.tmd.dictionary.screen.activity.search.SearchViewModel;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
- * JavVie Screen.
+ * VieJav Screen.
  */
-public class JavVieFragment extends BaseFragment {
-    private static final String TAG = JavVieFragment.class.getName();
+public class VieJavFragment extends BaseFragment {
+    private static final String TAG = VieJavFragment.class.getName();
     private SearchContract.ViewModel mSearchViewModel;
-    private JavVieContract.ViewModel mViewModel;
+    private VieJavContract.ViewModel mViewModel;
 
-    public static JavVieFragment newInstance(SearchContract.ViewModel searchViewModel) {
-        JavVieFragment javVieFragment = new JavVieFragment();
+    public static VieJavFragment newInstance(SearchContract.ViewModel searchViewModel) {
+        VieJavFragment vieJavFragment = new VieJavFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, searchViewModel);
-        javVieFragment.setArguments(bundle);
-        return javVieFragment;
+        vieJavFragment.setArguments(bundle);
+        return vieJavFragment;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class JavVieFragment extends BaseFragment {
             mSearchViewModel =
                 (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new JavVieViewModel(mSearchViewModel);
-        JavVieContract.Presenter presenter = new JavViePresenter(mViewModel,
+        mViewModel = new VieJavViewModel(mSearchViewModel);
+        VieJavContract.Presenter presenter = new VieJavPresenter(mViewModel,
             new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
@@ -50,9 +50,9 @@ public class JavVieFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentJavVieBinding binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_jav_vie, container, false);
-        binding.setViewModel((JavVieViewModel) mViewModel);
+        FragmentVieJavBinding binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_vie_jav, container, false);
+        binding.setViewModel((VieJavViewModel) mViewModel);
         return binding.getRoot();
     }
 

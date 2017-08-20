@@ -1,26 +1,23 @@
-package com.tmd.dictionary.screen.fragment.Kanji;
+package com.tmd.dictionary.screen.fragment.level2.javvie;
 
-import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
-import java.util.List;
-
 /**
- * Exposes the data to be used in the Kanji screen.
+ * Exposes the data to be used in the JavVie screen.
  */
-public class KanjiViewModel implements KanjiContract.ViewModel {
-    private static final String TAG = KanjiViewModel.class.getName();
+public class JavVieViewModel implements JavVieContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
-    private KanjiContract.Presenter mPresenter;
+    private JavVieContract.Presenter mPresenter;
     private String mNeedSearch;
-    private KanjiAdapter mAdapter;
+    private JavVieAdapter mAdapter;
 
-    public KanjiViewModel(SearchContract.ViewModel searchViewModel) {
+    public JavVieViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
-        mAdapter = new KanjiAdapter(this);
+        mAdapter = new JavVieAdapter(this);
     }
 
-    public KanjiAdapter getAdapter() {
+    public JavVieAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -35,17 +32,17 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     }
 
     @Override
-    public void setPresenter(KanjiContract.Presenter presenter) {
+    public void setPresenter(JavVieContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
     @Override
-    public void onSearchKanjiSuccess(List<Kanji> response) {
+    public void onSearchJpnVieSuccess(Word response) {
         mAdapter.setSource(response);
     }
 
     @Override
-    public void onSearchKanjiFailed() {
+    public void onSearchJpnVieFailed() {
     }
 
     @Override
@@ -60,6 +57,6 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     }
 
     @Override
-    public void onItemClick(Kanji kanji) {
+    public void onItemClick(Word word) {
     }
 }

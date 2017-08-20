@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.Kanji.KanjiViewModel"
+            type="com.tmd.dictionary.screen.fragment.level2.kanji.KanjiViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>

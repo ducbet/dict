@@ -1,23 +1,26 @@
-package com.tmd.dictionary.screen.fragment.Grammar;
+package com.tmd.dictionary.screen.fragment.level2.kanji;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
-/**
- * Exposes the data to be used in the Grammar screen.
- */
-public class GrammarViewModel implements GrammarContract.ViewModel {
-    private SearchContract.ViewModel mSearchViewModel;
-    private GrammarContract.Presenter mPresenter;
-    private String mNeedSearch;
-    private GrammarAdapter mAdapter;
+import java.util.List;
 
-    public GrammarViewModel(SearchContract.ViewModel searchViewModel) {
+/**
+ * Exposes the data to be used in the Kanji screen.
+ */
+public class KanjiViewModel implements KanjiContract.ViewModel {
+    private static final String TAG = KanjiViewModel.class.getName();
+    private SearchContract.ViewModel mSearchViewModel;
+    private KanjiContract.Presenter mPresenter;
+    private String mNeedSearch;
+    private KanjiAdapter mAdapter;
+
+    public KanjiViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
-        mAdapter = new GrammarAdapter(this);
+        mAdapter = new KanjiAdapter(this);
     }
 
-    public GrammarAdapter getAdapter() {
+    public KanjiAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -32,17 +35,17 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void setPresenter(GrammarContract.Presenter presenter) {
+    public void setPresenter(KanjiContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
     @Override
-    public void onSearchGrammarSuccess(Word response) {
+    public void onSearchKanjiSuccess(List<Kanji> response) {
         mAdapter.setSource(response);
     }
 
     @Override
-    public void onSearchGrammarFailed() {
+    public void onSearchKanjiFailed() {
     }
 
     @Override
@@ -57,6 +60,6 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void onItemClick(Word word) {
+    public void onItemClick(Kanji kanji) {
     }
 }
