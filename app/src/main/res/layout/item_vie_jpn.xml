@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.VieJav.VieJavViewModel"
+            type="com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavViewModel"
             />
 
         <variable

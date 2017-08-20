@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.JavVie.JavVieViewModel"
+            type="com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>
@@ -18,7 +18,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.fragment.JavVie.JavVieActivity"
+        tools:context=".screen.fragment.level2.javvie.JavVieActivity"
         >
 
         <android.support.v7.widget.RecyclerView

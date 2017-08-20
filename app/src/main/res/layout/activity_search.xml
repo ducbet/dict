@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.activity.search.SearchViewModel"
+            type="com.tmd.dictionary.screen.fragment.search.SearchViewModel"
             />
 
     </data>
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".screen.activity.search.SearchActivity"
+        tools:context=".screen.fragment.search.SearchActivity"
         >
 
         <android.support.v4.view.ViewPager

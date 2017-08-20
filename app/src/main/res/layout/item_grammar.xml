@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.Grammar.GrammarViewModel"
+            type="com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarViewModel"
             />
 
         <variable
