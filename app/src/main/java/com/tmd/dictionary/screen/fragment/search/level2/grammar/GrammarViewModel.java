@@ -58,5 +58,6 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
 
     @Override
     public void onItemClick(Word word) {
+        mSearchViewModel.onItemClick(this, word);
     }
 }
