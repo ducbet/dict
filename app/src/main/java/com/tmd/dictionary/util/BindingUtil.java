@@ -5,7 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
-import com.tmd.dictionary.screen.activity.search.SearchPagerAdapter;
+import com.tmd.dictionary.screen.fragment.search.SearchPagerAdapter;
 
 /**
  * Created by tmd on 15/08/2017.

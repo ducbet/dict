@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.level2.kanji.KanjiViewModel"
+            type="com.tmd.dictionary.screen.fragment.search.level2.kanji.KanjiViewModel"
             />
 
         <variable
