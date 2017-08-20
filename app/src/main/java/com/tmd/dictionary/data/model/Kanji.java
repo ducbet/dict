@@ -6,14 +6,14 @@ import java.util.List;
  * Created by tmd on 18/08/2017.
  */
 public class Kanji {
-    private String mKanji;
-    private String mHanViet;
-    private String mRadical;
+    private String mKanji = "";
+    private String mHanViet = "";
+    private String mRadical = "";
     private int mStroke;
-    private String mOnyomi;
+    private String mOnyomi = "";
     private int mLevel;
-    private String mKunyomi;
-    private String mMeaning;
+    private String mKunyomi = "";
+    private String mMeaning = "";
     private List<Component> mComponents;
 
     public String getKanji() {

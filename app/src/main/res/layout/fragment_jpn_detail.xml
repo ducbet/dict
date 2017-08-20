@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -11,14 +12,21 @@
             type="com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailViewModel"
             />
 
+        <import type="com.tmd.dictionary.util.LayoutManagers"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".screen.fragment.JpnWordDetail.JpnWordDetailActivity"
         >
 
-    </android.support.constraint.ConstraintLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:adapter="@{viewModel.adapter}"
+            bind:layoutManager="@{LayoutManagers.linear()}"/>
+
+    </LinearLayout>
 </layout>

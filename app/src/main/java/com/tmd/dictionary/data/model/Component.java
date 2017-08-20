@@ -4,10 +4,10 @@ package com.tmd.dictionary.data.model;
  * Created by tmd on 18/08/2017.
  */
 public class Component {
-    private String mRadical;
-    private String mStroke;
-    private String mHanViet;
-    private String mMeaning;
+    private String mRadical = "";
+    private String mStroke = "";
+    private String mHanViet = "";
+    private String mMeaning = "";
 
     public String getRadical() {
         return mRadical;
