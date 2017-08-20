@@ -1,14 +1,15 @@
 package com.tmd.dictionary.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class Word {
-    private String mOrigin;
-    private String mKana;
-    private String mDefinition;
+public class Word implements Serializable {
+    private String mOrigin = "";
+    private String mKana = "";
+    private String mDefinition = "";
     private int mPriority;
     private List<String> mExamples;
     private List<Kanji> mKanjis;

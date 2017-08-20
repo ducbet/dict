@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_WORD;
 
 /**
  * JpnWordDetail Screen.
@@ -20,11 +22,13 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 public class JpnDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private JpnDetailContract.ViewModel mViewModel;
+    private Word mWord;
 
-    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
+    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel, Word word) {
         JpnDetailFragment vieJavFragment = new JpnDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putSerializable(BUNDLE_WORD, word);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -35,8 +39,9 @@ public class JpnDetailFragment extends BaseFragment {
         if (getArguments() != null) {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mWord = (Word) getArguments().getSerializable(BUNDLE_WORD);
         }
-        mViewModel = new JpnDetailViewModel();
+        mViewModel = new JpnDetailViewModel(mWord);
         JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }

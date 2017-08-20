@@ -71,7 +71,7 @@ public class MainViewModel implements MainContract.ViewModel {
     public void onOpenJpnWordDetailFragment(Word word) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, JpnDetailFragment.newInstance(this))
+            .add(R.id.frame_layout, JpnDetailFragment.newInstance(this, word))
             .addToBackStack(null)
             .commit();
     }

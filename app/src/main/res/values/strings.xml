@@ -6,4 +6,5 @@
     <string name="grammar">Ngữ pháp </string>
     <string name="double_click_back">Please click BACK again to exit</string>
     <string name="result_limit">100</string>
+    <string name="unknown_component">Unknown Component</string>
 </resources>
