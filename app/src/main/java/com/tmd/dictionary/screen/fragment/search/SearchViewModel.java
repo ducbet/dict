@@ -112,7 +112,7 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     }
 
     @Override
-    public void onItemClick(BaseViewModel viewModel, Kanji kanji) {
+    public void onItemClick(Kanji kanji) {
         mMainViewModel.onOpenKanjiDetailFragment(kanji);
     }
 }

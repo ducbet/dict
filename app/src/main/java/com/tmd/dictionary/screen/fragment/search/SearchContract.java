@@ -17,7 +17,7 @@ public interface SearchContract {
     interface ViewModel extends BaseViewModel<Presenter>, Serializable {
         void onSendToAllFragment(String needSearch);
         void onItemClick(BaseViewModel viewModel, Word word);
-        void onItemClick(BaseViewModel viewModel, Kanji kanji);
+        void onItemClick(Kanji kanji);
     }
 
     /**
