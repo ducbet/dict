@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.Grammar;
+package com.tmd.dictionary.screen.fragment.level2.kanji;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.Word;
-import com.tmd.dictionary.databinding.ItemGrammarBinding;
+import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.databinding.ItemKanjiBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.List;
 /**
  * Created by tmd on 18/08/2017.
  */
-public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHolder> {
-    private GrammarContract.ViewModel mViewModel;
-    private List<Word> mList = new ArrayList<>();
+public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> {
+    private KanjiContract.ViewModel mViewModel;
+    private List<Kanji> mList = new ArrayList<>();
 
-    public GrammarAdapter(GrammarContract.ViewModel viewModel) {
+    public KanjiAdapter(KanjiContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<Word> list) {
+    public void setSource(List<Kanji> list) {
         if (list == null) {
             return;
         }
@@ -31,8 +31,8 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public void setSource(Word word) {
-        mList.add(word);
+    public void setSource(Kanji kanji) {
+        mList.add(kanji);
         notifyItemInserted(mList.size() - 1);
     }
 
@@ -43,16 +43,16 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemGrammarBinding binding =
+        ItemKanjiBinding binding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                R.layout.item_grammar, parent, false);
+                R.layout.item_kanji, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word word = mList.get(position);
-        holder.bind(word);
+        Kanji kanji = mList.get(position);
+        holder.bind(kanji);
     }
 
     @Override
@@ -61,16 +61,16 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemGrammarBinding mBinding;
+        private ItemKanjiBinding mBinding;
 
-        public ViewHolder(ItemGrammarBinding binding) {
+        public ViewHolder(ItemKanjiBinding binding) {
             super(binding.getRoot());
             mBinding = binding;
         }
 
-        public void bind(Word word) {
-            mBinding.setViewModel((GrammarViewModel) mViewModel);
-            mBinding.setWord(word);
+        public void bind(Kanji kanji) {
+            mBinding.setViewModel((KanjiViewModel) mViewModel);
+            mBinding.setKanji(kanji);
         }
     }
 }

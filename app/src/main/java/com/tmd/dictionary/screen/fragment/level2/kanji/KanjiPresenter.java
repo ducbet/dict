@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.Kanji;
+package com.tmd.dictionary.screen.fragment.level2.kanji;
 
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.source.DataSource;

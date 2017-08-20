@@ -1,21 +1,19 @@
-package com.tmd.dictionary.screen.fragment.JavVie;
+package com.tmd.dictionary.screen.fragment.level2.grammar;
 
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
-import java.util.List;
-
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface JavVieContract {
+interface GrammarContract {
     /**
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onSearchJpnVieSuccess(Word response);
-        void onSearchJpnVieFailed();
+        void onSearchGrammarSuccess(Word response);
+        void onSearchGrammarFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();
         void onItemClick(Word word);

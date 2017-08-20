@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.Grammar.GrammarViewModel"
+            type="com.tmd.dictionary.screen.fragment.level2.grammar.GrammarViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>

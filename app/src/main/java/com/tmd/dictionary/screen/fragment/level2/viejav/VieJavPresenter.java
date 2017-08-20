@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.VieJav;
+package com.tmd.dictionary.screen.fragment.level2.viejav;
 
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;

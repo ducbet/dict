@@ -1,23 +1,23 @@
-package com.tmd.dictionary.screen.fragment.VieJav;
+package com.tmd.dictionary.screen.fragment.level2.grammar;
 
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.activity.search.SearchContract;
 
 /**
- * Exposes the data to be used in the VieJav screen.
+ * Exposes the data to be used in the Grammar screen.
  */
-public class VieJavViewModel implements VieJavContract.ViewModel {
+public class GrammarViewModel implements GrammarContract.ViewModel {
     private SearchContract.ViewModel mSearchViewModel;
-    private VieJavContract.Presenter mPresenter;
+    private GrammarContract.Presenter mPresenter;
     private String mNeedSearch;
-    private VieJpnAdapter mAdapter;
+    private GrammarAdapter mAdapter;
 
-    public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
+    public GrammarViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
-        mAdapter = new VieJpnAdapter(this);
+        mAdapter = new GrammarAdapter(this);
     }
 
-    public VieJpnAdapter getAdapter() {
+    public GrammarAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -32,17 +32,17 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     }
 
     @Override
-    public void setPresenter(VieJavContract.Presenter presenter) {
+    public void setPresenter(GrammarContract.Presenter presenter) {
         mPresenter = presenter;
     }
 
     @Override
-    public void onSearchVieJpnSuccess(Word response) {
+    public void onSearchGrammarSuccess(Word response) {
         mAdapter.setSource(response);
     }
 
     @Override
-    public void onSearchVieJpnFailed() {
+    public void onSearchGrammarFailed() {
     }
 
     @Override
