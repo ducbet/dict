@@ -3,6 +3,7 @@ package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.tmd.dictionary.screen.fragment.search.SearchContract;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * JavVie Screen.
@@ -70,9 +72,11 @@ public class JavVieFragment extends BaseFragmentLevel2 {
 
     @Override
     public void onSetNeedSearch(String needSearch) {
+        Log.e(MY_TAG, "onSetNeedSearch: " + needSearch);
         if (mViewModel == null) {
             return;
         }
+        Log.e(MY_TAG, "onSetNeedSearch: " + needSearch);
         mViewModel.onSetNeedSearch(needSearch);
     }
 }

@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.search;
+package com.tmd.dictionary.screen.fragment.jpnworddetail;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,21 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.databinding.FragmentSearchBinding;
+import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
- * Search Screen.
+ * JpnWordDetail Screen.
  */
-public class SearchFragment extends BaseFragment {
+public class JpnDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
-    private SearchContract.ViewModel mViewModel;
+    private JpnWordDetailContract.ViewModel mViewModel;
 
-    public static SearchFragment newInstance(MainContract.ViewModel mainViewModel) {
-        SearchFragment vieJavFragment = new SearchFragment();
+    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
+        JpnDetailFragment vieJavFragment = new JpnDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
         vieJavFragment.setArguments(bundle);
@@ -36,8 +36,8 @@ public class SearchFragment extends BaseFragment {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new SearchViewModel(mMainViewModel);
-        SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
+        mViewModel = new JpnWordDetailViewModel();
+        JpnWordDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }
 
@@ -45,9 +45,9 @@ public class SearchFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentSearchBinding binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
-        binding.setViewModel((SearchViewModel) mViewModel);
+        FragmentJpnDetailBinding binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_jpn_detail, container, false);
+        binding.setViewModel((JpnWordDetailViewModel) mViewModel);
         return binding.getRoot();
     }
 

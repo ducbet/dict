@@ -58,5 +58,6 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
 
     @Override
     public void onItemClick(Word word) {
+        mSearchViewModel.onItemClick(this, word);
     }
 }
