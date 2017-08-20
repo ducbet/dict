@@ -5,13 +5,19 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.tmd.dictionary.BR;
+import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
+import com.tmd.dictionary.screen.BaseViewModel;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 import com.tmd.dictionary.screen.activity.main.MainViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarFragment;
+import com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieFragment;
+import com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.kanji.KanjiFragment;
 import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavFragment;
+import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,5 +93,26 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
         for (BaseFragmentLevel2 fragment : mListFragments) {
             fragment.onSetNeedSearch(needSearch);
         }
+    }
+
+    @Override
+    public void onItemClick(BaseViewModel viewModel, Word word) {
+        if (viewModel instanceof JavVieViewModel){
+            mMainViewModel.onOpenJpnWordDetailFragment(word);
+            return;
+        }
+        if (viewModel instanceof VieJavViewModel){
+            mMainViewModel.onOpenVieWordDetailFragment(word);
+            return;
+        }
+        if (viewModel instanceof GrammarViewModel){
+            mMainViewModel.onOpenGrammarDetailFragment(word);
+            return;
+        }
+    }
+
+    @Override
+    public void onItemClick(BaseViewModel viewModel, Kanji kanji) {
+        mMainViewModel.onOpenKanjiDetailFragment(kanji);
     }
 }

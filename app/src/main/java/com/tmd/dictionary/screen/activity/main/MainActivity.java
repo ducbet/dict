@@ -50,9 +50,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mIsDoubleClickedBack) {
+        if (!mViewModel.isSearchFragVisibility()) {
             super.onBackPressed();
             return;
+        }
+        if (mIsDoubleClickedBack) {
+            finish();
         }
         mIsDoubleClickedBack = true;
         Toast.makeText(this, getString(R.string.double_click_back), Toast.LENGTH_LONG).show();
