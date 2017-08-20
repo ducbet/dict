@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.jpnworddetail;
+package com.tmd.dictionary.screen.fragment.viedetail;
 
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
@@ -6,7 +6,7 @@ import com.tmd.dictionary.screen.BaseViewModel;
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface JpnWordDetailContract {
+interface VieDetailContract {
     /**
      * View.
      */

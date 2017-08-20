@@ -6,8 +6,9 @@ import android.support.v4.app.FragmentManager;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
-import com.tmd.dictionary.screen.fragment.jpnworddetail.JpnDetailFragment;
+import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
+import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -70,6 +71,11 @@ public class MainViewModel implements MainContract.ViewModel {
 
     @Override
     public void onOpenVieWordDetailFragment(Word word) {
+        mFragmentManager
+            .beginTransaction()
+            .add(R.id.frame_layout, VieDetailFragment.newInstance(this))
+            .addToBackStack(null)
+            .commit();
     }
 
     @Override

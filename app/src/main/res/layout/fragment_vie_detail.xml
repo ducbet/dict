@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailViewModel"
+            type="com.tmd.dictionary.screen.fragment.viedetail.VieDetailViewModel"
             />
 
     </data>
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context=".screen.fragment.JpnWordDetail.JpnWordDetailActivity"
+        tools:context=".screen.fragment.viedetail.VieDetailActivity"
         >
 
     </android.support.constraint.ConstraintLayout>

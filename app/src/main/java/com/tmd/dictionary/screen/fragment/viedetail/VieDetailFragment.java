@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.jpnworddetail;
+package com.tmd.dictionary.screen.fragment.viedetail;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,21 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
+import com.tmd.dictionary.databinding.FragmentVieDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
- * JpnWordDetail Screen.
+ * VieDetail Screen.
  */
-public class JpnDetailFragment extends BaseFragment {
+public class VieDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
-    private JpnWordDetailContract.ViewModel mViewModel;
+    private VieDetailContract.ViewModel mViewModel;
 
-    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
-        JpnDetailFragment vieJavFragment = new JpnDetailFragment();
+    public static VieDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
+        VieDetailFragment vieJavFragment = new VieDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
         vieJavFragment.setArguments(bundle);
@@ -36,8 +36,8 @@ public class JpnDetailFragment extends BaseFragment {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new JpnWordDetailViewModel();
-        JpnWordDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel);
+        mViewModel = new VieDetailViewModel();
+        VieDetailContract.Presenter presenter = new VieDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }
 
@@ -45,9 +45,9 @@ public class JpnDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentJpnDetailBinding binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_jpn_detail, container, false);
-        binding.setViewModel((JpnWordDetailViewModel) mViewModel);
+        FragmentVieDetailBinding binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_vie_detail, container, false);
+        binding.setViewModel((VieDetailViewModel) mViewModel);
         return binding.getRoot();
     }
 

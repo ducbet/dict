@@ -58,5 +58,6 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
 
     @Override
     public void onItemClick(Word word) {
+        mSearchViewModel.onItemClick(this, word);
     }
 }

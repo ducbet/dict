@@ -1,14 +1,14 @@
-package com.tmd.dictionary.screen.fragment.jpnworddetail;
+package com.tmd.dictionary.screen.fragment.jpndetail;
 
 /**
  * Listens to user actions from the UI ({@link JpnDetailFragment}), retrieves the data and updates
  * the UI as required.
  */
-final class JpnDetailPresenter implements JpnWordDetailContract.Presenter {
+final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     private static final String TAG = JpnDetailPresenter.class.getName();
-    private final JpnWordDetailContract.ViewModel mViewModel;
+    private final JpnDetailContract.ViewModel mViewModel;
 
-    public JpnDetailPresenter(JpnWordDetailContract.ViewModel viewModel) {
+    public JpnDetailPresenter(JpnDetailContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
