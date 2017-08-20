@@ -97,15 +97,15 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
 
     @Override
     public void onItemClick(BaseViewModel viewModel, Word word) {
-        if (viewModel instanceof JavVieViewModel){
+        if (viewModel instanceof JavVieViewModel) {
             mMainViewModel.onOpenJpnWordDetailFragment(word);
             return;
         }
-        if (viewModel instanceof VieJavViewModel){
+        if (viewModel instanceof VieJavViewModel) {
             mMainViewModel.onOpenVieWordDetailFragment(word);
             return;
         }
-        if (viewModel instanceof GrammarViewModel){
+        if (viewModel instanceof GrammarViewModel) {
             mMainViewModel.onOpenGrammarDetailFragment(word);
             return;
         }
