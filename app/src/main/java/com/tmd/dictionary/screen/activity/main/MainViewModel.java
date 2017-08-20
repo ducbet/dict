@@ -1,12 +1,16 @@
 package com.tmd.dictionary.screen.activity.main;
 
+import android.content.Context;
+
 /**
  * Exposes the data to be used in the Main screen.
  */
 public class MainViewModel implements MainContract.ViewModel {
     private MainContract.Presenter mPresenter;
+    private Context mContext;
 
-    public MainViewModel() {
+    public MainViewModel(Context context) {
+        mContext = context;
     }
 
     @Override
@@ -22,5 +26,9 @@ public class MainViewModel implements MainContract.ViewModel {
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 }
