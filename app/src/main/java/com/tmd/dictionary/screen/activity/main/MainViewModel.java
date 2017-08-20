@@ -7,6 +7,7 @@ import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
+import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 
@@ -58,6 +59,11 @@ public class MainViewModel implements MainContract.ViewModel {
 
     @Override
     public void onOpenKanjiDetailFragment(Kanji kanji) {
+        mFragmentManager
+            .beginTransaction()
+            .add(R.id.frame_layout, KanjiDetailFragment.newInstance(this))
+            .addToBackStack(null)
+            .commit();
     }
 
     @Override

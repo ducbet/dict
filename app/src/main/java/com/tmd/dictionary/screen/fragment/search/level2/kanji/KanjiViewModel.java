@@ -61,5 +61,6 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
 
     @Override
     public void onItemClick(Kanji kanji) {
+        mSearchViewModel.onItemClick(kanji);
     }
 }
