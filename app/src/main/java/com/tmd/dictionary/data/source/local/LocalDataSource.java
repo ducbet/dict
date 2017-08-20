@@ -34,7 +34,7 @@ public class LocalDataSource implements DataSource {
 
     @Override
     public Observable<List<Kanji>> searchKanji(String input) {
-        return mCRUDHelper.searchKanjiMeaning(input);
+        return mCRUDHelper.searchKanji(input);
     }
 
     @Override
