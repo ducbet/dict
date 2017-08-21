@@ -31,7 +31,7 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
     private List<BaseFragmentLevel2> mListFragments;
-    private String mNeedSearch;
+    private String mNeedSearch = "";
 
     public SearchViewModel(MainContract.ViewModel mainViewModel) {
         mMainViewModel = mainViewModel;
@@ -66,11 +66,11 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     }
 
     public void setNeedSearch(String needSearch) {
-        mNeedSearch = needSearch;
-        notifyPropertyChanged(BR.needSearch);
-        if (!needSearch.isEmpty()) {
+        if (!needSearch.isEmpty() && !mNeedSearch.equals(needSearch)) {
             onSendToAllFragment(needSearch);
         }
+        mNeedSearch = needSearch;
+        notifyPropertyChanged(BR.needSearch);
     }
 
     @Override
