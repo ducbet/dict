@@ -214,4 +214,43 @@ public class _CRUDHelper extends DatabaseHelper {
             }
         });
     }
+
+    public Observable<List<String>> searchExamplesOfWord(final int id) {
+        // SELECT * FROM
+        // (SELECT * FROM jpn_vie_main WHERE docid = '1') AS main JOIN
+        // jpn_vie_relate_ex JOIN jpn_vie_examples
+        // WHERE main.docid = jpn_vie_relate_ex.word_id
+        // AND jpn_vie_relate_ex.ex_id = jpn_vie_examples._id
+        // ORDER BY c3priority DESC
+        return Observable.create(new ObservableOnSubscribe<List<String>>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<List<String>> e) throws Exception {
+                SQLiteDatabase database = getReadableDatabase();
+                List<String> examples = new ArrayList<>();
+                String[] selectionArgs = new String[]{String.valueOf(id)};
+                Cursor cursor = database.rawQuery(
+                    "SELECT * FROM (SELECT * FROM jpn_vie_main WHERE docid = ? ) AS main JOIN " +
+                        "jpn_vie_relate_ex JOIN " +
+                        "jpn_vie_examples WHERE " +
+                        "main.docid = jpn_vie_relate_ex.word_id AND " +
+                        "jpn_vie_relate_ex.ex_id = jpn_vie_examples._id " +
+                        "ORDER BY c3priority DESC", selectionArgs);
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        Word word = new Word();
+                        String example = cursor.getString(cursor.getColumnIndex(
+                            DatabaseContract.JpnVieContract.Examples.COLUMN_EXAMPLE));
+                        examples.add(example);
+                    }
+                    cursor.close();
+                } else {
+                    database.close();
+                    e.onError(new NullPointerException(""));
+                }
+                database.close();
+                e.onNext(examples);
+                e.onComplete();
+            }
+        });
+    }
 }
