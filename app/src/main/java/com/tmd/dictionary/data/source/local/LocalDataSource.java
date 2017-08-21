@@ -41,4 +41,9 @@ public class LocalDataSource implements DataSource {
     public Observable<Word> searchGrammar(String input) {
         return mCRUDHelper.searchGrammar(input);
     }
+
+    @Override
+    public Observable<List<String>> searchExamplesOfWord(int id) {
+        return mCRUDHelper.searchExamplesOfWord(id);
+    }
 }

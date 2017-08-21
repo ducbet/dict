@@ -12,10 +12,12 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     private JpnDetailContract.Presenter mPresenter;
     private Word mWord;
     private JpnDetailKanjisAdapter mJpnDetailKanjisAdapter;
+    private JpnDetailExamplesAdapter mJpnDetailExamplesAdapter;
 
     public JpnDetailViewModel(Word word) {
         mWord = word;
         mJpnDetailKanjisAdapter = new JpnDetailKanjisAdapter(this);
+        mJpnDetailExamplesAdapter = new JpnDetailExamplesAdapter(this);
     }
 
     public Word getWord() {
@@ -24,6 +26,10 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
 
     public JpnDetailKanjisAdapter getJpnDetailKanjisAdapter() {
         return mJpnDetailKanjisAdapter;
+    }
+
+    public JpnDetailExamplesAdapter getJpnDetailExamplesAdapter() {
+        return mJpnDetailExamplesAdapter;
     }
 
     @Override
@@ -56,9 +62,11 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
 
     @Override
     public void onSearchExamplesSuccess(List<String> examples) {
+        mJpnDetailExamplesAdapter.setSource(examples);
     }
 
     @Override
     public void onSearchExamplesFailed() {
+        mJpnDetailExamplesAdapter.clearData();
     }
 }

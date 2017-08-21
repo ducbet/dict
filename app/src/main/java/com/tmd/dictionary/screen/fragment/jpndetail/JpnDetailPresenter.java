@@ -62,5 +62,27 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
 
     @Override
     public void searchExamples(Word word) {
+        mRepository.searchExamplesOfWord(word.getId())
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new Observer<List<String>>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+                }
+
+                @Override
+                public void onNext(@NonNull List<String> examples) {
+                    mViewModel.onSearchExamplesSuccess(examples);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                    mViewModel.onSearchExamplesFailed();
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
     }
 }

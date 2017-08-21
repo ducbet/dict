@@ -37,4 +37,9 @@ public class Repository implements DataSource {
     public Observable<Word> searchGrammar(String input) {
         return mLocalDataSource.searchGrammar(input);
     }
+
+    @Override
+    public Observable<List<String>> searchExamplesOfWord(int id) {
+        return mLocalDataSource.searchExamplesOfWord(id);
+    }
 }
