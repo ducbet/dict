@@ -131,8 +131,15 @@ public class _CRUDHelper extends DatabaseHelper {
             public void subscribe(@NonNull ObservableEmitter<List<Kanji>> e) throws Exception {
                 SQLiteDatabase database = getReadableDatabase();
                 List<Kanji> listKanjis = new ArrayList<>();
-                String selection = DatabaseContract.KanjiContract.Main.COLUMN_KANJI + " = ?";
-                String[] selectionArgs = new String[]{input};
+                String selection = "";
+                List<String> arrayListSelectionArgs = new ArrayList<>();
+                for (int i = 0; i < input.length(); i++) {
+                    selection += "OR " + DatabaseContract.KanjiContract.Main.COLUMN_KANJI + " = ? ";
+                    arrayListSelectionArgs.add(String.valueOf(input.charAt(i)));
+                }
+                selection = selection.replaceFirst("OR ", "");
+                String[] selectionArgs = new String[arrayListSelectionArgs.size()];
+                selectionArgs = arrayListSelectionArgs.toArray(selectionArgs);
                 String limit = mContext.getString(R.string.result_limit);
                 Cursor cursor = database.query(
                     DatabaseContract.KanjiContract.Main.TABLE_NAME,
