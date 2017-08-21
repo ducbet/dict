@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
-import com.tmd.dictionary.staticfinal.ReformatString;
+import com.tmd.dictionary.staticfinal.StringHandling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +49,8 @@ public class _CRUDHelper extends DatabaseHelper {
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
                         Word word = new Word();
+                        int id = cursor.getInt(cursor.getColumnIndex(
+                            DatabaseContract.JpnVieContract.Main.COLUMN_DOC_ID));
                         String origin = cursor.getString(cursor.getColumnIndex(
                             DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN));
                         String kana = cursor.getString(cursor.getColumnIndex(
@@ -57,11 +59,12 @@ public class _CRUDHelper extends DatabaseHelper {
                             DatabaseContract.JpnVieContract.Main.COLUMN_DEFINITION));
                         int priority = cursor.getInt(cursor.getColumnIndex(
                             DatabaseContract.JpnVieContract.Main.COLUMN_PRIORITY));
+                        word.setId(id);
                         word.setOrigin(origin);
                         word.setKana(kana);
                         word.setDefinition(definition);
                         word.setPriority(priority);
-                        ReformatString.formatWord(word);
+                        StringHandling.formatWord(word);
                         e.onNext(word);
                     }
                     cursor.close();
@@ -107,7 +110,7 @@ public class _CRUDHelper extends DatabaseHelper {
                         word.setOrigin(origin);
                         word.setKana(kana);
                         word.setDefinition(definition);
-                        ReformatString.formatWord(word);
+                        StringHandling.formatWord(word);
                         e.onNext(word);
                     }
                     cursor.close();
@@ -121,7 +124,7 @@ public class _CRUDHelper extends DatabaseHelper {
         });
     }
 
-    public Observable<List<Kanji>> searchKanjiMeaning(final String input) {
+    public Observable<List<Kanji>> searchKanji(final String input) {
         // SELECT * FROM kanji_main WHERE kanji = ?
         return Observable.create(new ObservableOnSubscribe<List<Kanji>>() {
             @Override
@@ -198,7 +201,7 @@ public class _CRUDHelper extends DatabaseHelper {
                             DatabaseContract.GrammarContract.Main.COLUMN_DEFINITION));
                         word.setOrigin(origin);
                         word.setDefinition(definition);
-                        ReformatString.formatWord(word);
+                        StringHandling.formatWord(word);
                         e.onNext(word);
                     }
                     cursor.close();

@@ -1,15 +1,18 @@
 package com.tmd.dictionary.staticfinal;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.sWordType;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class ReformatString {
-    public static Map<String, String> sWordType = new HashMap<>();
+public class StringHandling {
 
     public static void formatWord(Word word) {
         prepairWordType();

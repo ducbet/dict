@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_WORD;
@@ -42,7 +45,8 @@ public class JpnDetailFragment extends BaseFragment {
             mWord = (Word) getArguments().getSerializable(BUNDLE_WORD);
         }
         mViewModel = new JpnDetailViewModel(mWord);
-        JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel);
+        JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel,
+            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 

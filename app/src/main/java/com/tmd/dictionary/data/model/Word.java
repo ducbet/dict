@@ -7,12 +7,21 @@ import java.util.List;
  * Created by tmd on 18/08/2017.
  */
 public class Word implements Serializable {
+    private int mId;
     private String mOrigin = "";
     private String mKana = "";
     private String mDefinition = "";
     private int mPriority;
     private List<String> mExamples;
     private List<Kanji> mKanjis;
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
+    }
 
     public String getOrigin() {
         return mOrigin;
