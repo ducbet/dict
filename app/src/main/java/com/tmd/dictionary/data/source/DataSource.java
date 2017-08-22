@@ -16,4 +16,5 @@ public interface DataSource {
     Observable<List<Kanji>> searchKanji(String input);
     Observable<Word> searchGrammar(String input);
     Observable<List<String>> searchExamplesOfWord(int id);
+    void closeDatabase();
 }

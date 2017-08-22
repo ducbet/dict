@@ -5,6 +5,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+
+import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Cancellable;
 
 /**
  * Created by tmd on 15/08/2017.
@@ -24,5 +35,39 @@ public class BindingUtil {
     public static void setLayoutManager(RecyclerView recyclerView,
                                         LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
         recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
+    }
+
+    @BindingAdapter("addTextWatcher")
+    public static void addTextWatcher(final EditText editText, SearchViewModel viewModel) {
+        Observable<String> textChangeObservable = Observable.create(
+            new ObservableOnSubscribe<String>() {
+                @Override
+                public void subscribe(@NonNull final ObservableEmitter<String> e) throws Exception {
+                    final TextWatcher textWatcher = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence,
+                                                      int i, int i1, int i2) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence,
+                                                  int i, int i1, int i2) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            e.onNext(editText.getText().toString());
+                        }
+                    };
+                    editText.addTextChangedListener(textWatcher);
+                    e.setCancellable(new Cancellable() {
+                        @Override
+                        public void cancel() throws Exception {
+                            editText.removeTextChangedListener(textWatcher);
+                        }
+                    });
+                }
+            });
+        viewModel.onSendToAllFragment(textChangeObservable);
     }
 }

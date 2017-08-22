@@ -57,7 +57,7 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
 
     @Override
     public void onSearchKanjisFailed() {
-        mJpnDetailKanjisAdapter.clearData();
+        onClearKanjisData();
     }
 
     @Override
@@ -67,6 +67,16 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
 
     @Override
     public void onSearchExamplesFailed() {
+        onClearExamplesData();
+    }
+
+    @Override
+    public void onClearKanjisData() {
+        mJpnDetailKanjisAdapter.clearData();
+    }
+
+    @Override
+    public void onClearExamplesData() {
         mJpnDetailExamplesAdapter.clearData();
     }
 }

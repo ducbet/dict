@@ -1,19 +1,14 @@
 package com.tmd.dictionary.staticfinal;
 
-import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.tmd.dictionary.staticfinal.ConstantValue.sWordType;
+import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_UNICODE;
+import static com.tmd.dictionary.staticfinal.ConstantValue.WORD_TYPE;
 
 /**
  * Created by tmd on 18/08/2017.
  */
 public class StringHandling {
-
     public static void formatWord(Word word) {
         prepairWordType();
         String definition = word.getDefinition();
@@ -27,9 +22,9 @@ public class StringHandling {
             sub = definition.substring(indexOfAsterick, indexOfNewLine);
             replaced = sub.replace("*", "☆");
             definition = definition.replace(sub, replaced);
-            for (String target : sWordType.keySet()) {
+            for (String target : WORD_TYPE.keySet()) {
                 if (sub.contains(target)) {
-                    replaced = replaced.replace(target, sWordType.get(target));
+                    replaced = replaced.replace(target, WORD_TYPE.get(target));
                     definition = definition.replace(sub, replaced);
                 }
             }
@@ -38,46 +33,63 @@ public class StringHandling {
     }
 
     private static void prepairWordType() {
-        if (!sWordType.isEmpty()) {
+        if (!WORD_TYPE.isEmpty()) {
             return;
         }
-        sWordType.put("exp", " ");
-        sWordType.put("vs", "    ");
-        sWordType.put("n-t", "danh từ chỉ thời gian");
-        sWordType.put("n-adv", "danh từ làm phó từ");
-        sWordType.put("n-suf", "danh từ hậu tố");
-        sWordType.put("n-vs", "");
-        sWordType.put("n-adj", "danh từ/tính từ");
-        sWordType.put("int", "    ");
-        sWordType.put("v1", "    ");//động từ nhóm 2 (ichidan)
-        sWordType.put("suf", "hậu tố");
-        sWordType.put("pref", "tiền tố");
-        sWordType.put("sl", "    ");// tiếng lóng
-        sWordType.put("num", "số đếm");
-        sWordType.put("adj-i", "tính từ đuôi \"i\"");
-        sWordType.put("adj-na", "tính từ đuôi \"na\"");
-        sWordType.put("adj-pn", "    ");
-        sWordType.put("adj-no", "    ");
-        sWordType.put("adj", "tính từ");
-        sWordType.put("abbr", "viết tắt");
-        sWordType.put("adv", "phó từ");
-        sWordType.put("col", "cách nói thông tục");// cách nói xuồng xã
-        sWordType.put("v5s", "    ");//động từ nhóm 1 (-su)
-        sWordType.put("v5u", "    ");//động từ nhóm 1 (-u)
-        sWordType.put("X", "    ");
-        sWordType.put("iK", "    ");
-        sWordType.put("fem", "    ");
-        sWordType.put("male", "    ");
-        sWordType.put("obs", "    ");
-        sWordType.put("oK", "    ");
-        sWordType.put("uk", "    ");
-        sWordType.put("conj", "    ");
-        sWordType.put("hon", "    ");
-        sWordType.put("pol", "    ");
-        sWordType.put("hum", "    ");
-        sWordType.put("pn", "    ");
-        sWordType.put("prt", "    ");
-        sWordType.put("n", "danh từ");
+        WORD_TYPE.put("exp", " ");
+        WORD_TYPE.put("vs", "    ");
+        WORD_TYPE.put("n-t", "danh từ chỉ thời gian");
+        WORD_TYPE.put("n-adv", "danh từ làm phó từ");
+        WORD_TYPE.put("n-suf", "danh từ hậu tố");
+        WORD_TYPE.put("n-vs", "");
+        WORD_TYPE.put("n-adj", "danh từ/tính từ");
+        WORD_TYPE.put("int", "    ");
+        WORD_TYPE.put("v1", "    ");//động từ nhóm 2 (ichidan)
+        WORD_TYPE.put("suf", "hậu tố");
+        WORD_TYPE.put("pref", "tiền tố");
+        WORD_TYPE.put("sl", "    ");// tiếng lóng
+        WORD_TYPE.put("num", "số đếm");
+        WORD_TYPE.put("adj-i", "tính từ đuôi \"i\"");
+        WORD_TYPE.put("adj-na", "tính từ đuôi \"na\"");
+        WORD_TYPE.put("adj-pn", "    ");
+        WORD_TYPE.put("adj-no", "    ");
+        WORD_TYPE.put("adj", "tính từ");
+        WORD_TYPE.put("abbr", "viết tắt");
+        WORD_TYPE.put("adv", "phó từ");
+        WORD_TYPE.put("col", "cách nói thông tục");// cách nói xuồng xã
+        WORD_TYPE.put("v5s", "    ");//động từ nhóm 1 (-su)
+        WORD_TYPE.put("v5u", "    ");//động từ nhóm 1 (-u)
+        WORD_TYPE.put("X", "    ");
+        WORD_TYPE.put("iK", "    ");
+        WORD_TYPE.put("fem", "    ");
+        WORD_TYPE.put("male", "    ");
+        WORD_TYPE.put("obs", "    ");
+        WORD_TYPE.put("oK", "    ");
+        WORD_TYPE.put("uk", "    ");
+        WORD_TYPE.put("conj", "    ");
+        WORD_TYPE.put("hon", "    ");
+        WORD_TYPE.put("pol", "    ");
+        WORD_TYPE.put("hum", "    ");
+        WORD_TYPE.put("pn", "    ");
+        WORD_TYPE.put("prt", "    ");
+        WORD_TYPE.put("n", "danh từ");
+    }
+
+    public static boolean isUnion(String needCheck) {
+        boolean hasJapanese = false;
+        boolean hasCharNotJapanese = false;
+        for (char c : needCheck.toCharArray()) {
+            if (JAPANESE_UNICODE.contains(Character.UnicodeBlock.of(c))) {
+                hasJapanese = true;
+            }
+            if (!JAPANESE_UNICODE.contains(Character.UnicodeBlock.of(c))) {
+                hasCharNotJapanese = true;
+            }
+            if (hasCharNotJapanese && hasJapanese) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

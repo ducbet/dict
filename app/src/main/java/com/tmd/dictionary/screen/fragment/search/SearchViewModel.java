@@ -2,9 +2,7 @@ package com.tmd.dictionary.screen.fragment.search;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 
-import com.tmd.dictionary.BR;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
@@ -18,20 +16,34 @@ import com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.kanji.KanjiFragment;
 import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavFragment;
 import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavViewModel;
+import com.tmd.dictionary.staticfinal.StringHandling;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.DELAY_SEARCH;
 
 /**
  * Exposes the data to be used in the Search screen.
  */
 public class SearchViewModel extends BaseObservable implements SearchContract.ViewModel {
+    private static final String TAG = SearchViewModel.class.getName();
     private MainContract.ViewModel mMainViewModel;
     private Context mContext;
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
     private List<BaseFragmentLevel2> mListFragments;
     private String mNeedSearch = "";
+    private Disposable mDisposable;
 
     public SearchViewModel(MainContract.ViewModel mainViewModel) {
         mMainViewModel = mainViewModel;
@@ -60,19 +72,6 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
         return mPagerAdapter;
     }
 
-    @Bindable
-    public String getNeedSearch() {
-        return mNeedSearch;
-    }
-
-    public void setNeedSearch(String needSearch) {
-        if (!needSearch.isEmpty() && !mNeedSearch.equals(needSearch)) {
-            onSendToAllFragment(needSearch);
-        }
-        mNeedSearch = needSearch;
-        notifyPropertyChanged(BR.needSearch);
-    }
-
     @Override
     public void onStart() {
         mPresenter.onStart();
@@ -81,6 +80,9 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     @Override
     public void onStop() {
         mPresenter.onStop();
+        if (!mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
     }
 
     @Override
@@ -89,10 +91,28 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     }
 
     @Override
-    public void onSendToAllFragment(String needSearch) {
-        for (BaseFragmentLevel2 fragment : mListFragments) {
-            fragment.onSetNeedSearch(needSearch);
-        }
+    public void onSendToAllFragment(Observable<String> textChangeObservable) {
+        mDisposable = textChangeObservable
+            .filter(new Predicate<String>() {
+                @Override
+                public boolean test(@NonNull String s) throws Exception {
+                    if (!s.isEmpty() && !mNeedSearch.equals(s) && StringHandling.isUnion(s)) {
+                        return true;
+                    }
+                    return false;
+                }
+            })
+            .debounce(DELAY_SEARCH, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Consumer<String>() {
+                @Override
+                public void accept(@NonNull String s) throws Exception {
+                    for (BaseFragmentLevel2 fragment : mListFragments) {
+                        fragment.onSetNeedSearch(s);
+                    }
+                }
+            });
     }
 
     @Override

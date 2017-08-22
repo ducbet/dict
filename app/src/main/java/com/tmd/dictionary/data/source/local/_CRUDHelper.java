@@ -25,19 +25,21 @@ public class _CRUDHelper extends DatabaseHelper {
         super(context);
     }
 
+    private SQLiteDatabase mDatabase;
+
     public Observable<Word> searchJpnVie(final String input) {
         // SELECT * FROM jpn_vie_main WHERE c0origin LIKE ?
         // OR c1kana LIKE ? ORDER BY c3priority DESC LIMIT 100
         return Observable.create(new ObservableOnSubscribe<Word>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
-                SQLiteDatabase database = getReadableDatabase();
+                mDatabase = getReadableDatabase();
                 String selection =
                     DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN + " LIKE ? OR " +
                         DatabaseContract.JpnVieContract.Main.COLUMN_KANA + " LIKE ?";
                 String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
                 String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = database.query(
+                Cursor cursor = mDatabase.query(
                     DatabaseContract.JpnVieContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
@@ -69,10 +71,8 @@ public class _CRUDHelper extends DatabaseHelper {
                     }
                     cursor.close();
                 } else {
-                    database.close();
                     e.onError(new NullPointerException(""));
                 }
-                database.close();
                 e.onComplete();
             }
         });
@@ -82,14 +82,14 @@ public class _CRUDHelper extends DatabaseHelper {
         return Observable.create(new ObservableOnSubscribe<Word>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
-                SQLiteDatabase database = getReadableDatabase();
+                mDatabase = getReadableDatabase();
                 String selection =
                     DatabaseContract.VieJpnContract.Main.COLUMN_ORIGIN +
                         " LIKE ? COLLATE NOCASE OR " +
                         DatabaseContract.VieJpnContract.Main.COLUMN_KANA + " LIKE ? COLLATE NOCASE";
                 String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
                 String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = database.query(
+                Cursor cursor = mDatabase.query(
                     DatabaseContract.VieJpnContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
@@ -115,10 +115,8 @@ public class _CRUDHelper extends DatabaseHelper {
                     }
                     cursor.close();
                 } else {
-                    database.close();
                     e.onError(new NullPointerException(""));
                 }
-                database.close();
                 e.onComplete();
             }
         });
@@ -129,7 +127,7 @@ public class _CRUDHelper extends DatabaseHelper {
         return Observable.create(new ObservableOnSubscribe<List<Kanji>>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<List<Kanji>> e) throws Exception {
-                SQLiteDatabase database = getReadableDatabase();
+                mDatabase = getReadableDatabase();
                 List<Kanji> listKanjis = new ArrayList<>();
                 String selection = "";
                 List<String> arrayListSelectionArgs = new ArrayList<>();
@@ -141,7 +139,7 @@ public class _CRUDHelper extends DatabaseHelper {
                 String[] selectionArgs = new String[arrayListSelectionArgs.size()];
                 selectionArgs = arrayListSelectionArgs.toArray(selectionArgs);
                 String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = database.query(
+                Cursor cursor = mDatabase.query(
                     DatabaseContract.KanjiContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
@@ -172,10 +170,8 @@ public class _CRUDHelper extends DatabaseHelper {
                     }
                     cursor.close();
                 } else {
-                    database.close();
                     e.onError(new NullPointerException("cursor == null"));
                 }
-                database.close();
                 e.onNext(listKanjis);
                 e.onComplete();
             }
@@ -186,11 +182,11 @@ public class _CRUDHelper extends DatabaseHelper {
         return Observable.create(new ObservableOnSubscribe<Word>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Word> e) throws Exception {
-                SQLiteDatabase database = getReadableDatabase();
+                mDatabase = getReadableDatabase();
                 String selection = DatabaseContract.GrammarContract.Main.COLUMN_ORIGIN + " LIKE ?";
                 String[] selectionArgs = new String[]{"%" + input + "%"};
                 String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = database.query(
+                Cursor cursor = mDatabase.query(
                     DatabaseContract.GrammarContract.Main.TABLE_NAME,
                     null,// columns// *
                     selection,
@@ -213,10 +209,8 @@ public class _CRUDHelper extends DatabaseHelper {
                     }
                     cursor.close();
                 } else {
-                    database.close();
                     e.onError(new NullPointerException(""));
                 }
-                database.close();
                 e.onComplete();
             }
         });
@@ -232,10 +226,10 @@ public class _CRUDHelper extends DatabaseHelper {
         return Observable.create(new ObservableOnSubscribe<List<String>>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<List<String>> e) throws Exception {
-                SQLiteDatabase database = getReadableDatabase();
+                mDatabase = getReadableDatabase();
                 List<String> examples = new ArrayList<>();
                 String[] selectionArgs = new String[]{String.valueOf(id)};
-                Cursor cursor = database.rawQuery(
+                Cursor cursor = mDatabase.rawQuery(
                     "SELECT * FROM (SELECT * FROM jpn_vie_main WHERE docid = ? ) AS main JOIN " +
                         "jpn_vie_relate_ex JOIN " +
                         "jpn_vie_examples WHERE " +
@@ -251,13 +245,17 @@ public class _CRUDHelper extends DatabaseHelper {
                     }
                     cursor.close();
                 } else {
-                    database.close();
                     e.onError(new NullPointerException(""));
                 }
-                database.close();
                 e.onNext(examples);
                 e.onComplete();
             }
         });
+    }
+
+    public void closeDatabase() {
+        if (mDatabase != null && mDatabase.isOpen()) {
+            mDatabase.close();
+        }
     }
 }

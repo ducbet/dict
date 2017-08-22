@@ -57,11 +57,11 @@
                 android:backgroundTint="@color/color_orange_500"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="@={viewModel.needSearch}"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/darker_gray"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/sp_25"/>
+                android:textSize="@dimen/sp_25"
+                bind:addTextWatcher="@{viewModel}"/>
 
             <ImageView
                 android:layout_width="@dimen/dp_30"
