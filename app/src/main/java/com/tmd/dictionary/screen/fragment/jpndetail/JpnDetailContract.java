@@ -19,6 +19,8 @@ interface JpnDetailContract {
         void onSearchKanjisFailed();
         void onSearchExamplesSuccess(List<String> examples);
         void onSearchExamplesFailed();
+        void onClearKanjisData();
+        void onClearExamplesData();
     }
 
     /**

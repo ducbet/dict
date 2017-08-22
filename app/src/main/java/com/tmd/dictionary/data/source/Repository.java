@@ -42,4 +42,9 @@ public class Repository implements DataSource {
     public Observable<List<String>> searchExamplesOfWord(int id) {
         return mLocalDataSource.searchExamplesOfWord(id);
     }
+
+    @Override
+    public void closeDatabase() {
+        mLocalDataSource.closeDatabase();
+    }
 }

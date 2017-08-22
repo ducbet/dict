@@ -7,6 +7,8 @@ import com.tmd.dictionary.screen.BaseViewModel;
 
 import java.io.Serializable;
 
+import io.reactivex.Observable;
+
 /**
  * This specifies the contract between the view and the presenter.
  */
@@ -15,7 +17,7 @@ public interface SearchContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter>, Serializable {
-        void onSendToAllFragment(String needSearch);
+        void onSendToAllFragment(Observable<String> textChangeObservable);
         void onItemClick(BaseViewModel viewModel, Word word);
         void onItemClick(Kanji kanji);
     }

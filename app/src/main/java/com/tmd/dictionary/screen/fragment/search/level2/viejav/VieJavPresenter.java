@@ -3,10 +3,10 @@ package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -17,6 +17,7 @@ final class VieJavPresenter implements VieJavContract.Presenter {
     private static final String TAG = VieJavPresenter.class.getName();
     private final VieJavContract.ViewModel mViewModel;
     private DataSource mRepository;
+    private Disposable mDisposable;
 
     public VieJavPresenter(VieJavContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
@@ -29,19 +30,19 @@ final class VieJavPresenter implements VieJavContract.Presenter {
 
     @Override
     public void onStop() {
+        if (!mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
+        mRepository.closeDatabase();
     }
 
     @Override
     public void search(String needSearch) {
-        mRepository.searchVieJpn(needSearch)
+        mViewModel.onClearData();
+        mDisposable = mRepository.searchVieJpn(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new Observer<Word>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
-                    mViewModel.onClearData();
-                }
-
+            .subscribeWith(new DisposableObserver<Word>() {
                 @Override
                 public void onNext(@NonNull Word words) {
                     mViewModel.onSearchVieJpnSuccess(words);

@@ -5,10 +5,10 @@ import com.tmd.dictionary.data.source.DataSource;
 
 import java.util.List;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -19,6 +19,7 @@ final class KanjiPresenter implements KanjiContract.Presenter {
     private static final String TAG = KanjiPresenter.class.getName();
     private final KanjiContract.ViewModel mViewModel;
     private DataSource mRepository;
+    private Disposable mDisposable;
 
     public KanjiPresenter(KanjiContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
@@ -31,19 +32,19 @@ final class KanjiPresenter implements KanjiContract.Presenter {
 
     @Override
     public void onStop() {
+        if (!mDisposable.isDisposed()) {
+            mDisposable.dispose();
+        }
+        mRepository.closeDatabase();
     }
 
     @Override
     public void search(final String needSearch) {
-        mRepository.searchKanji(needSearch)
+        mViewModel.onClearData();
+        mDisposable = mRepository.searchKanji(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new Observer<List<Kanji>>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
-                    mViewModel.onClearData();
-                }
-
+            .subscribeWith(new DisposableObserver<List<Kanji>>() {
                 @Override
                 public void onNext(@NonNull List<Kanji> kanji) {
                     mViewModel.onSearchKanjiSuccess(kanji);

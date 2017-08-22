@@ -46,4 +46,9 @@ public class LocalDataSource implements DataSource {
     public Observable<List<String>> searchExamplesOfWord(int id) {
         return mCRUDHelper.searchExamplesOfWord(id);
     }
+
+    @Override
+    public void closeDatabase() {
+        mCRUDHelper.closeDatabase();
+    }
 }

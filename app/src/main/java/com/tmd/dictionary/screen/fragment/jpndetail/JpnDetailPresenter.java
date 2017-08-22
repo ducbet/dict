@@ -6,10 +6,11 @@ import com.tmd.dictionary.data.source.DataSource;
 
 import java.util.List;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -20,10 +21,12 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     private static final String TAG = JpnDetailPresenter.class.getName();
     private final JpnDetailContract.ViewModel mViewModel;
     private DataSource mRepository;
+    private CompositeDisposable mCompositeDisposable;
 
     public JpnDetailPresenter(JpnDetailContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
         mRepository = repository;
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -32,18 +35,17 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
 
     @Override
     public void onStop() {
+        mCompositeDisposable.clear();
+        mRepository.closeDatabase();
     }
 
     @Override
     public void searchKanjis(Word word) {
-        mRepository.searchKanji(word.getOrigin())
+        mViewModel.onClearKanjisData();
+        Disposable disposable = mRepository.searchKanji(word.getOrigin())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new Observer<List<Kanji>>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
-                }
-
+            .subscribeWith(new DisposableObserver<List<Kanji>>() {
                 @Override
                 public void onNext(@NonNull List<Kanji> kanjis) {
                     mViewModel.onSearchKanjisSuccess(kanjis);
@@ -58,18 +60,16 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
                 public void onComplete() {
                 }
             });
+        mCompositeDisposable.add(disposable);
     }
 
     @Override
     public void searchExamples(Word word) {
-        mRepository.searchExamplesOfWord(word.getId())
+        mViewModel.onClearExamplesData();
+        Disposable disposable = mRepository.searchExamplesOfWord(word.getId())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new Observer<List<String>>() {
-                @Override
-                public void onSubscribe(@NonNull Disposable d) {
-                }
-
+            .subscribeWith(new DisposableObserver<List<String>>() {
                 @Override
                 public void onNext(@NonNull List<String> examples) {
                     mViewModel.onSearchExamplesSuccess(examples);
@@ -84,5 +84,6 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
                 public void onComplete() {
                 }
             });
+        mCompositeDisposable.add(disposable);
     }
 }
