@@ -1,7 +1,5 @@
 package com.tmd.dictionary.staticfinal;
 
-import com.tmd.dictionary.data.model.Word;
-
 import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_UNICODE;
 import static com.tmd.dictionary.staticfinal.ConstantValue.WORD_TYPE;
 
@@ -9,27 +7,26 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.WORD_TYPE;
  * Created by tmd on 18/08/2017.
  */
 public class StringHandling {
-    public static void formatWord(Word word) {
+    public static String format(String input) {
         prepairWordType();
-        String definition = word.getDefinition();
         String sub;
         String replaced;
         int indexOfAsterick;
         int indexOfNewLine;
-        while (definition.contains("*")) {
-            indexOfAsterick = definition.indexOf("*", 0);
-            indexOfNewLine = definition.indexOf("\n", indexOfAsterick);
-            sub = definition.substring(indexOfAsterick, indexOfNewLine);
+        while (input.contains("*")) {
+            indexOfAsterick = input.indexOf("*", 0);
+            indexOfNewLine = input.indexOf("\n", indexOfAsterick);
+            sub = input.substring(indexOfAsterick, indexOfNewLine);
             replaced = sub.replace("*", "☆");
-            definition = definition.replace(sub, replaced);
+            input = input.replace(sub, replaced);
             for (String target : WORD_TYPE.keySet()) {
                 if (sub.contains(target)) {
                     replaced = replaced.replace(target, WORD_TYPE.get(target));
-                    definition = definition.replace(sub, replaced);
+                    input = input.replace(sub, replaced);
                 }
             }
         }
-        word.setDefinition(definition);
+        return input;
     }
 
     private static void prepairWordType() {

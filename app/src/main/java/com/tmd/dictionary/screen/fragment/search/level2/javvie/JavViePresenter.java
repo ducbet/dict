@@ -1,6 +1,6 @@
 package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,10 +44,10 @@ final class JavViePresenter implements JavVieContract.Presenter {
         Disposable disposable = mRepository.searchJpnVie(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<Word>() {
+            .subscribeWith(new DisposableObserver<JpnWord>() {
                 @Override
-                public void onNext(@NonNull Word words) {
-                    mViewModel.onSearchJpnVieSuccess(words);
+                public void onNext(@NonNull JpnWord jpnWord) {
+                    mViewModel.onSearchJpnVieSuccess(jpnWord);
                 }
 
                 @Override

@@ -1,7 +1,9 @@
 package com.tmd.dictionary.data.source;
 
+import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
 import java.util.List;
@@ -19,12 +21,12 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Word> searchJpnVie(String input) {
+    public Observable<JpnWord> searchJpnVie(String input) {
         return mLocalDataSource.searchJpnVie(input);
     }
 
     @Override
-    public Observable<Word> searchVieJpn(String input) {
+    public Observable<VieWord> searchVieJpn(String input) {
         return mLocalDataSource.searchVieJpn(input);
     }
 
@@ -34,7 +36,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Word> searchGrammar(String input) {
+    public Observable<Grammar> searchGrammar(String input) {
         return mLocalDataSource.searchGrammar(input);
     }
 

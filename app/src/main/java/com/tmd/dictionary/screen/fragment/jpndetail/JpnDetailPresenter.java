@@ -1,7 +1,7 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
 import java.util.List;
@@ -40,9 +40,9 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void searchKanjis(Word word) {
+    public void searchKanjis(JpnWord jpnWord) {
         mViewModel.onClearKanjisData();
-        Disposable disposable = mRepository.searchKanji(word.getOrigin())
+        Disposable disposable = mRepository.searchKanji(jpnWord.getOrigin())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<List<Kanji>>() {
@@ -64,9 +64,10 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void searchExamples(Word word) {
+    public void searchExamples(JpnWord jpnWord) {
         mViewModel.onClearExamplesData();
-        Disposable disposable = mRepository.searchExamplesOfWord(word.getId())
+//        Disposable disposable = mRepository.searchExamplesOfWord(jpnWord.getId())
+        Disposable disposable = mRepository.searchExamplesOfWord(0)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<List<String>>() {

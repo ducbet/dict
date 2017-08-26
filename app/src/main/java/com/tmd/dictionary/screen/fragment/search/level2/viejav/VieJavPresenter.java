@@ -2,7 +2,8 @@ package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 
 import android.util.Log;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.JpnWord;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,17 +47,15 @@ final class VieJavPresenter implements VieJavContract.Presenter {
         Disposable disposable = mRepository.searchVieJpn(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<Word>() {
+            .subscribeWith(new DisposableObserver<VieWord>() {
                 @Override
-                public void onNext(@NonNull Word words) {
-                    mViewModel.onSearchVieJpnSuccess(words);
-                    Log.e(TAG, "onNext: ");
+                public void onNext(@NonNull VieWord vieWord) {
+                    mViewModel.onSearchVieJpnSuccess(vieWord);
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     mViewModel.onSearchVieJpnFailed();
-                    Log.e(TAG, "onError: " + e.getMessage());
                 }
 
                 @Override

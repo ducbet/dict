@@ -1,90 +1,93 @@
 package com.tmd.dictionary.data.model;
 
-import java.util.List;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class Kanji {
-    private String mKanji = "";
-    private String mHanViet = "";
-    private String mRadical = "";
-    private int mStroke;
-    private String mOnyomi = "";
-    private int mLevel;
-    private String mKunyomi = "";
-    private String mMeaning = "";
-    private List<Component> mComponents;
+public class Kanji extends RealmObject {
+    @PrimaryKey
+    private String kanji = "";
+    private String hanViet = "";
+    private String radical = "";
+    private int stroke;
+    private String onyomi = "";
+    private int level;
+    private String kunyomi = "";
+    private String meaning = "";
+    private RealmList<Component> components;
 
     public String getKanji() {
-        return mKanji;
+        return kanji;
     }
 
     public void setKanji(String kanji) {
-        mKanji = kanji;
+        this.kanji = kanji;
     }
 
     public String getHanViet() {
-        return mHanViet;
+        return hanViet;
     }
 
     public void setHanViet(String hanViet) {
-        mHanViet = hanViet;
+        this.hanViet = hanViet;
     }
 
     public String getRadical() {
-        return mRadical;
+        return radical;
     }
 
     public void setRadical(String radical) {
-        mRadical = radical;
+        this.radical = radical;
     }
 
     public int getStroke() {
-        return mStroke;
+        return stroke;
     }
 
     public void setStroke(int stroke) {
-        mStroke = stroke;
+        this.stroke = stroke;
     }
 
     public String getOnyomi() {
-        return mOnyomi;
+        return onyomi;
     }
 
     public void setOnyomi(String onyomi) {
-        mOnyomi = onyomi;
+        this.onyomi = onyomi;
     }
 
     public int getLevel() {
-        return mLevel;
+        return level;
     }
 
     public void setLevel(int level) {
-        mLevel = level;
+        this.level = level;
     }
 
     public String getKunyomi() {
-        return mKunyomi;
+        return kunyomi;
     }
 
     public void setKunyomi(String kunyomi) {
-        mKunyomi = kunyomi;
+        this.kunyomi = kunyomi;
     }
 
     public String getMeaning() {
-        return mMeaning;
+        return meaning;
     }
 
     public void setMeaning(String meaning) {
-        mMeaning = meaning;
+        this.meaning = meaning;
     }
 
-    public List<Component> getComponents() {
-        return mComponents;
+    public RealmList<Component> getComponents() {
+        return components;
     }
 
-    public void setComponents(List<Component> components) {
-        mComponents = components;
+    public void setComponents(RealmList<Component> components) {
+        this.components = components;
     }
 }

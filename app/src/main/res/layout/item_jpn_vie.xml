@@ -12,8 +12,8 @@
             />
 
         <variable
-            name="word"
-            type="com.tmd.dictionary.data.model.Word"
+            name="jpnWord"
+            type="com.tmd.dictionary.data.model.JpnWord"
             />
     </data>
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
-            android:onClick="@{()->viewModel.onItemClick(word)}"
+            android:onClick="@{()->viewModel.onItemClick(jpnWord)}"
             android:orientation="vertical"
             android:padding="@dimen/dp_5"
             >
@@ -39,7 +39,7 @@
                 android:layout_marginBottom="@dimen/dp_5"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginStart="@dimen/dp_15"
-                android:text="@{word.origin}"
+                android:text="@{jpnWord.origin}"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp_25"
                 />
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_5"
-                android:text="@{word.definition}"
+                android:text="@{jpnWord.definition}"
                 android:textColor="@color/color_brown_100"
                 android:textSize="@dimen/sp_15"/>
 

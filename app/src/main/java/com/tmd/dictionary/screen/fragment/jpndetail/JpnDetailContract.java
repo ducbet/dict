@@ -1,7 +1,7 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -27,7 +27,7 @@ interface JpnDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void searchKanjis(Word word);
-        void searchExamples(Word word);
+        void searchKanjis(JpnWord jpnWord);
+        void searchExamples(JpnWord jpnWord);
     }
 }

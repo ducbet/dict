@@ -1,6 +1,6 @@
 package com.tmd.dictionary.screen.fragment.search.level2.grammar;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,10 +44,10 @@ final class GrammarPresenter implements GrammarContract.Presenter {
         Disposable disposable = mRepository.searchGrammar(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<Word>() {
+            .subscribeWith(new DisposableObserver<Grammar>() {
                 @Override
-                public void onNext(@NonNull Word words) {
-                    mViewModel.onSearchGrammarSuccess(words);
+                public void onNext(@NonNull Grammar grammar) {
+                    mViewModel.onSearchGrammarSuccess(grammar);
                 }
 
                 @Override
