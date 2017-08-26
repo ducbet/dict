@@ -1,10 +1,13 @@
 package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 
+import android.util.Log;
+
 import com.tmd.dictionary.data.model.Word;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -17,11 +20,12 @@ final class VieJavPresenter implements VieJavContract.Presenter {
     private static final String TAG = VieJavPresenter.class.getName();
     private final VieJavContract.ViewModel mViewModel;
     private DataSource mRepository;
-    private Disposable mDisposable;
+    private CompositeDisposable mCompositeDisposable;
 
     public VieJavPresenter(VieJavContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
         mRepository = repository;
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -30,8 +34,8 @@ final class VieJavPresenter implements VieJavContract.Presenter {
 
     @Override
     public void onStop() {
-        if (!mDisposable.isDisposed()) {
-            mDisposable.dispose();
+        if (!mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.clear();
         }
         mRepository.closeDatabase();
     }
@@ -39,23 +43,26 @@ final class VieJavPresenter implements VieJavContract.Presenter {
     @Override
     public void search(String needSearch) {
         mViewModel.onClearData();
-        mDisposable = mRepository.searchVieJpn(needSearch)
+        Disposable disposable = mRepository.searchVieJpn(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Word>() {
                 @Override
                 public void onNext(@NonNull Word words) {
                     mViewModel.onSearchVieJpnSuccess(words);
+                    Log.e(TAG, "onNext: ");
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     mViewModel.onSearchVieJpnFailed();
+                    Log.e(TAG, "onError: " + e.getMessage());
                 }
 
                 @Override
                 public void onComplete() {
                 }
             });
+        mCompositeDisposable.add(disposable);
     }
 }

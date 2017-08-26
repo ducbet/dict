@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -19,11 +20,12 @@ final class KanjiPresenter implements KanjiContract.Presenter {
     private static final String TAG = KanjiPresenter.class.getName();
     private final KanjiContract.ViewModel mViewModel;
     private DataSource mRepository;
-    private Disposable mDisposable;
+    private CompositeDisposable mCompositeDisposable;
 
     public KanjiPresenter(KanjiContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
         mRepository = repository;
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -32,8 +34,8 @@ final class KanjiPresenter implements KanjiContract.Presenter {
 
     @Override
     public void onStop() {
-        if (!mDisposable.isDisposed()) {
-            mDisposable.dispose();
+        if (!mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.clear();
         }
         mRepository.closeDatabase();
     }
@@ -41,7 +43,7 @@ final class KanjiPresenter implements KanjiContract.Presenter {
     @Override
     public void search(final String needSearch) {
         mViewModel.onClearData();
-        mDisposable = mRepository.searchKanji(needSearch)
+        Disposable disposable = mRepository.searchKanji(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<List<Kanji>>() {
@@ -58,5 +60,6 @@ final class KanjiPresenter implements KanjiContract.Presenter {
                 public void onComplete() {
                 }
             });
+        mCompositeDisposable.add(disposable);
     }
 }

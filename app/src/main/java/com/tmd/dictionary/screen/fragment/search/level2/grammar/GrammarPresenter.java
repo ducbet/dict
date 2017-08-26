@@ -5,6 +5,7 @@ import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -17,11 +18,12 @@ final class GrammarPresenter implements GrammarContract.Presenter {
     private static final String TAG = GrammarPresenter.class.getName();
     private final GrammarContract.ViewModel mViewModel;
     private DataSource mRepository;
-    private Disposable mDisposable;
+    private CompositeDisposable mCompositeDisposable;
 
     public GrammarPresenter(GrammarContract.ViewModel viewModel, DataSource repository) {
         mViewModel = viewModel;
         mRepository = repository;
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -30,8 +32,8 @@ final class GrammarPresenter implements GrammarContract.Presenter {
 
     @Override
     public void onStop() {
-        if (!mDisposable.isDisposed()) {
-            mDisposable.dispose();
+        if (!mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.clear();
         }
         mRepository.closeDatabase();
     }
@@ -39,7 +41,7 @@ final class GrammarPresenter implements GrammarContract.Presenter {
     @Override
     public void search(String needSearch) {
         mViewModel.onClearData();
-        mDisposable = mRepository.searchGrammar(needSearch)
+        Disposable disposable = mRepository.searchGrammar(needSearch)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Word>() {
@@ -57,5 +59,6 @@ final class GrammarPresenter implements GrammarContract.Presenter {
                 public void onComplete() {
                 }
             });
+        mCompositeDisposable.add(disposable);
     }
 }
