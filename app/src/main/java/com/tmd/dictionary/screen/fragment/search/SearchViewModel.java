@@ -3,19 +3,17 @@ package com.tmd.dictionary.screen.fragment.search;
 import android.content.Context;
 import android.databinding.BaseObservable;
 
+import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
-import com.tmd.dictionary.screen.BaseViewModel;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 import com.tmd.dictionary.screen.activity.main.MainViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarFragment;
-import com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieFragment;
-import com.tmd.dictionary.screen.fragment.search.level2.javvie.JavVieViewModel;
 import com.tmd.dictionary.screen.fragment.search.level2.kanji.KanjiFragment;
 import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavFragment;
-import com.tmd.dictionary.screen.fragment.search.level2.viejav.VieJavViewModel;
 import com.tmd.dictionary.staticfinal.StringHandling;
 
 import java.util.ArrayList;
@@ -116,19 +114,18 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     }
 
     @Override
-    public void onItemClick(BaseViewModel viewModel, Word word) {
-        if (viewModel instanceof JavVieViewModel) {
-            mMainViewModel.onOpenJpnWordDetailFragment(word);
-            return;
-        }
-        if (viewModel instanceof VieJavViewModel) {
-            mMainViewModel.onOpenVieWordDetailFragment(word);
-            return;
-        }
-        if (viewModel instanceof GrammarViewModel) {
-            mMainViewModel.onOpenGrammarDetailFragment(word);
-            return;
-        }
+    public void onItemClick(JpnWord word) {
+        mMainViewModel.onOpenJpnWordDetailFragment(word);
+    }
+
+    @Override
+    public void onItemClick(VieWord vieWord) {
+        mMainViewModel.onOpenVieWordDetailFragment(vieWord);
+    }
+
+    @Override
+    public void onItemClick(Grammar grammar) {
+        mMainViewModel.onOpenGrammarDetailFragment(grammar);
     }
 
     @Override

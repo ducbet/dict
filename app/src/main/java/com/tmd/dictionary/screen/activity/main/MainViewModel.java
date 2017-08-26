@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
@@ -68,16 +70,16 @@ public class MainViewModel implements MainContract.ViewModel {
     }
 
     @Override
-    public void onOpenJpnWordDetailFragment(Word word) {
+    public void onOpenJpnWordDetailFragment(JpnWord jpnWord) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, JpnDetailFragment.newInstance(this, word))
+            .add(R.id.frame_layout, JpnDetailFragment.newInstance(this, jpnWord))
             .addToBackStack(null)
             .commit();
     }
 
     @Override
-    public void onOpenVieWordDetailFragment(Word word) {
+    public void onOpenVieWordDetailFragment(VieWord vieWord) {
         mFragmentManager
             .beginTransaction()
             .add(R.id.frame_layout, VieDetailFragment.newInstance(this))
@@ -86,7 +88,7 @@ public class MainViewModel implements MainContract.ViewModel {
     }
 
     @Override
-    public void onOpenGrammarDetailFragment(Word word) {
+    public void onOpenGrammarDetailFragment(Grammar grammar) {
         mFragmentManager
             .beginTransaction()
             .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this))

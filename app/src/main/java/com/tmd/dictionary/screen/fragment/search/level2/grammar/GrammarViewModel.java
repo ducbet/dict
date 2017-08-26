@@ -1,6 +1,7 @@
 package com.tmd.dictionary.screen.fragment.search.level2.grammar;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
 
 /**
@@ -37,8 +38,8 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void onSearchGrammarSuccess(Word response) {
-        mAdapter.setSource(response);
+    public void onSearchGrammarSuccess(Grammar grammar) {
+        mAdapter.setSource(grammar);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void onItemClick(Word word) {
-        mSearchViewModel.onItemClick(this, word);
+    public void onItemClick(Grammar grammar) {
+        mSearchViewModel.onItemClick(grammar);
     }
 }

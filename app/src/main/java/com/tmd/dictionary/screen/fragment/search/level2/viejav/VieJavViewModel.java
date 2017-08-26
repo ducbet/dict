@@ -1,6 +1,6 @@
 package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
 
 /**
@@ -37,7 +37,7 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     }
 
     @Override
-    public void onSearchVieJpnSuccess(Word response) {
+    public void onSearchVieJpnSuccess(VieWord response) {
         mAdapter.setSource(response);
     }
 
@@ -57,7 +57,7 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     }
 
     @Override
-    public void onItemClick(Word word) {
-        mSearchViewModel.onItemClick(this, word);
+    public void onItemClick(VieWord vieWord) {
+        mSearchViewModel.onItemClick(vieWord);
     }
 }

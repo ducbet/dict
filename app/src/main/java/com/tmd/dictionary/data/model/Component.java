@@ -1,43 +1,45 @@
 package com.tmd.dictionary.data.model;
 
+import io.realm.RealmObject;
+
 /**
  * Created by tmd on 18/08/2017.
  */
-public class Component {
-    private String mRadical = "";
-    private String mStroke = "";
-    private String mHanViet = "";
-    private String mMeaning = "";
+public class Component extends RealmObject {
+    private String radical = "";
+    private int strokeCount;
+    private String hanViet = "";
+    private String reading = "";
 
     public String getRadical() {
-        return mRadical;
+        return radical;
     }
 
     public void setRadical(String radical) {
-        mRadical = radical;
+        this.radical = radical;
     }
 
-    public String getStroke() {
-        return mStroke;
+    public int getStrokeCount() {
+        return strokeCount;
     }
 
-    public void setStroke(String stroke) {
-        mStroke = stroke;
+    public void setStrokeCount(int strokeCount) {
+        this.strokeCount = strokeCount;
     }
 
     public String getHanViet() {
-        return mHanViet;
+        return hanViet;
     }
 
     public void setHanViet(String hanViet) {
-        mHanViet = hanViet;
+        this.hanViet = hanViet;
     }
 
-    public String getMeaning() {
-        return mMeaning;
+    public String getReading() {
+        return reading;
     }
 
-    public void setMeaning(String meaning) {
-        mMeaning = meaning;
+    public void setReading(String reading) {
+        this.reading = reading;
     }
 }

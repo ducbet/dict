@@ -1,6 +1,6 @@
 package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
 
 /**
@@ -37,8 +37,8 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void onSearchJpnVieSuccess(Word response) {
-        mAdapter.setSource(response);
+    public void onSearchJpnVieSuccess(JpnWord jpnWord) {
+        mAdapter.setSource(jpnWord);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void onItemClick(Word word) {
-        mSearchViewModel.onItemClick(this, word);
+    public void onItemClick(JpnWord jpnWord) {
+        mSearchViewModel.onItemClick(jpnWord);
     }
 }

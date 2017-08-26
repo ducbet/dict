@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.JpnWord;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.databinding.ItemVieJpnBinding;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import java.util.List;
  */
 public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder> {
     private VieJavContract.ViewModel mViewModel;
-    private List<Word> mList = new ArrayList<>();
+    private List<VieWord> mList = new ArrayList<>();
 
     public VieJpnAdapter(VieJavContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<Word> list) {
+    public void setSource(List<VieWord> list) {
         if (list == null) {
             return;
         }
@@ -31,8 +32,8 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void setSource(Word word) {
-        mList.add(word);
+    public void setSource(VieWord vieWord) {
+        mList.add(vieWord);
         notifyItemInserted(mList.size() - 1);
     }
 
@@ -51,8 +52,8 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word word = mList.get(position);
-        holder.bind(word);
+        VieWord vieWord = mList.get(position);
+        holder.bind(vieWord);
     }
 
     @Override
@@ -68,9 +69,9 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
             mBinding = binding;
         }
 
-        public void bind(Word word) {
+        public void bind(VieWord vieWord) {
             mBinding.setViewModel((VieJavViewModel) mViewModel);
-            mBinding.setWord(word);
+            mBinding.setVieWord(vieWord);
         }
     }
 }

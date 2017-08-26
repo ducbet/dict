@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.databinding.ItemJpnVieBinding;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ import java.util.List;
  */
 public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder> {
     private JavVieContract.ViewModel mViewModel;
-    private List<Word> mList = new ArrayList<>();
+    private List<JpnWord> mList = new ArrayList<>();
 
     public JavVieAdapter(JavVieContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<Word> list) {
+    public void setSource(List<JpnWord> list) {
         if (list == null) {
             return;
         }
@@ -31,8 +31,8 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void setSource(Word word) {
-        mList.add(word);
+    public void setSource(JpnWord jpnWord) {
+        mList.add(jpnWord);
         notifyItemInserted(mList.size() - 1);
     }
 
@@ -51,8 +51,8 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word word = mList.get(position);
-        holder.bind(word);
+        JpnWord jpnWord = mList.get(position);
+        holder.bind(jpnWord);
     }
 
     @Override
@@ -68,9 +68,9 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
             mBinding = binding;
         }
 
-        public void bind(Word word) {
+        public void bind(JpnWord jpnWord) {
             mBinding.setViewModel((JavVieViewModel) mViewModel);
-            mBinding.setWord(word);
+            mBinding.setJpnWord(jpnWord);
         }
     }
 }

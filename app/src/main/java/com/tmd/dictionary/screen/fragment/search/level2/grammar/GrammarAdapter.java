@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.Word;
+import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.databinding.ItemGrammarBinding;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ import java.util.List;
  */
 public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHolder> {
     private GrammarContract.ViewModel mViewModel;
-    private List<Word> mList = new ArrayList<>();
+    private List<Grammar> mList = new ArrayList<>();
 
     public GrammarAdapter(GrammarContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<Word> list) {
+    public void setSource(List<Grammar> list) {
         if (list == null) {
             return;
         }
@@ -31,8 +31,8 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public void setSource(Word word) {
-        mList.add(word);
+    public void setSource(Grammar grammar) {
+        mList.add(grammar);
         notifyItemInserted(mList.size() - 1);
     }
 
@@ -51,8 +51,8 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word word = mList.get(position);
-        holder.bind(word);
+        Grammar grammar = mList.get(position);
+        holder.bind(grammar);
     }
 
     @Override
@@ -68,9 +68,9 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
             mBinding = binding;
         }
 
-        public void bind(Word word) {
+        public void bind(Grammar grammar) {
             mBinding.setViewModel((GrammarViewModel) mViewModel);
-            mBinding.setWord(word);
+            mBinding.setGrammar(grammar);
         }
     }
 }

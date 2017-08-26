@@ -1,7 +1,7 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-import com.tmd.dictionary.data.model.Word;
 
 import java.util.List;
 
@@ -10,18 +10,18 @@ import java.util.List;
  */
 public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     private JpnDetailContract.Presenter mPresenter;
-    private Word mWord;
+    private JpnWord mJpnWord;
     private JpnDetailKanjisAdapter mJpnDetailKanjisAdapter;
     private JpnDetailExamplesAdapter mJpnDetailExamplesAdapter;
 
-    public JpnDetailViewModel(Word word) {
-        mWord = word;
+    public JpnDetailViewModel(JpnWord jpnWord) {
+        mJpnWord = jpnWord;
         mJpnDetailKanjisAdapter = new JpnDetailKanjisAdapter(this);
         mJpnDetailExamplesAdapter = new JpnDetailExamplesAdapter(this);
     }
 
-    public Word getWord() {
-        return mWord;
+    public JpnWord getJpnWord() {
+        return mJpnWord;
     }
 
     public JpnDetailKanjisAdapter getJpnDetailKanjisAdapter() {
@@ -35,8 +35,8 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.searchKanjis(mWord);
-        mPresenter.searchExamples(mWord);
+        mPresenter.searchKanjis(mJpnWord);
+        mPresenter.searchExamples(mJpnWord);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
 
     @Override
     public void onSearchKanjisSuccess(List<Kanji> kanjis) {
-        mWord.setKanjis(kanjis);
-        mJpnDetailKanjisAdapter.setSource(mWord.getKanjis());
+        mJpnWord.setKanjis(kanjis);
+        mJpnDetailKanjisAdapter.setSource(mJpnWord.getKanjis());
     }
 
     @Override
