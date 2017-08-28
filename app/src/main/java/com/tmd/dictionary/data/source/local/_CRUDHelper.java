@@ -1,260 +1,121 @@
 package com.tmd.dictionary.data.source.local;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
-import com.tmd.dictionary.staticfinal.StringHandling;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.tmd.dictionary.util.DictApplication;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 /**
  * Created by tmd on 09/07/2017.
  */
-public class _CRUDHelper extends DatabaseHelper {
-    public _CRUDHelper(Context context) {
-        super(context);
-    }
-
-    private SQLiteDatabase mDatabase;
-
-    public Observable<JpnWord> searchJpnVie(final String input) {
+public class _CRUDHelper {
+    public Observable<RealmResults<JpnWord>> searchJpnVie(final String input) {
         // SELECT * FROM jpn_vie_main WHERE c0origin LIKE ?
         // OR c1kana LIKE ? ORDER BY c3priority DESC LIMIT 100
-        return Observable.create(new ObservableOnSubscribe<JpnWord>() {
+        return Observable.create(new ObservableOnSubscribe<RealmResults<JpnWord>>() {
             @Override
-            public void subscribe(@NonNull ObservableEmitter<JpnWord> e) throws Exception {
-                mDatabase = getReadableDatabase();
-                String selection =
-                    DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN + " LIKE ? OR " +
-                        DatabaseContract.JpnVieContract.Main.COLUMN_KANA + " LIKE ?";
-                String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
-                String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = mDatabase.query(
-                    DatabaseContract.JpnVieContract.Main.TABLE_NAME,
-                    null,// columns// *
-                    selection,
-                    selectionArgs,
-                    null,// group by
-                    null,// group by args
-                    DatabaseContract.JpnVieContract.Main.COLUMN_PRIORITY + " DESC",
-                    limit);
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        JpnWord jpnWord = new JpnWord();
-                        int id = cursor.getInt(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Main.COLUMN_DOC_ID));
-                        String origin = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Main.COLUMN_ORIGIN));
-                        String kana = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Main.COLUMN_KANA));
-                        String definition = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Main.COLUMN_DEFINITION));
-                        int priority = cursor.getInt(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Main.COLUMN_PRIORITY));
-//                        jpnWord.setId(id);
-                        jpnWord.setOrigin(origin);
-                        jpnWord.setKana(kana);
-                        jpnWord.setDefinition(StringHandling.format(definition));
-                        jpnWord.setPriority(priority);
-                        e.onNext(jpnWord);
+            public void subscribe(@NonNull final ObservableEmitter<RealmResults<JpnWord>> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmResults<JpnWord> jpnWords = realm.where(JpnWord.class)
+                            .like("origin", "*" + input + "*")
+                            .findAll();
+                        e.onNext(jpnWords);
+                        e.onComplete();
                     }
-                    cursor.close();
-                } else {
-                    e.onError(new NullPointerException(""));
-                }
-                e.onComplete();
+                });
             }
         });
     }
 
-    public Observable<VieWord> searchVieJpn(final String input) {
-        return Observable.create(new ObservableOnSubscribe<VieWord>() {
+    public Observable<RealmResults<VieWord>> searchVieJpn(final String input) {
+        // TODO: 30/08/2017  nếu không có .subscribeOn(Schedulers.computation())
+        // trong VieJavPresenter thì vẫn là thực hiện ở main thread
+        return Observable.create(new ObservableOnSubscribe<RealmResults<VieWord>>() {
             @Override
-            public void subscribe(@NonNull ObservableEmitter<VieWord> e) throws Exception {
-                mDatabase = getReadableDatabase();
-                String selection =
-                    DatabaseContract.VieJpnContract.Main.COLUMN_ORIGIN +
-                        " LIKE ? COLLATE NOCASE OR " +
-                        DatabaseContract.VieJpnContract.Main.COLUMN_KANA + " LIKE ? COLLATE NOCASE";
-                String[] selectionArgs = new String[]{"%" + input + "%", "%" + input + "%"};
-                String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = mDatabase.query(
-                    DatabaseContract.VieJpnContract.Main.TABLE_NAME,
-                    null,// columns// *
-                    selection,
-                    selectionArgs,
-                    null,// group by
-                    null,// group by args
-                    null,// order by
-                    limit);
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        VieWord vieWord = new VieWord();
-                        String origin = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.VieJpnContract.Main.COLUMN_ORIGIN));
-                        String kana = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.VieJpnContract.Main.COLUMN_KANA));
-                        String definition = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.VieJpnContract.Main.COLUMN_DEFINITION));
-                        vieWord.setOrigin(origin);
-                        vieWord.setKana(kana);
-                        vieWord.setDefinition(StringHandling.format(definition));
-                        e.onNext(vieWord);
+            public void subscribe(@NonNull final ObservableEmitter<RealmResults<VieWord>> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmResults<VieWord> vieWords = realm.where(VieWord.class)
+                            .like("origin", "*" + input + "*")
+                            .findAll();
+                        e.onNext(vieWords);
+                        e.onComplete();
                     }
-                    cursor.close();
-                } else {
-                    e.onError(new NullPointerException(""));
-                }
-                e.onComplete();
+                });
             }
         });
     }
 
-    public Observable<List<Kanji>> searchKanji(final String input) {
+    public Observable<RealmResults<Kanji>> searchKanji(final String input) {
         // SELECT * FROM kanji_main WHERE kanji = ?
-        return Observable.create(new ObservableOnSubscribe<List<Kanji>>() {
+        return Observable.create(new ObservableOnSubscribe<RealmResults<Kanji>>() {
             @Override
-            public void subscribe(@NonNull ObservableEmitter<List<Kanji>> e) throws Exception {
-                mDatabase = getReadableDatabase();
-                List<Kanji> listKanjis = new ArrayList<>();
-                String selection = "";
-                List<String> arrayListSelectionArgs = new ArrayList<>();
-                for (int i = 0; i < input.length(); i++) {
-                    selection += "OR " + DatabaseContract.KanjiContract.Main.COLUMN_KANJI + " = ? ";
-                    arrayListSelectionArgs.add(String.valueOf(input.charAt(i)));
-                }
-                selection = selection.replaceFirst("OR ", "");
-                String[] selectionArgs = new String[arrayListSelectionArgs.size()];
-                selectionArgs = arrayListSelectionArgs.toArray(selectionArgs);
-                String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = mDatabase.query(
-                    DatabaseContract.KanjiContract.Main.TABLE_NAME,
-                    null,// columns// *
-                    selection,
-                    selectionArgs,
-                    null,// group by
-                    null,// group by args
-                    null,// order by
-                    limit);
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        Kanji responseKanji = new Kanji();
-                        String kanji = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.Main.COLUMN_KANJI));
-                        String hanviet = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.Main.COLUMN_HANVIET));
-                        String onyomi = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.Main.COLUMN_ONYOMI));
-                        String kunyomi = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.Main.COLUMN_KUNYOMI));
-                        String meaning = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.KanjiContract.Main.COLUMN_MEANING));
-                        responseKanji.setKanji(kanji);
-                        responseKanji.setHanViet(hanviet);
-                        responseKanji.setOnyomi(onyomi);
-                        responseKanji.setKunyomi(kunyomi);
-                        responseKanji.setMeaning(meaning);
-                        listKanjis.add(responseKanji);
+            public void subscribe(@NonNull final ObservableEmitter<RealmResults<Kanji>> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmQuery query = realm.where(Kanji.class);
+                        for (int i = 0; i < input.length(); i++) {
+                            query = query.or().equalTo("kanji", input.charAt(i) + "");
+                        }
+                        RealmResults<Kanji> realmResults = query.findAll();
+                        e.onNext(realmResults);
+                        e.onComplete();
                     }
-                    cursor.close();
-                } else {
-                    e.onError(new NullPointerException("cursor == null"));
-                }
-                e.onNext(listKanjis);
-                e.onComplete();
+                });
             }
         });
     }
 
-    public Observable<Grammar> searchGrammar(final String input) {
-        return Observable.create(new ObservableOnSubscribe<Grammar>() {
+    public Observable<RealmResults<Grammar>> searchGrammar(final String input) {
+        return Observable.create(new ObservableOnSubscribe<RealmResults<Grammar>>() {
             @Override
-            public void subscribe(@NonNull ObservableEmitter<Grammar> e) throws Exception {
-                mDatabase = getReadableDatabase();
-                String selection = DatabaseContract.GrammarContract.Main.COLUMN_ORIGIN + " LIKE ?";
-                String[] selectionArgs = new String[]{"%" + input + "%"};
-                String limit = mContext.getString(R.string.result_limit);
-                Cursor cursor = mDatabase.query(
-                    DatabaseContract.GrammarContract.Main.TABLE_NAME,
-                    null,// columns// *
-                    selection,
-                    selectionArgs,
-                    null,// group by
-                    null,// group by args
-                    null,// order by
-                    limit);
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        Grammar grammar = new Grammar();
-                        String origin = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.GrammarContract.Main.COLUMN_ORIGIN));
-                        String definition = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.GrammarContract.Main.COLUMN_DEFINITION));
-                        grammar.setOrigin(origin);
-                        grammar.setDefinition(StringHandling.format(definition));
-                        e.onNext(grammar);
+            public void subscribe(@NonNull final ObservableEmitter<RealmResults<Grammar>> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        RealmResults<Grammar> grammars = realm.where(Grammar.class)
+                            .like("origin", "*" + input + "*")
+                            .findAll();
+                        e.onNext(grammars);
+                        e.onComplete();
                     }
-                    cursor.close();
-                } else {
-                    e.onError(new NullPointerException(""));
-                }
-                e.onComplete();
+                });
             }
         });
-    }
-
-    public Observable<List<String>> searchExamplesOfWord(final int id) {
-        // SELECT * FROM
-        // (SELECT * FROM jpn_vie_main WHERE docid = '1') AS main JOIN
-        // jpn_vie_relate_ex JOIN jpn_vie_examples
-        // WHERE main.docid = jpn_vie_relate_ex.word_id
-        // AND jpn_vie_relate_ex.ex_id = jpn_vie_examples._id
-        // ORDER BY c3priority DESC
-        return Observable.create(new ObservableOnSubscribe<List<String>>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<List<String>> e) throws Exception {
-                mDatabase = getReadableDatabase();
-                List<String> examples = new ArrayList<>();
-                String[] selectionArgs = new String[]{String.valueOf(id)};
-                Cursor cursor = mDatabase.rawQuery(
-                    "SELECT * FROM (SELECT * FROM jpn_vie_main WHERE docid = ? ) AS main JOIN " +
-                        "jpn_vie_relate_ex JOIN " +
-                        "jpn_vie_examples WHERE " +
-                        "main.docid = jpn_vie_relate_ex.word_id AND " +
-                        "jpn_vie_relate_ex.ex_id = jpn_vie_examples._id " +
-                        "ORDER BY c3priority DESC", selectionArgs);
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
-                        JpnWord jpnWord = new JpnWord();
-                        String example = cursor.getString(cursor.getColumnIndex(
-                            DatabaseContract.JpnVieContract.Examples.COLUMN_EXAMPLE));
-                        examples.add(example);
-                    }
-                    cursor.close();
-                } else {
-                    e.onError(new NullPointerException(""));
-                }
-                e.onNext(examples);
-                e.onComplete();
-            }
-        });
-    }
-
-    public void closeDatabase() {
-        if (mDatabase != null && mDatabase.isOpen()) {
-            mDatabase.close();
-        }
     }
 }

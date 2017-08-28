@@ -9,6 +9,7 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.realm.RealmResults;
 
 /**
  * Created by tmd on 16/08/2017.
@@ -21,32 +22,27 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<JpnWord> searchJpnVie(String input) {
+    public Observable<RealmResults<JpnWord>> searchJpnVie(String input) {
         return mLocalDataSource.searchJpnVie(input);
     }
 
     @Override
-    public Observable<VieWord> searchVieJpn(String input) {
+    public Observable<RealmResults<VieWord>> searchVieJpn(String input) {
         return mLocalDataSource.searchVieJpn(input);
     }
 
     @Override
-    public Observable<List<Kanji>> searchKanji(String input) {
+    public Observable<RealmResults<Kanji>> searchKanji(String input) {
         return mLocalDataSource.searchKanji(input);
     }
 
     @Override
-    public Observable<Grammar> searchGrammar(String input) {
+    public Observable<RealmResults<Grammar>> searchGrammar(String input) {
         return mLocalDataSource.searchGrammar(input);
     }
 
     @Override
     public Observable<List<String>> searchExamplesOfWord(int id) {
         return mLocalDataSource.searchExamplesOfWord(id);
-    }
-
-    @Override
-    public void closeDatabase() {
-        mLocalDataSource.closeDatabase();
     }
 }

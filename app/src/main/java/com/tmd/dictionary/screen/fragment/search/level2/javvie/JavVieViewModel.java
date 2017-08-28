@@ -3,6 +3,8 @@ package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
 
+import io.realm.RealmResults;
+
 /**
  * Exposes the data to be used in the JavVie screen.
  */
@@ -37,8 +39,8 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     }
 
     @Override
-    public void onSearchJpnVieSuccess(JpnWord jpnWord) {
-        mAdapter.setSource(jpnWord);
+    public void onSearchJpnVieSuccess(RealmResults<JpnWord> jpnWords) {
+        mAdapter.setSource(jpnWords);
     }
 
     @Override

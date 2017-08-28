@@ -8,7 +8,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link JavVieFragment}), retrieves the data and updates
@@ -33,21 +33,19 @@ final class JavViePresenter implements JavVieContract.Presenter {
     @Override
     public void onStop() {
         if (!mCompositeDisposable.isDisposed()) {
-            mCompositeDisposable.clear();
+            mCompositeDisposable.dispose();
         }
-        mRepository.closeDatabase();
     }
 
     @Override
     public void search(final String needSearch) {
-        mViewModel.onClearData();
         Disposable disposable = mRepository.searchJpnVie(needSearch)
-            .subscribeOn(Schedulers.computation())
+//            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<JpnWord>() {
+            .subscribeWith(new DisposableObserver<RealmResults<JpnWord>>() {
                 @Override
-                public void onNext(@NonNull JpnWord jpnWord) {
-                    mViewModel.onSearchJpnVieSuccess(jpnWord);
+                public void onNext(@NonNull RealmResults<JpnWord> jpnWords) {
+                    mViewModel.onSearchJpnVieSuccess(jpnWords);
                 }
 
                 @Override

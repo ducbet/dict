@@ -7,4 +7,5 @@
     <string name="double_click_back">Please click BACK again to exit</string>
     <string name="result_limit">100</string>
     <string name="unknown_component">Unknown Component</string>
+    <string name="database_name">default.realm</string>
 </resources>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.databinding.ItemVieJpnBinding;
 

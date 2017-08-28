@@ -3,14 +3,12 @@ package com.tmd.dictionary.screen.fragment.search.level2.kanji;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.source.DataSource;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link KanjiFragment}), retrieves the data and updates
@@ -35,21 +33,19 @@ final class KanjiPresenter implements KanjiContract.Presenter {
     @Override
     public void onStop() {
         if (!mCompositeDisposable.isDisposed()) {
-            mCompositeDisposable.clear();
+            mCompositeDisposable.dispose();
         }
-        mRepository.closeDatabase();
     }
 
     @Override
     public void search(final String needSearch) {
-        mViewModel.onClearData();
         Disposable disposable = mRepository.searchKanji(needSearch)
-            .subscribeOn(Schedulers.computation())
+//            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<List<Kanji>>() {
+            .subscribeWith(new DisposableObserver<RealmResults<Kanji>>() {
                 @Override
-                public void onNext(@NonNull List<Kanji> kanji) {
-                    mViewModel.onSearchKanjiSuccess(kanji);
+                public void onNext(@NonNull RealmResults<Kanji> kanjis) {
+                    mViewModel.onSearchKanjiSuccess(kanjis);
                 }
 
                 @Override

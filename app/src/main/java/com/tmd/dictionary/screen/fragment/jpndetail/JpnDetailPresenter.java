@@ -35,8 +35,9 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
 
     @Override
     public void onStop() {
-        mCompositeDisposable.clear();
-        mRepository.closeDatabase();
+        if (!mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.dispose();
+        }
     }
 
     @Override
