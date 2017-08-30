@@ -4,7 +4,7 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
-import java.util.List;
+import io.realm.RealmResults;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -14,7 +14,7 @@ interface KanjiContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onSearchKanjiSuccess(List<Kanji> response);
+        void onSearchKanjiSuccess(RealmResults<Kanji> kanjis);
         void onSearchKanjiFailed();
         void onSetNeedSearch(String needSearch);
         void onClearData();

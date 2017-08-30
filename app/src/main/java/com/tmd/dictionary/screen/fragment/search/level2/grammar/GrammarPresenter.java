@@ -8,7 +8,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link GrammarFragment}), retrieves the data and updates
@@ -33,21 +33,19 @@ final class GrammarPresenter implements GrammarContract.Presenter {
     @Override
     public void onStop() {
         if (!mCompositeDisposable.isDisposed()) {
-            mCompositeDisposable.clear();
+            mCompositeDisposable.dispose();
         }
-        mRepository.closeDatabase();
     }
 
     @Override
     public void search(String needSearch) {
-        mViewModel.onClearData();
         Disposable disposable = mRepository.searchGrammar(needSearch)
-            .subscribeOn(Schedulers.computation())
+//            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<Grammar>() {
+            .subscribeWith(new DisposableObserver<RealmResults<Grammar>>() {
                 @Override
-                public void onNext(@NonNull Grammar grammar) {
-                    mViewModel.onSearchGrammarSuccess(grammar);
+                public void onNext(@NonNull RealmResults<Grammar> grammars) {
+                    mViewModel.onSearchGrammarSuccess(grammars);
                 }
 
                 @Override

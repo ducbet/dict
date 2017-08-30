@@ -6,11 +6,8 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.data.source.local.DatabaseHelper;
 import com.tmd.dictionary.databinding.ActivityMainBinding;
 import com.tmd.dictionary.screen.BaseActivity;
-
-import java.io.IOException;
 
 /**
  * Main Screen.
@@ -30,10 +27,6 @@ public class MainActivity extends BaseActivity {
         ActivityMainBinding binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel((MainViewModel) mViewModel);
-        try {
-            DatabaseHelper.copyDataBase(this);
-        } catch (IOException e) {
-        }
     }
 
     @Override

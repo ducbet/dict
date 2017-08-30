@@ -1,8 +1,5 @@
 package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 
-import android.util.Log;
-
-import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
@@ -11,7 +8,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link VieJavFragment}), retrieves the data and updates
@@ -36,21 +33,19 @@ final class VieJavPresenter implements VieJavContract.Presenter {
     @Override
     public void onStop() {
         if (!mCompositeDisposable.isDisposed()) {
-            mCompositeDisposable.clear();
+            mCompositeDisposable.dispose();
         }
-        mRepository.closeDatabase();
     }
 
     @Override
     public void search(String needSearch) {
-        mViewModel.onClearData();
         Disposable disposable = mRepository.searchVieJpn(needSearch)
-            .subscribeOn(Schedulers.computation())
+//            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(new DisposableObserver<VieWord>() {
+            .subscribeWith(new DisposableObserver<RealmResults<VieWord>>() {
                 @Override
-                public void onNext(@NonNull VieWord vieWord) {
-                    mViewModel.onSearchVieJpnSuccess(vieWord);
+                public void onNext(@NonNull RealmResults<VieWord> vieWords) {
+                    mViewModel.onSearchVieJpnSuccess(vieWords);
                 }
 
                 @Override

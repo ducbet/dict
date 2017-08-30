@@ -1,8 +1,9 @@
 package com.tmd.dictionary.screen.fragment.search.level2.grammar;
 
 import com.tmd.dictionary.data.model.Grammar;
-import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
+
+import io.realm.RealmResults;
 
 /**
  * Exposes the data to be used in the Grammar screen.
@@ -38,8 +39,8 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void onSearchGrammarSuccess(Grammar grammar) {
-        mAdapter.setSource(grammar);
+    public void onSearchGrammarSuccess(RealmResults<Grammar> grammars) {
+        mAdapter.setSource(grammars);
     }
 
     @Override

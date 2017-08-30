@@ -8,15 +8,15 @@ import com.tmd.dictionary.data.model.VieWord;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.realm.RealmResults;
 
 /**
  * Created by tmd on 16/08/2017.
  */
 public interface DataSource {
-    Observable<JpnWord> searchJpnVie(String input);
-    Observable<VieWord> searchVieJpn(String input);
-    Observable<List<Kanji>> searchKanji(String input);
-    Observable<Grammar> searchGrammar(String input);
+    Observable<RealmResults<JpnWord>> searchJpnVie(String input);
+    Observable<RealmResults<VieWord>> searchVieJpn(String input);
+    Observable<RealmResults<Kanji>> searchKanji(String input);
+    Observable<RealmResults<Grammar>> searchGrammar(String input);
     Observable<List<String>> searchExamplesOfWord(int id);
-    void closeDatabase();
 }

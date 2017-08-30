@@ -3,7 +3,7 @@ package com.tmd.dictionary.screen.fragment.search.level2.kanji;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
 
-import java.util.List;
+import io.realm.RealmResults;
 
 /**
  * Exposes the data to be used in the Kanji screen.
@@ -40,8 +40,8 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     }
 
     @Override
-    public void onSearchKanjiSuccess(List<Kanji> response) {
-        mAdapter.setSource(response);
+    public void onSearchKanjiSuccess(RealmResults<Kanji> kanjis) {
+        mAdapter.setSource(kanjis);
     }
 
     @Override
