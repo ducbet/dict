@@ -1,11 +1,13 @@
 package com.tmd.dictionary.data.model;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class Component extends RealmObject {
+public class Component extends RealmObject implements Serializable{
     private String radical = "";
     private int strokeCount;
     private String hanViet = "";

@@ -14,10 +14,12 @@ import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 
+import java.io.Serializable;
+
 /**
  * Exposes the data to be used in the Main screen.
  */
-public class MainViewModel implements MainContract.ViewModel {
+public class MainViewModel implements MainContract.ViewModel, Serializable {
     private MainContract.Presenter mPresenter;
     private Context mContext;
     private FragmentManager mFragmentManager;
