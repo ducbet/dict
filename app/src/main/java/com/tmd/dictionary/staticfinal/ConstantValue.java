@@ -14,6 +14,7 @@ public class ConstantValue {
     public static final String BUNDLE_JPN_WORD = "BUNDLE_JPN_WORD";
     public static final String BUNDLE_VIE_WORD = "BUNDLE_VIE_WORD";
     public static final String BUNDLE_KANJI = "BUNDLE_KANJI";
+    public static final String BUNDLE_GRAMMAR = "BUNDLE_GRAMMAR";
     public static final Map<String, String> WORD_TYPE = new HashMap<>();
     public static final int ITEM_EMPTY_COMPONENT = 1;
     public static final int ITEM_ORIGIN_COMPONENT = 1;

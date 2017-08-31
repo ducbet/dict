@@ -93,7 +93,7 @@ public class MainViewModel implements MainContract.ViewModel, Serializable {
     public void onOpenGrammarDetailFragment(Grammar grammar) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this))
+            .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this, grammar))
             .addToBackStack(null)
             .commit();
     }
