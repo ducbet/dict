@@ -17,7 +17,7 @@ import com.tmd.dictionary.screen.activity.main.MainContract;
 import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
-import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_JPN_WORD;
 
 /**
  * JpnWordDetail Screen.
@@ -31,7 +31,7 @@ public class JpnDetailFragment extends BaseFragment {
         JpnDetailFragment vieJavFragment = new JpnDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
-        bundle.putSerializable(BUNDLE_WORD, jpnWord);
+        bundle.putSerializable(BUNDLE_JPN_WORD, jpnWord);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -42,9 +42,9 @@ public class JpnDetailFragment extends BaseFragment {
         if (getArguments() != null) {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
-            mJpnWord = (JpnWord) getArguments().getSerializable(BUNDLE_WORD);
+            mJpnWord = (JpnWord) getArguments().getSerializable(BUNDLE_JPN_WORD);
         }
-        mViewModel = new JpnDetailViewModel(mJpnWord);
+        mViewModel = new JpnDetailViewModel(mMainViewModel, mJpnWord);
         JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel,
             new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
         mViewModel.setPresenter(presenter);

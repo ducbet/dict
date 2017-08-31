@@ -66,7 +66,7 @@ public class MainViewModel implements MainContract.ViewModel, Serializable {
     public void onOpenKanjiDetailFragment(Kanji kanji) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, KanjiDetailFragment.newInstance(this))
+            .add(R.id.frame_layout, KanjiDetailFragment.newInstance(this, kanji))
             .addToBackStack(null)
             .commit();
     }

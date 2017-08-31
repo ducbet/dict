@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.databinding.FragmentKanjiDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
@@ -20,13 +22,15 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 public class KanjiDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private KanjiDetailContract.ViewModel mViewModel;
+    private Kanji mKanji;
 
-    public static KanjiDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
-        KanjiDetailFragment vieJavFragment = new KanjiDetailFragment();
+    public static KanjiDetailFragment newInstance(MainContract.ViewModel mainViewModel, Kanji kanji) {
+        KanjiDetailFragment kanjiDetailFragment = new KanjiDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
-        vieJavFragment.setArguments(bundle);
-        return vieJavFragment;
+        bundle.putSerializable(BUNDLE_KANJI, kanji);
+        kanjiDetailFragment.setArguments(bundle);
+        return kanjiDetailFragment;
     }
 
     @Override
@@ -35,8 +39,9 @@ public class KanjiDetailFragment extends BaseFragment {
         if (getArguments() != null) {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mKanji = (Kanji) getArguments().getSerializable(BUNDLE_KANJI);
         }
-        mViewModel = new KanjiDetailViewModel();
+        mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);
         KanjiDetailContract.Presenter presenter = new KanjiDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }

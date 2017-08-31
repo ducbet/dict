@@ -2,22 +2,23 @@ package com.tmd.dictionary.screen.fragment.jpndetail;
 
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
-
-import java.util.List;
+import com.tmd.dictionary.screen.activity.main.MainContract;
 
 /**
  * Exposes the data to be used in the JpnWordDetail screen.
  */
 public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
+    private MainContract.ViewModel mMainViewModel;
     private JpnDetailContract.Presenter mPresenter;
     private JpnWord mJpnWord;
     private JpnDetailKanjisAdapter mJpnDetailKanjisAdapter;
     private JpnDetailExamplesAdapter mJpnDetailExamplesAdapter;
 
-    public JpnDetailViewModel(JpnWord jpnWord) {
+    public JpnDetailViewModel(MainContract.ViewModel mainViewModel, JpnWord jpnWord) {
+        mMainViewModel = mainViewModel;
         mJpnWord = jpnWord;
-        mJpnDetailKanjisAdapter = new JpnDetailKanjisAdapter(this);
-        mJpnDetailExamplesAdapter = new JpnDetailExamplesAdapter(this);
+        mJpnDetailKanjisAdapter = new JpnDetailKanjisAdapter(this, jpnWord.getKanjis());
+        mJpnDetailExamplesAdapter = new JpnDetailExamplesAdapter(this, jpnWord.getExamples());
     }
 
     public JpnWord getJpnWord() {
@@ -35,8 +36,6 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.searchKanjis(mJpnWord);
-        mPresenter.searchExamples(mJpnWord);
     }
 
     @Override
@@ -50,33 +49,7 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     }
 
     @Override
-    public void onSearchKanjisSuccess(List<Kanji> kanjis) {
-        mJpnWord.setKanjis(kanjis);
-        mJpnDetailKanjisAdapter.setSource(mJpnWord.getKanjis());
-    }
-
-    @Override
-    public void onSearchKanjisFailed() {
-        onClearKanjisData();
-    }
-
-    @Override
-    public void onSearchExamplesSuccess(List<String> examples) {
-        mJpnDetailExamplesAdapter.setSource(examples);
-    }
-
-    @Override
-    public void onSearchExamplesFailed() {
-        onClearExamplesData();
-    }
-
-    @Override
-    public void onClearKanjisData() {
-        mJpnDetailKanjisAdapter.clearData();
-    }
-
-    @Override
-    public void onClearExamplesData() {
-        mJpnDetailExamplesAdapter.clearData();
+    public void onClickKanji(Kanji kanji) {
+        mMainViewModel.onOpenKanjiDetailFragment(kanji);
     }
 }

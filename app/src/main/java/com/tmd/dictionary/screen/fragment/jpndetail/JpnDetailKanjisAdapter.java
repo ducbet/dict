@@ -24,17 +24,17 @@ public class JpnDetailKanjisAdapter
         mViewModel = viewModel;
     }
 
+    public JpnDetailKanjisAdapter(JpnDetailContract.ViewModel viewModel, List<Kanji> list) {
+        mViewModel = viewModel;
+        mList = list;
+    }
+
     public void setSource(List<Kanji> lists) {
         mList.clear();
         if (lists == null) {
             return;
         }
         mList = lists;
-        notifyDataSetChanged();
-    }
-
-    public void clearData() {
-        mList.clear();
         notifyDataSetChanged();
     }
 
