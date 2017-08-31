@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.RealmString;
 import com.tmd.dictionary.databinding.ItemExampleJpnDetailBinding;
 
 import java.util.ArrayList;
@@ -17,23 +18,24 @@ import java.util.List;
 public class JpnDetailExamplesAdapter
     extends RecyclerView.Adapter<JpnDetailExamplesAdapter.ViewHolder> {
     private JpnDetailContract.ViewModel mViewModel;
-    private List<String> mList = new ArrayList<>();
+    private List<RealmString> mList = new ArrayList<>();
 
     public JpnDetailExamplesAdapter(JpnDetailContract.ViewModel viewModel) {
         mViewModel = viewModel;
     }
 
-    public void setSource(List<String> lists) {
+    public JpnDetailExamplesAdapter(JpnDetailContract.ViewModel viewModel,
+                                    List<RealmString> list) {
+        mViewModel = viewModel;
+        mList = list;
+    }
+
+    public void setSource(List<RealmString> lists) {
         mList.clear();
         if (lists == null) {
             return;
         }
         mList = lists;
-        notifyDataSetChanged();
-    }
-
-    public void clearData() {
-        mList.clear();
         notifyDataSetChanged();
     }
 
@@ -47,7 +49,7 @@ public class JpnDetailExamplesAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String example = mList.get(position);
+        RealmString example = mList.get(position);
         holder.bind(example);
     }
 
@@ -64,9 +66,9 @@ public class JpnDetailExamplesAdapter
             mBinding = binding;
         }
 
-        public void bind(String example) {
+        public void bind(RealmString example) {
             mBinding.setViewModel((JpnDetailViewModel) mViewModel);
-            mBinding.setString(example);
+            mBinding.setRealmString(example);
         }
     }
 }
