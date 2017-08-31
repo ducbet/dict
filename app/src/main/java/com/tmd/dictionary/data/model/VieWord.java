@@ -1,5 +1,7 @@
 package com.tmd.dictionary.data.model;
 
+import java.io.Serializable;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -7,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by tmd on 26/08/2017.
  */
-public class VieWord extends RealmObject {
+public class VieWord extends RealmObject implements Serializable {
     @PrimaryKey
     private String origin = "";
     private String kana = "";

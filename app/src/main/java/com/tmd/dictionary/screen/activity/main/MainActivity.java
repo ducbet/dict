@@ -9,10 +9,12 @@ import com.tmd.dictionary.R;
 import com.tmd.dictionary.databinding.ActivityMainBinding;
 import com.tmd.dictionary.screen.BaseActivity;
 
+import java.io.Serializable;
+
 /**
  * Main Screen.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements Serializable {
     private static final long EXIT_DELAY = 2000;
     private MainContract.ViewModel mViewModel;
     private boolean mIsDoubleClickedBack;

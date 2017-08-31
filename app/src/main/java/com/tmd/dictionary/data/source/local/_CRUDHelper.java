@@ -36,6 +36,8 @@ public class _CRUDHelper {
                     public void execute(Realm realm) {
                         RealmResults<JpnWord> jpnWords = realm.where(JpnWord.class)
                             .like("origin", "*" + input + "*")
+                            .or()
+                            .like("kana", "*" + input + "*")
                             .findAll();
                         e.onNext(jpnWords);
                         e.onComplete();
@@ -61,6 +63,8 @@ public class _CRUDHelper {
                     public void execute(Realm realm) {
                         RealmResults<VieWord> vieWords = realm.where(VieWord.class)
                             .like("origin", "*" + input + "*")
+                            .or()
+                            .like("kana", "*" + input + "*")
                             .findAll();
                         e.onNext(vieWords);
                         e.onComplete();
