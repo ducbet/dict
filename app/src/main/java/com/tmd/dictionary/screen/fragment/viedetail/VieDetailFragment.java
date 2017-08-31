@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.databinding.FragmentVieDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIE_WORD;
 
 /**
  * VieDetail Screen.
@@ -20,11 +22,14 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 public class VieDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private VieDetailContract.ViewModel mViewModel;
+    private VieWord mVieWord;
 
-    public static VieDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
+    public static VieDetailFragment newInstance(MainContract.ViewModel mainViewModel,
+                                                VieWord vieWord) {
         VieDetailFragment vieJavFragment = new VieDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putSerializable(BUNDLE_VIE_WORD, vieWord);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -35,8 +40,9 @@ public class VieDetailFragment extends BaseFragment {
         if (getArguments() != null) {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mVieWord = (VieWord) getArguments().getSerializable(BUNDLE_VIE_WORD);
         }
-        mViewModel = new VieDetailViewModel();
+        mViewModel = new VieDetailViewModel(mMainViewModel, mVieWord);
         VieDetailContract.Presenter presenter = new VieDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }

@@ -84,7 +84,7 @@ public class MainViewModel implements MainContract.ViewModel, Serializable {
     public void onOpenVieWordDetailFragment(VieWord vieWord) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, VieDetailFragment.newInstance(this))
+            .add(R.id.frame_layout, VieDetailFragment.newInstance(this, vieWord))
             .addToBackStack(null)
             .commit();
     }
