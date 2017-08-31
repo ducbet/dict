@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.databinding.FragmentGrammarDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_GRAMMAR;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
@@ -20,11 +22,14 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 public class GrammarDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private GrammarDetailContract.ViewModel mViewModel;
+    private Grammar mGrammar;
 
-    public static GrammarDetailFragment newInstance(MainContract.ViewModel mainViewModel) {
+    public static GrammarDetailFragment newInstance(MainContract.ViewModel mainViewModel,
+                                                    Grammar grammar) {
         GrammarDetailFragment vieJavFragment = new GrammarDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putSerializable(BUNDLE_GRAMMAR, grammar);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -35,8 +40,9 @@ public class GrammarDetailFragment extends BaseFragment {
         if (getArguments() != null) {
             mMainViewModel =
                 (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mGrammar = (Grammar) getArguments().getSerializable(BUNDLE_GRAMMAR);
         }
-        mViewModel = new GrammarDetailViewModel();
+        mViewModel = new GrammarDetailViewModel(mMainViewModel, mGrammar);
         GrammarDetailContract.Presenter presenter = new GrammarDetailPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
     }
