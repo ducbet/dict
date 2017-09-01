@@ -1,6 +1,8 @@
 package com.tmd.dictionary.screen.activity.main;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 
 import com.tmd.dictionary.R;
@@ -19,7 +21,7 @@ import java.io.Serializable;
 /**
  * Exposes the data to be used in the Main screen.
  */
-public class MainViewModel implements MainContract.ViewModel, Serializable {
+public class MainViewModel implements MainContract.ViewModel, Parcelable {
     private MainContract.Presenter mPresenter;
     private Context mContext;
     private FragmentManager mFragmentManager;
@@ -29,6 +31,21 @@ public class MainViewModel implements MainContract.ViewModel, Serializable {
         mFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
         initSearchFragment();
     }
+
+    protected MainViewModel(Parcel in) {
+    }
+
+    public static final Creator<MainViewModel> CREATOR = new Creator<MainViewModel>() {
+        @Override
+        public MainViewModel createFromParcel(Parcel in) {
+            return new MainViewModel(in);
+        }
+
+        @Override
+        public MainViewModel[] newArray(int size) {
+            return new MainViewModel[size];
+        }
+    };
 
     private void initSearchFragment() {
         mFragmentManager
@@ -96,5 +113,14 @@ public class MainViewModel implements MainContract.ViewModel, Serializable {
             .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this, grammar))
             .addToBackStack(null)
             .commit();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
     }
 }

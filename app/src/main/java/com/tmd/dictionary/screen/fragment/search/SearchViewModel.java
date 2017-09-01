@@ -2,6 +2,8 @@ package com.tmd.dictionary.screen.fragment.search;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
@@ -33,7 +35,8 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.DELAY_SEARCH;
 /**
  * Exposes the data to be used in the Search screen.
  */
-public class SearchViewModel extends BaseObservable implements SearchContract.ViewModel {
+public class SearchViewModel extends BaseObservable implements SearchContract.ViewModel,
+    Parcelable {
     private static final String TAG = SearchViewModel.class.getName();
     private MainContract.ViewModel mMainViewModel;
     private Context mContext;
@@ -48,6 +51,22 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
         mContext = ((MainViewModel) mMainViewModel).getContext();
         initViewPager();
     }
+
+    protected SearchViewModel(Parcel in) {
+        mNeedSearch = in.readString();
+    }
+
+    public static final Creator<SearchViewModel> CREATOR = new Creator<SearchViewModel>() {
+        @Override
+        public SearchViewModel createFromParcel(Parcel in) {
+            return new SearchViewModel(in);
+        }
+
+        @Override
+        public SearchViewModel[] newArray(int size) {
+            return new SearchViewModel[size];
+        }
+    };
 
     private void initViewPager() {
         mListFragments = new ArrayList<>();
@@ -131,5 +150,15 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     @Override
     public void onItemClick(Kanji kanji) {
         mMainViewModel.onOpenKanjiDetailFragment(kanji);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mNeedSearch);
     }
 }
