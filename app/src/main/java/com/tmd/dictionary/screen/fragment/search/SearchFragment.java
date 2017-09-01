@@ -24,7 +24,7 @@ public class SearchFragment extends BaseFragment {
     public static SearchFragment newInstance(MainContract.ViewModel mainViewModel) {
         SearchFragment vieJavFragment = new SearchFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -33,8 +33,7 @@ public class SearchFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMainViewModel =
-                (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new SearchViewModel(mMainViewModel);
         SearchContract.Presenter presenter = new SearchPresenter(mViewModel);

@@ -28,7 +28,7 @@ public class VieDetailFragment extends BaseFragment {
                                                 VieWord vieWord) {
         VieDetailFragment vieJavFragment = new VieDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
         bundle.putSerializable(BUNDLE_VIE_WORD, vieWord);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
@@ -38,8 +38,7 @@ public class VieDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMainViewModel =
-                (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
             mVieWord = (VieWord) getArguments().getSerializable(BUNDLE_VIE_WORD);
         }
         mViewModel = new VieDetailViewModel(mMainViewModel, mVieWord);

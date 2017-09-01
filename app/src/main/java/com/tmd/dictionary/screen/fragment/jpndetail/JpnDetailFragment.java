@@ -16,8 +16,8 @@ import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_JPN_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
  * JpnWordDetail Screen.
@@ -27,10 +27,11 @@ public class JpnDetailFragment extends BaseFragment {
     private JpnDetailContract.ViewModel mViewModel;
     private JpnWord mJpnWord;
 
-    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel, JpnWord jpnWord) {
+    public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel,
+                                                JpnWord jpnWord) {
         JpnDetailFragment vieJavFragment = new JpnDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
         bundle.putSerializable(BUNDLE_JPN_WORD, jpnWord);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
@@ -40,8 +41,7 @@ public class JpnDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMainViewModel =
-                (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
             mJpnWord = (JpnWord) getArguments().getSerializable(BUNDLE_JPN_WORD);
         }
         mViewModel = new JpnDetailViewModel(mMainViewModel, mJpnWord);

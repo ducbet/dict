@@ -28,7 +28,7 @@ public class GrammarFragment extends BaseFragmentLevel2 {
     public static GrammarFragment newInstance(SearchContract.ViewModel searchViewModel) {
         GrammarFragment grammarFragment = new GrammarFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, searchViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, searchViewModel);
         grammarFragment.setArguments(bundle);
         return grammarFragment;
     }
@@ -37,8 +37,7 @@ public class GrammarFragment extends BaseFragmentLevel2 {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSearchViewModel =
-                (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new GrammarViewModel(mSearchViewModel);
         GrammarContract.Presenter presenter = new GrammarPresenter(mViewModel,

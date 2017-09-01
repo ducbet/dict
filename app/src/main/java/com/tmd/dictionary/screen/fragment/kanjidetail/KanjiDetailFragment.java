@@ -24,10 +24,11 @@ public class KanjiDetailFragment extends BaseFragment {
     private KanjiDetailContract.ViewModel mViewModel;
     private Kanji mKanji;
 
-    public static KanjiDetailFragment newInstance(MainContract.ViewModel mainViewModel, Kanji kanji) {
+    public static KanjiDetailFragment newInstance(MainContract.ViewModel mainViewModel,
+                                                  Kanji kanji) {
         KanjiDetailFragment kanjiDetailFragment = new KanjiDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
         bundle.putSerializable(BUNDLE_KANJI, kanji);
         kanjiDetailFragment.setArguments(bundle);
         return kanjiDetailFragment;
@@ -37,8 +38,7 @@ public class KanjiDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMainViewModel =
-                (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
             mKanji = (Kanji) getArguments().getSerializable(BUNDLE_KANJI);
         }
         mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);

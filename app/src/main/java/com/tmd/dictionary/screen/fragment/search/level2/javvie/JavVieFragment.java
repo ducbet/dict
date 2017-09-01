@@ -28,7 +28,7 @@ public class JavVieFragment extends BaseFragmentLevel2 {
     public static JavVieFragment newInstance(SearchContract.ViewModel searchViewModel) {
         JavVieFragment javVieFragment = new JavVieFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, searchViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, searchViewModel);
         javVieFragment.setArguments(bundle);
         return javVieFragment;
     }
@@ -37,8 +37,7 @@ public class JavVieFragment extends BaseFragmentLevel2 {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSearchViewModel =
-                (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new JavVieViewModel(mSearchViewModel);
         JavVieContract.Presenter presenter = new JavViePresenter(mViewModel,

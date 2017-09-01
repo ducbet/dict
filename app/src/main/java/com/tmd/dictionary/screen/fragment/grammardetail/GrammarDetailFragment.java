@@ -28,7 +28,7 @@ public class GrammarDetailFragment extends BaseFragment {
                                                     Grammar grammar) {
         GrammarDetailFragment vieJavFragment = new GrammarDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
         bundle.putSerializable(BUNDLE_GRAMMAR, grammar);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
@@ -38,8 +38,7 @@ public class GrammarDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMainViewModel =
-                (MainContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
             mGrammar = (Grammar) getArguments().getSerializable(BUNDLE_GRAMMAR);
         }
         mViewModel = new GrammarDetailViewModel(mMainViewModel, mGrammar);
