@@ -28,7 +28,7 @@ public class KanjiFragment extends BaseFragmentLevel2 {
     public static KanjiFragment newInstance(SearchContract.ViewModel searchViewModel) {
         KanjiFragment kanjiFragment = new KanjiFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_VIEW_MODEL, searchViewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, searchViewModel);
         kanjiFragment.setArguments(bundle);
         return kanjiFragment;
     }
@@ -37,8 +37,7 @@ public class KanjiFragment extends BaseFragmentLevel2 {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mSearchViewModel =
-                (SearchContract.ViewModel) getArguments().getSerializable(BUNDLE_VIEW_MODEL);
+            mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new KanjiViewModel(mSearchViewModel);
         KanjiContract.Presenter presenter = new KanjiPresenter(mViewModel,

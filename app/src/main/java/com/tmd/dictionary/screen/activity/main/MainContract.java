@@ -1,5 +1,7 @@
 package com.tmd.dictionary.screen.activity.main;
 
+import android.os.Parcelable;
+
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
@@ -16,7 +18,7 @@ public interface MainContract {
     /**
      * View.
      */
-    interface ViewModel extends BaseViewModel<Presenter>, Serializable {
+    interface ViewModel extends BaseViewModel<Presenter>, Parcelable {
         boolean isSearchFragVisibility();
         void onOpenKanjiDetailFragment(Kanji kanji);
         void onOpenJpnWordDetailFragment(JpnWord jpnWord);

@@ -1,13 +1,13 @@
 package com.tmd.dictionary.screen.fragment.search;
 
+import android.os.Parcelable;
+
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
-
-import java.io.Serializable;
 
 import io.reactivex.Observable;
 
@@ -18,7 +18,7 @@ public interface SearchContract {
     /**
      * View.
      */
-    interface ViewModel extends BaseViewModel<Presenter>, Serializable {
+    interface ViewModel extends BaseViewModel<Presenter>, Parcelable {
         void onSendToAllFragment(Observable<String> textChangeObservable);
         void onItemClick(JpnWord jpnWord);
         void onItemClick(VieWord vieWord);
