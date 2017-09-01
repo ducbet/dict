@@ -1,7 +1,11 @@
 package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
+import android.app.Activity;
+
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
+import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
 import io.realm.RealmResults;
 
@@ -60,6 +64,7 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
 
     @Override
     public void onItemClick(JpnWord jpnWord) {
+        SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
         mSearchViewModel.onItemClick(jpnWord);
     }
 }
