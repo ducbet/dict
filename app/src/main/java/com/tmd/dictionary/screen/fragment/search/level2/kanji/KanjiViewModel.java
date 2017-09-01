@@ -1,7 +1,11 @@
 package com.tmd.dictionary.screen.fragment.search.level2.kanji;
 
+import android.app.Activity;
+
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
+import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
 import io.realm.RealmResults;
 
@@ -61,6 +65,7 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
 
     @Override
     public void onItemClick(Kanji kanji) {
+        SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
         mSearchViewModel.onItemClick(kanji);
     }
 }

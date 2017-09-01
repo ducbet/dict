@@ -1,8 +1,12 @@
 package com.tmd.dictionary.screen.fragment.search.level2.viejav;
 
+import android.app.Activity;
+
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
+import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+import com.tmd.dictionary.staticfinal.SoftKeybroad;
 import com.tmd.dictionary.util.DictApplication;
 
 import io.realm.Realm;
@@ -69,6 +73,7 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
 
     @Override
     public void onItemClick(VieWord vieWord) {
+        SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
         mSearchViewModel.onItemClick(vieWord);
     }
 }

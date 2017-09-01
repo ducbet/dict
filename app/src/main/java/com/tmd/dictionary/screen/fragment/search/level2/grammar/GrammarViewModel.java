@@ -1,7 +1,11 @@
 package com.tmd.dictionary.screen.fragment.search.level2.grammar;
 
+import android.app.Activity;
+
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
+import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
 import io.realm.RealmResults;
 
@@ -60,6 +64,7 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
 
     @Override
     public void onItemClick(Grammar grammar) {
+        SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
         mSearchViewModel.onItemClick(grammar);
     }
 }
