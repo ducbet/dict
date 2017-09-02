@@ -2,8 +2,11 @@ package com.tmd.dictionary.data.source.local;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.RealmInteger;
+import com.tmd.dictionary.data.model.RealmString;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 import com.tmd.dictionary.util.DictApplication;
@@ -48,6 +51,7 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
+                realm.close();
             }
         });
     }
@@ -77,6 +81,7 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
+                realm.close();
             }
         });
     }
@@ -105,6 +110,7 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
+                realm.close();
             }
         });
     }
@@ -130,6 +136,22 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
+                realm.close();
+            }
+        });
+    }
+
+    @Override
+    public void saveToHistory(Realm realm, final int type, final String primaryKey) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                History history = realm.where(History.class).findFirst();
+                if (history == null) {
+                    history = realm.createObject(History.class);
+                }
+                history.getPrimaryKey().add(0, new RealmString(primaryKey));
+                history.getType().add(0, new RealmInteger(type));
             }
         });
     }

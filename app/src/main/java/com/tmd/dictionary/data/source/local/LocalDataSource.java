@@ -9,6 +9,7 @@ import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.Observable;
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -41,5 +42,10 @@ public class LocalDataSource implements DataSource {
     @Override
     public Observable<RealmResults<Grammar>> searchGrammar(String input) {
         return mCRUDHelper.searchGrammar(input);
+    }
+
+    @Override
+    public void saveToHistory(Realm realm, final int type, final String primaryKey) {
+        mCRUDHelper.saveToHistory(realm, type, primaryKey);
     }
 }

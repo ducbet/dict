@@ -4,6 +4,8 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
+import io.realm.Realm;
+
 /**
  * This specifies the contract between the view and the presenter.
  */
@@ -19,5 +21,6 @@ interface JpnDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void saveToHistory(Realm realm, String primaryKey);
     }
 }

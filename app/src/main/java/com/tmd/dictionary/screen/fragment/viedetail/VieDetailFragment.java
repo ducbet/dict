@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.VieWord;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentVieDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIE_WORD;
@@ -42,7 +45,8 @@ public class VieDetailFragment extends BaseFragment {
             mVieWord = getArguments().getParcelable(BUNDLE_VIE_WORD);
         }
         mViewModel = new VieDetailViewModel(mMainViewModel, mVieWord);
-        VieDetailContract.Presenter presenter = new VieDetailPresenter(mViewModel);
+        VieDetailContract.Presenter presenter = new VieDetailPresenter(mViewModel,
+            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 
