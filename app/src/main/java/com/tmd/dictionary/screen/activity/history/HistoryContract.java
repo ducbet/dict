@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.activity.history;
 
+import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -11,11 +12,14 @@ interface HistoryContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onGetHistorySuccess(History history);
+        void onGetHistoryFailed(Throwable e);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void getHistory();
     }
 }

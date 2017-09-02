@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tmd.dictionary.screen.activity.history.HistoryViewModel"
+            />
+
+        <variable
+            name="key"
+            type="String"
+            />
+
+        <variable
+            name="type"
+            type="Integer"
+            />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="@{key}"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp_15"/>
+</layout>
