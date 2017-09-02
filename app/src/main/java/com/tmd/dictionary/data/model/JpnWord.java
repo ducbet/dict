@@ -1,16 +1,20 @@
 package com.tmd.dictionary.data.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import io.realm.RealmList;
-import io.realm.RealmObject;
+import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class JpnWord extends RealmObject implements Serializable {
+@RealmClass
+public class JpnWord implements RealmModel, Parcelable {
     @PrimaryKey
     private String origin = "";
     private String kana = "";
@@ -22,6 +26,31 @@ public class JpnWord extends RealmObject implements Serializable {
     private int searchedCount;
     private boolean isModified;
     private RealmList<JpnBox> inBox;
+
+    public JpnWord() {
+    }
+
+    protected JpnWord(Parcel in) {
+        origin = in.readString();
+        kana = in.readString();
+        definition = in.readString();
+        priority = in.readInt();
+        isLearned = in.readByte() != 0;
+        searchedCount = in.readInt();
+        isModified = in.readByte() != 0;
+    }
+
+    public static final Creator<JpnWord> CREATOR = new Creator<JpnWord>() {
+        @Override
+        public JpnWord createFromParcel(Parcel in) {
+            return new JpnWord(in);
+        }
+
+        @Override
+        public JpnWord[] newArray(int size) {
+            return new JpnWord[size];
+        }
+    };
 
     public boolean isLearned() {
         return isLearned;
@@ -105,5 +134,21 @@ public class JpnWord extends RealmObject implements Serializable {
             realmList.add(kanji);
         }
         this.kanjis = realmList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(origin);
+        parcel.writeString(kana);
+        parcel.writeString(definition);
+        parcel.writeInt(priority);
+        parcel.writeByte((byte) (isLearned ? 1 : 0));
+        parcel.writeInt(searchedCount);
+        parcel.writeByte((byte) (isModified ? 1 : 0));
     }
 }

@@ -8,8 +8,6 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import io.realm.RealmResults;
 
@@ -43,11 +41,5 @@ public class LocalDataSource implements DataSource {
     @Override
     public Observable<RealmResults<Grammar>> searchGrammar(String input) {
         return mCRUDHelper.searchGrammar(input);
-    }
-
-    @Override
-    public Observable<List<String>> searchExamplesOfWord(int id) {
-//        return mCRUDHelper.searchExamplesOfWord(id);
-        return null;
     }
 }

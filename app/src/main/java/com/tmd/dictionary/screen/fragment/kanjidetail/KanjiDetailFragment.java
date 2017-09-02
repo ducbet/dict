@@ -29,7 +29,7 @@ public class KanjiDetailFragment extends BaseFragment {
         KanjiDetailFragment kanjiDetailFragment = new KanjiDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
-        bundle.putSerializable(BUNDLE_KANJI, kanji);
+        bundle.putParcelable(BUNDLE_KANJI, kanji);
         kanjiDetailFragment.setArguments(bundle);
         return kanjiDetailFragment;
     }
@@ -39,7 +39,7 @@ public class KanjiDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-            mKanji = (Kanji) getArguments().getSerializable(BUNDLE_KANJI);
+            mKanji = getArguments().getParcelable(BUNDLE_KANJI);
         }
         mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);
         KanjiDetailContract.Presenter presenter = new KanjiDetailPresenter(mViewModel);

@@ -32,7 +32,7 @@ public class JpnDetailFragment extends BaseFragment {
         JpnDetailFragment vieJavFragment = new JpnDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
-        bundle.putSerializable(BUNDLE_JPN_WORD, jpnWord);
+        bundle.putParcelable(BUNDLE_JPN_WORD, jpnWord);
         vieJavFragment.setArguments(bundle);
         return vieJavFragment;
     }
@@ -42,7 +42,7 @@ public class JpnDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-            mJpnWord = (JpnWord) getArguments().getSerializable(BUNDLE_JPN_WORD);
+            mJpnWord = getArguments().getParcelable(BUNDLE_JPN_WORD);
         }
         mViewModel = new JpnDetailViewModel(mMainViewModel, mJpnWord);
         JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel,
