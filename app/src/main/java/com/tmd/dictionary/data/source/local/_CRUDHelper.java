@@ -16,6 +16,8 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
+
 /**
  * Created by tmd on 09/07/2017.
  */
@@ -28,6 +30,7 @@ public class _CRUDHelper {
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<JpnWord>> e)
                 throws Exception {
                 RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
                     .assetFile(DictApplication.getContext().getString(R.string.database_name))
                     .build();
                 Realm realm = Realm.getInstance(config);
@@ -55,6 +58,7 @@ public class _CRUDHelper {
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<VieWord>> e)
                 throws Exception {
                 RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
                     .assetFile(DictApplication.getContext().getString(R.string.database_name))
                     .build();
                 Realm realm = Realm.getInstance(config);
@@ -81,6 +85,7 @@ public class _CRUDHelper {
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<Kanji>> e)
                 throws Exception {
                 RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
                     .assetFile(DictApplication.getContext().getString(R.string.database_name))
                     .build();
                 Realm realm = Realm.getInstance(config);
@@ -106,6 +111,7 @@ public class _CRUDHelper {
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<Grammar>> e)
                 throws Exception {
                 RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
                     .assetFile(DictApplication.getContext().getString(R.string.database_name))
                     .build();
                 Realm realm = Realm.getInstance(config);

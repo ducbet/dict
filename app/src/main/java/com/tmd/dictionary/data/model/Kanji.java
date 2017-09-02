@@ -11,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
  */
 public class Kanji extends RealmObject implements Serializable {
     @PrimaryKey
-    private String kanji = "";
+    private String origin = "";
     private String hanViet = "";
     private String radical = "";
     private int stroke;
@@ -20,13 +20,49 @@ public class Kanji extends RealmObject implements Serializable {
     private String kunyomi = "";
     private String meaning = "";
     private RealmList<Component> components;
+    private boolean isLearned;
+    private int searchedCount;
+    private boolean isModified;
+    private RealmList<KanjiBox> inBox;
 
-    public String getKanji() {
-        return kanji;
+    public boolean isLearned() {
+        return isLearned;
     }
 
-    public void setKanji(String kanji) {
-        this.kanji = kanji;
+    public void setLearned(boolean learned) {
+        isLearned = learned;
+    }
+
+    public int getSearchedCount() {
+        return searchedCount;
+    }
+
+    public void setSearchedCount(int searchedCount) {
+        this.searchedCount = searchedCount;
+    }
+
+    public boolean isModified() {
+        return isModified;
+    }
+
+    public void setModified(boolean modified) {
+        isModified = modified;
+    }
+
+    public RealmList<KanjiBox> getInBox() {
+        return inBox;
+    }
+
+    public void setInBox(RealmList<KanjiBox> inBox) {
+        this.inBox = inBox;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public String getHanViet() {
