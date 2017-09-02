@@ -16,6 +16,10 @@ public class RealmString implements RealmModel, Parcelable {
     public RealmString() {
     }
 
+    public RealmString(String value) {
+        this.value = value;
+    }
+
     protected RealmString(Parcel in) {
         value = in.readString();
     }

@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentKanjiDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
@@ -42,7 +45,8 @@ public class KanjiDetailFragment extends BaseFragment {
             mKanji = getArguments().getParcelable(BUNDLE_KANJI);
         }
         mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);
-        KanjiDetailContract.Presenter presenter = new KanjiDetailPresenter(mViewModel);
+        KanjiDetailContract.Presenter presenter = new KanjiDetailPresenter(mViewModel,
+            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
         mViewModel.setPresenter(presenter);
     }
 

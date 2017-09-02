@@ -3,6 +3,9 @@ package com.tmd.dictionary.screen.fragment.jpndetail;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.realm.Realm;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
 
 /**
  * Listens to user actions from the UI ({@link JpnDetailFragment}), retrieves the data and updates
@@ -29,5 +32,10 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
         if (!mCompositeDisposable.isDisposed()) {
             mCompositeDisposable.dispose();
         }
+    }
+
+    @Override
+    public void saveToHistory(Realm realm, String primaryKey) {
+        mRepository.saveToHistory(realm, INT_JPN_WORD, primaryKey);
     }
 }

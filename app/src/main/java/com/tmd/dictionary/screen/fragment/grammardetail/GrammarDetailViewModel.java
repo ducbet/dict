@@ -1,7 +1,14 @@
 package com.tmd.dictionary.screen.fragment.grammardetail;
 
+import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.util.DictApplication;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 
 /**
  * Exposes the data to be used in the GrammarDetail screen.
@@ -10,10 +17,20 @@ public class GrammarDetailViewModel implements GrammarDetailContract.ViewModel {
     private MainContract.ViewModel mMainViewModel;
     private GrammarDetailContract.Presenter mPresenter;
     private Grammar mGrammar;
+    private Realm mRealm;
 
     public GrammarDetailViewModel(MainContract.ViewModel mainViewModel, Grammar grammar) {
         mMainViewModel = mainViewModel;
         mGrammar = grammar;
+        initRealm();
+    }
+
+    private void initRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
     }
 
     public Grammar getGrammar() {
@@ -23,11 +40,13 @@ public class GrammarDetailViewModel implements GrammarDetailContract.ViewModel {
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.saveToHistory(mRealm, mGrammar.getOrigin());
     }
 
     @Override
     public void onStop() {
         mPresenter.onStop();
+        mRealm.close();
     }
 
     @Override

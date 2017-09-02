@@ -17,10 +17,10 @@ public class ConstantValue {
     public static final String BUNDLE_KANJI = "BUNDLE_KANJI";
     public static final String BUNDLE_GRAMMAR = "BUNDLE_GRAMMAR";
     public static final Map<String, String> WORD_TYPE = new HashMap<>();
-    public static final String JPN_WORD = "JPN_WORD";
-    public static final String VIE_WORD = "VIE_WORD";
-    public static final String KANJI = "KANJI";
-    public static final String GRAMMAR = "GRAMMAR";
+    public static final int INT_JPN_WORD = 1;
+    public static final int INT_VIE_WORD = 2;
+    public static final int INT_KANJI = 3;
+    public static final int INT_GRAMMAR = 4;
     public static final int DELAY_SEARCH = 100;
     public static final Set<Character.UnicodeBlock> JAPANESE_UNICODE = new HashSet() {
         {
