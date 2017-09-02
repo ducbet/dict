@@ -16,6 +16,7 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
+import com.tmd.dictionary.screen.activity.boxs.BoxesActivity;
 import com.tmd.dictionary.screen.activity.history.HistoryActivity;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
@@ -121,6 +122,12 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
+    public void onOpenBoxesActivity() {
+        Intent intent = new Intent(mContext, BoxesActivity.class);
+        mContext.startActivity(intent);
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -154,6 +161,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
                 onOpenHistoryActivity();
                 break;
             case R.id.flash_card:
+                onOpenBoxesActivity();
                 break;
             default:
                 break;

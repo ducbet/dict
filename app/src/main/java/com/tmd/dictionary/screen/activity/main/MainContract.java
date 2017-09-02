@@ -23,6 +23,7 @@ public interface MainContract {
         void onOpenVieWordDetailFragment(VieWord vieWord);
         void onOpenGrammarDetailFragment(Grammar grammar);
         void onOpenHistoryActivity();
+        void onOpenBoxesActivity();
     }
 
     /**
