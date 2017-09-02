@@ -19,7 +19,6 @@
         android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:padding="@dimen/dp_5"
-        tools:context=".screen.fragment.grammardetail.GrammarDetailActivity"
         >
 
         <TextView

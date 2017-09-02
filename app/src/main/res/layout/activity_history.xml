@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
 
@@ -9,22 +8,16 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.search.level2.kanji.KanjiViewModel"
+            type="com.tmd.dictionary.screen.activity.history.HistoryViewModel"
             />
 
-        <import type="com.tmd.dictionary.util.LayoutManagers"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context="com.tmd.dictionary.screen.screen.history.HistoryActivity"
         >
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            bind:adapter="@{viewModel.adapter}"
-            bind:layoutManager="@{LayoutManagers.linear()}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
