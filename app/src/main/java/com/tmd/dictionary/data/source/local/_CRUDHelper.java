@@ -5,6 +5,7 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
+import com.tmd.dictionary.data.source.DataSource;
 import com.tmd.dictionary.util.DictApplication;
 
 import io.reactivex.Observable;
@@ -21,7 +22,8 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 /**
  * Created by tmd on 09/07/2017.
  */
-public class _CRUDHelper {
+public class _CRUDHelper implements DataSource {
+    @Override
     public Observable<RealmResults<JpnWord>> searchJpnVie(final String input) {
         // SELECT * FROM jpn_vie_main WHERE c0origin LIKE ?
         // OR c1kana LIKE ? ORDER BY c3priority DESC LIMIT 100
@@ -50,6 +52,7 @@ public class _CRUDHelper {
         });
     }
 
+    @Override
     public Observable<RealmResults<VieWord>> searchVieJpn(final String input) {
         // TODO: 30/08/2017  nếu không có .subscribeOn(Schedulers.computation())
         // trong VieJavPresenter thì vẫn là thực hiện ở main thread
@@ -78,6 +81,7 @@ public class _CRUDHelper {
         });
     }
 
+    @Override
     public Observable<RealmResults<Kanji>> searchKanji(final String input) {
         // SELECT * FROM kanji_main WHERE kanji = ?
         return Observable.create(new ObservableOnSubscribe<RealmResults<Kanji>>() {
@@ -105,6 +109,7 @@ public class _CRUDHelper {
         });
     }
 
+    @Override
     public Observable<RealmResults<Grammar>> searchGrammar(final String input) {
         return Observable.create(new ObservableOnSubscribe<RealmResults<Grammar>>() {
             @Override

@@ -4,8 +4,6 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
-import java.util.List;
-
 /**
  * This specifies the contract between the view and the presenter.
  */

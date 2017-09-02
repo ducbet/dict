@@ -1,15 +1,18 @@
 package com.tmd.dictionary.data.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import io.realm.RealmList;
-import io.realm.RealmObject;
+import io.realm.RealmModel;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.RealmClass;
 
 /**
  * Created by tmd on 18/08/2017.
  */
-public class Kanji extends RealmObject implements Serializable {
+@RealmClass
+public class Kanji implements RealmModel, Parcelable {
     @PrimaryKey
     private String origin = "";
     private String hanViet = "";
@@ -24,6 +27,35 @@ public class Kanji extends RealmObject implements Serializable {
     private int searchedCount;
     private boolean isModified;
     private RealmList<KanjiBox> inBox;
+
+    public Kanji() {
+    }
+
+    protected Kanji(Parcel in) {
+        origin = in.readString();
+        hanViet = in.readString();
+        radical = in.readString();
+        stroke = in.readInt();
+        onyomi = in.readString();
+        level = in.readInt();
+        kunyomi = in.readString();
+        meaning = in.readString();
+        isLearned = in.readByte() != 0;
+        searchedCount = in.readInt();
+        isModified = in.readByte() != 0;
+    }
+
+    public static final Creator<Kanji> CREATOR = new Creator<Kanji>() {
+        @Override
+        public Kanji createFromParcel(Parcel in) {
+            return new Kanji(in);
+        }
+
+        @Override
+        public Kanji[] newArray(int size) {
+            return new Kanji[size];
+        }
+    };
 
     public boolean isLearned() {
         return isLearned;
@@ -127,5 +159,25 @@ public class Kanji extends RealmObject implements Serializable {
 
     public void setComponents(RealmList<Component> components) {
         this.components = components;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(origin);
+        parcel.writeString(hanViet);
+        parcel.writeString(radical);
+        parcel.writeInt(stroke);
+        parcel.writeString(onyomi);
+        parcel.writeInt(level);
+        parcel.writeString(kunyomi);
+        parcel.writeString(meaning);
+        parcel.writeByte((byte) (isLearned ? 1 : 0));
+        parcel.writeInt(searchedCount);
+        parcel.writeByte((byte) (isModified ? 1 : 0));
     }
 }

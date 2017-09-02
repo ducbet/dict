@@ -23,6 +23,12 @@ import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
+import com.tmd.dictionary.util.DictApplication;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -34,11 +40,21 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     private FragmentManager mFragmentManager;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private Realm mRealm;
 
     public MainViewModel(Context context) {
         mContext = context;
         mFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
+        initRealm();
         initSearchFragment();
+    }
+
+    private void initRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
     }
 
     private void initSearchFragment() {
@@ -67,6 +83,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     @Override
     public void onStop() {
         mPresenter.onStop();
+        mRealm.close();
     }
 
     @Override
@@ -83,7 +100,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenKanjiDetailFragment(Kanji kanji) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, KanjiDetailFragment.newInstance(this, kanji))
+            .add(R.id.frame_layout,
+                KanjiDetailFragment.newInstance(this, mRealm.copyFromRealm(kanji)))
             .addToBackStack(null)
             .commit();
     }
@@ -92,7 +110,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenJpnWordDetailFragment(JpnWord jpnWord) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, JpnDetailFragment.newInstance(this, jpnWord))
+            .add(R.id.frame_layout,
+                JpnDetailFragment.newInstance(this, mRealm.copyFromRealm(jpnWord)))
             .addToBackStack(null)
             .commit();
     }
@@ -101,7 +120,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenVieWordDetailFragment(VieWord vieWord) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, VieDetailFragment.newInstance(this, vieWord))
+            .add(R.id.frame_layout,
+                VieDetailFragment.newInstance(this, mRealm.copyFromRealm(vieWord)))
             .addToBackStack(null)
             .commit();
     }
@@ -110,7 +130,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenGrammarDetailFragment(Grammar grammar) {
         mFragmentManager
             .beginTransaction()
-            .add(R.id.frame_layout, GrammarDetailFragment.newInstance(this, grammar))
+            .add(R.id.frame_layout,
+                GrammarDetailFragment.newInstance(this, mRealm.copyFromRealm(grammar)))
             .addToBackStack(null)
             .commit();
     }
