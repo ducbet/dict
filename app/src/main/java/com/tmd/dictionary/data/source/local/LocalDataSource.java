@@ -3,6 +3,7 @@ package com.tmd.dictionary.data.source.local;
 import android.content.Context;
 
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
@@ -47,5 +48,10 @@ public class LocalDataSource implements DataSource {
     @Override
     public void saveToHistory(Realm realm, final int type, final String primaryKey) {
         mCRUDHelper.saveToHistory(realm, type, primaryKey);
+    }
+
+    @Override
+    public Observable<History> getHistory() {
+        return mCRUDHelper.getHistory();
     }
 }

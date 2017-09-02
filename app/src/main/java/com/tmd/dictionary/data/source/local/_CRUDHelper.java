@@ -155,4 +155,30 @@ public class _CRUDHelper implements DataSource {
             }
         });
     }
+
+    @Override
+    public Observable<History> getHistory() {
+        return Observable.create(new ObservableOnSubscribe<History>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<History> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        History history = realm.where(History.class).findFirst();
+                        if (history == null) {
+                            history = realm.createObject(History.class);
+                        }
+                        e.onNext(history);
+                    }
+                });
+                realm.close();
+            }
+        });
+    }
 }
