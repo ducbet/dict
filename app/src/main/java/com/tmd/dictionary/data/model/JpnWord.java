@@ -18,6 +18,42 @@ public class JpnWord extends RealmObject implements Serializable {
     private int priority;
     private RealmList<RealmString> examples;
     private RealmList<Kanji> kanjis;
+    private boolean isLearned;
+    private int searchedCount;
+    private boolean isModified;
+    private RealmList<JpnBox> inBox;
+
+    public boolean isLearned() {
+        return isLearned;
+    }
+
+    public void setLearned(boolean learned) {
+        isLearned = learned;
+    }
+
+    public int getSearchedCount() {
+        return searchedCount;
+    }
+
+    public void setSearchedCount(int searchedCount) {
+        this.searchedCount = searchedCount;
+    }
+
+    public boolean isModified() {
+        return isModified;
+    }
+
+    public void setModified(boolean modified) {
+        isModified = modified;
+    }
+
+    public RealmList<JpnBox> getInBox() {
+        return inBox;
+    }
+
+    public void setInBox(RealmList<JpnBox> inBox) {
+        this.inBox = inBox;
+    }
 
     public String getOrigin() {
         return origin;

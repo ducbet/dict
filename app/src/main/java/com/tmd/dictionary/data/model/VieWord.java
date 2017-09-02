@@ -15,6 +15,42 @@ public class VieWord extends RealmObject implements Serializable {
     private String kana = "";
     private String definition = "";
     private RealmList<RealmString> examples;
+    private boolean isLearned;
+    private int searchedCount;
+    private boolean isModified;
+    private RealmList<VieBox> inBox;
+
+    public boolean isLearned() {
+        return isLearned;
+    }
+
+    public void setLearned(boolean learned) {
+        isLearned = learned;
+    }
+
+    public int getSearchedCount() {
+        return searchedCount;
+    }
+
+    public void setSearchedCount(int searchedCount) {
+        this.searchedCount = searchedCount;
+    }
+
+    public boolean isModified() {
+        return isModified;
+    }
+
+    public void setModified(boolean modified) {
+        isModified = modified;
+    }
+
+    public RealmList<VieBox> getInBox() {
+        return inBox;
+    }
+
+    public void setInBox(RealmList<VieBox> inBox) {
+        this.inBox = inBox;
+    }
 
     public String getOrigin() {
         return origin;

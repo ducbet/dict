@@ -15,6 +15,42 @@ public class Grammar extends RealmObject implements Serializable {
     private String kana = "";
     private String definition = "";
     private RealmList<RealmString> examples;
+    private boolean isLearned;
+    private int searchedCount;
+    private boolean isModified;
+    private RealmList<GrammarBox> inBox;
+
+    public boolean isLearned() {
+        return isLearned;
+    }
+
+    public void setLearned(boolean learned) {
+        isLearned = learned;
+    }
+
+    public int getSearchedCount() {
+        return searchedCount;
+    }
+
+    public void setSearchedCount(int searchedCount) {
+        this.searchedCount = searchedCount;
+    }
+
+    public boolean isModified() {
+        return isModified;
+    }
+
+    public void setModified(boolean modified) {
+        isModified = modified;
+    }
+
+    public RealmList<GrammarBox> getInBox() {
+        return inBox;
+    }
+
+    public void setInBox(RealmList<GrammarBox> inBox) {
+        this.inBox = inBox;
+    }
 
     public String getOrigin() {
         return origin;
