@@ -11,4 +11,6 @@
     <dimen name="sp_15">15sp</dimen>
     <dimen name="dp_15">15dp</dimen>
     <dimen name="sp_17">17sp</dimen>
+    <dimen name="dp_150">150dp</dimen>
+    <dimen name="dp_300">300dp</dimen>
 </resources>

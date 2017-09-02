@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.databinding.ActivityMainBinding;
+import com.tmd.dictionary.databinding.NavigationHeaderBinding;
 import com.tmd.dictionary.screen.BaseActivity;
 
 import java.io.Serializable;
@@ -29,6 +30,14 @@ public class MainActivity extends BaseActivity implements Serializable {
         ActivityMainBinding binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel((MainViewModel) mViewModel);
+        createNavigationView(binding);
+    }
+
+    private void createNavigationView(ActivityMainBinding binding) {
+        NavigationHeaderBinding headerBinding = DataBindingUtil.inflate(
+            getLayoutInflater(), R.layout.navigation_header, binding.leftDrawer, false);
+        headerBinding.setViewModel((MainViewModel) mViewModel);
+        ((MainViewModel) mViewModel).setNavigationView(binding.drawerLayout, binding.leftDrawer);
     }
 
     @Override
