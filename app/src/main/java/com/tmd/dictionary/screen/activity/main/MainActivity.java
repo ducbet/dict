@@ -24,8 +24,7 @@ public class MainActivity extends BaseActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new MainViewModel(this);
-        MainContract.Presenter presenter =
-            new MainPresenter(mViewModel);
+        MainContract.Presenter presenter = new MainPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
         ActivityMainBinding binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main);

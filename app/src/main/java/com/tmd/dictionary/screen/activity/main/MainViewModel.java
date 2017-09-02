@@ -1,13 +1,13 @@
 package com.tmd.dictionary.screen.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 
@@ -16,13 +16,12 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
+import com.tmd.dictionary.screen.activity.history.HistoryActivity;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
-
-import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -116,6 +115,12 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
+    public void onOpenHistoryActivity() {
+        Intent intent = new Intent(mContext, HistoryActivity.class);
+        mContext.startActivity(intent);
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -124,7 +129,9 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void writeToParcel(Parcel parcel, int i) {
     }
 
-    // Parcelable
+    /**
+     * Parcelable
+     */
     protected MainViewModel(Parcel in) {
     }
 
@@ -144,10 +151,9 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.history:
-                Log.e(MY_TAG, "onNavigationItemSelected: history ");
+                onOpenHistoryActivity();
                 break;
             case R.id.flash_card:
-                Log.e(MY_TAG, "onNavigationItemSelected: flash_card ");
                 break;
             default:
                 break;

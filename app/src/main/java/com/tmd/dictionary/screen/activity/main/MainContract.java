@@ -9,8 +9,6 @@ import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
-import java.io.Serializable;
-
 /**
  * This specifies the contract between the view and the presenter.
  */
@@ -24,6 +22,7 @@ public interface MainContract {
         void onOpenJpnWordDetailFragment(JpnWord jpnWord);
         void onOpenVieWordDetailFragment(VieWord vieWord);
         void onOpenGrammarDetailFragment(Grammar grammar);
+        void onOpenHistoryActivity();
     }
 
     /**
