@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.grammardetail;
 
+import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,8 +40,8 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(String primaryKey) {
-        mRepository.saveToHistory(INT_GRAMMAR, primaryKey);
+    public void saveToHistory(Grammar grammar) {
+        mRepository.saveToHistory(grammar);
     }
 
     @Override

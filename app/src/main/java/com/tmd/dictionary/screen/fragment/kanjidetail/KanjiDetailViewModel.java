@@ -34,7 +34,7 @@ public class KanjiDetailViewModel extends BaseObservable implements KanjiDetailC
     public void onStart() {
         mPresenter.onStart();
         mPresenter.isLiked(mKanji.getOrigin());
-        mPresenter.saveToHistory(mKanji.getOrigin());
+        mPresenter.saveToHistory(mKanji);
     }
 
     @Override

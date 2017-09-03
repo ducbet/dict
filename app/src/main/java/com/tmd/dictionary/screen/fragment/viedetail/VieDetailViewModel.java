@@ -34,7 +34,7 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
     public void onStart() {
         mPresenter.onStart();
         mPresenter.isLiked(mVieWord.getOrigin());
-        mPresenter.saveToHistory(mVieWord.getOrigin());
+        mPresenter.saveToHistory(mVieWord);
     }
 
     @Override

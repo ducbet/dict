@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.grammardetail;
 
+import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -19,7 +20,7 @@ interface GrammarDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveToHistory(String primaryKey);
+        void saveToHistory(Grammar grammar);
         void changeLikeState(String key);
         void isLiked(String key);
     }

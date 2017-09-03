@@ -58,12 +58,27 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public void saveToHistory(int type, String key) {
-        mCRUDHelper.saveToHistory(type, key);
+    public void saveToHistory(JpnWord jpnWord) {
+        mCRUDHelper.saveToHistory(jpnWord);
     }
 
     @Override
-    public Observable<History> getHistory() {
+    public void saveToHistory(VieWord vieWord) {
+        mCRUDHelper.saveToHistory(vieWord);
+    }
+
+    @Override
+    public void saveToHistory(Kanji kanji) {
+        mCRUDHelper.saveToHistory(kanji);
+    }
+
+    @Override
+    public void saveToHistory(Grammar grammar) {
+        mCRUDHelper.saveToHistory(grammar);
+    }
+
+    @Override
+    public History getHistory() {
         return mCRUDHelper.getHistory();
     }
 

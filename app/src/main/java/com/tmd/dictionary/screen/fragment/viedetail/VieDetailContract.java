@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.viedetail;
 
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -19,7 +20,7 @@ interface VieDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveToHistory(String primaryKey);
+        void saveToHistory(VieWord vieWord);
         void changeLikeState(String key);
         void isLiked(String key);
     }

@@ -4,6 +4,13 @@ import android.content.Context;
 
 import com.tmd.dictionary.data.model.History;
 
+import io.realm.RealmChangeListener;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_KANJI;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
+
 /**
  * Exposes the data to be used in the History screen.
  */
@@ -11,6 +18,14 @@ public class HistoryViewModel implements HistoryContract.ViewModel {
     private HistoryContract.Presenter mPresenter;
     private Context mContext;
     private HistoryAdapter mAdapter;
+    private RealmChangeListener mRealmChangeListener =
+        new RealmChangeListener<History>() {
+            @Override
+            public void onChange(History history) {
+                mAdapter.setSource(history);
+            }
+        };
+    private History mHistory;
 
     public HistoryViewModel(Context context) {
         mContext = context;
@@ -30,6 +45,9 @@ public class HistoryViewModel implements HistoryContract.ViewModel {
     @Override
     public void onStop() {
         mPresenter.onStop();
+        if (mHistory.isValid()) {
+            mHistory.removeAllChangeListeners();
+        }
     }
 
     @Override
@@ -39,10 +57,27 @@ public class HistoryViewModel implements HistoryContract.ViewModel {
 
     @Override
     public void onGetHistorySuccess(History history) {
-        mAdapter.setSource(history);
+        mHistory = history;
+        mHistory.addChangeListener(mRealmChangeListener);
     }
 
     @Override
     public void onGetHistoryFailed(Throwable e) {
+    }
+
+    @Override
+    public void onItemClick(Integer type, String key) {
+        switch (type) {
+            case INT_JPN_WORD:
+                break;
+            case INT_VIE_WORD:
+                break;
+            case INT_KANJI:
+                break;
+            case INT_GRAMMAR:
+                break;
+            default:
+                break;
+        }
     }
 }

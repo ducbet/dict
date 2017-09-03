@@ -20,8 +20,11 @@ public interface DataSource {
     Observable<RealmResults<Grammar>> searchGrammar(String input);
     RealmResults<JpnWord> chaningJpnQuery(String input, RealmResults<JpnWord> parentsResult);
     RealmResults<VieWord> chaningVieQuery(String input, RealmResults<VieWord> parentsResult);
-    void saveToHistory(int type, String key);
-    Observable<History> getHistory();
+    void saveToHistory(JpnWord jpnWord);
+    void saveToHistory(VieWord vieWord);
+    void saveToHistory(Kanji kanji);
+    void saveToHistory(Grammar grammar);
+    History getHistory();
     Observable<Boolean> changeLikeState(int type, String key);
     Observable<Boolean> isLiked(String key);
 }

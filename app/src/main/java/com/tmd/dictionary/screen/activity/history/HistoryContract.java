@@ -14,6 +14,7 @@ interface HistoryContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onGetHistorySuccess(History history);
         void onGetHistoryFailed(Throwable e);
+        void onItemClick(Integer type, String key);
     }
 
     /**
