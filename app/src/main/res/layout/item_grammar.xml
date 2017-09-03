@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.search.level2.grammar.GrammarViewModel"
+            type="com.tmd.dictionary.screen.OnClickSearchedItemListener"
             />
 
         <variable
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/border"
-            android:onClick="@{()->viewModel.onItemClick(grammar)}"
+            android:onClick="@{()->viewModel.onClick(grammar)}"
             android:orientation="vertical"
             android:padding="@dimen/dp_5"
             >

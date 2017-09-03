@@ -18,7 +18,6 @@ interface GrammarContract {
         void onSearchGrammarFailed();
         void onSetNeedSearch(String needSearch);
         void onClearRealmResults();
-        void onItemClick(Grammar grammar);
     }
 
     /**
