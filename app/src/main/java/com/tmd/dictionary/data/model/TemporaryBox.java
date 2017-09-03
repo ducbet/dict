@@ -1,12 +1,14 @@
 package com.tmd.dictionary.data.model;
 
 import io.realm.RealmList;
-import io.realm.RealmObject;
+import io.realm.RealmModel;
+import io.realm.annotations.RealmClass;
 
 /**
  * Created by tmd on 02/09/2017.
  */
-public class TemporaryBox extends RealmObject {
+@RealmClass
+public class TemporaryBox implements RealmModel {
     private RealmList<RealmInteger> type;
     private RealmList<RealmString> primaryKey;
 

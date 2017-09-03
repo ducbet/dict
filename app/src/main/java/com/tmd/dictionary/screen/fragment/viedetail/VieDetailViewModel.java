@@ -1,5 +1,9 @@
 package com.tmd.dictionary.screen.fragment.viedetail;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.tmd.dictionary.BR;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.activity.main.MainContract;
@@ -13,14 +17,12 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 /**
  * Exposes the data to be used in the VieDetail screen.
  */
-public class VieDetailViewModel implements VieDetailContract.ViewModel {
+public class VieDetailViewModel extends BaseObservable implements VieDetailContract.ViewModel {
     private MainContract.ViewModel mMainViewModel;
     private VieDetailContract.Presenter mPresenter;
     private VieWord mVieWord;
     private Realm mRealm;
-
-    public VieDetailViewModel() {
-    }
+    private boolean mIsLiked;
 
     public VieDetailViewModel(MainContract.ViewModel mainViewModel, VieWord vieWord) {
         mMainViewModel = mainViewModel;
@@ -40,9 +42,15 @@ public class VieDetailViewModel implements VieDetailContract.ViewModel {
         return mVieWord;
     }
 
+    @Bindable
+    public boolean isLiked() {
+        return mIsLiked;
+    }
+
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.isLiked(mVieWord.getOrigin());
         mPresenter.saveToHistory(mRealm, mVieWord.getOrigin());
     }
 
@@ -55,5 +63,16 @@ public class VieDetailViewModel implements VieDetailContract.ViewModel {
     @Override
     public void setPresenter(VieDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onChangeLikeState() {
+        mPresenter.changeLikeState(mRealm, mVieWord.getOrigin());
+    }
+
+    @Override
+    public void onSetLiked(Boolean isLiked) {
+        mIsLiked = isLiked;
+        notifyPropertyChanged(BR.liked);
     }
 }

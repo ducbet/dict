@@ -2,7 +2,11 @@ package com.tmd.dictionary.screen.fragment.jpndetail;
 
 import com.tmd.dictionary.data.source.DataSource;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
@@ -35,7 +39,51 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(Realm realm, String primaryKey) {
-        mRepository.saveToHistory(realm, INT_JPN_WORD, primaryKey);
+    public void saveToHistory(Realm realm, String key) {
+        mRepository.saveToHistory(realm, INT_JPN_WORD, key);
+    }
+
+    @Override
+    public void changeLikeState(Realm realm, String key) {
+        Disposable disposable = mRepository.changeLikeState(INT_JPN_WORD, key)
+//            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableObserver<Boolean>() {
+                @Override
+                public void onNext(@NonNull Boolean isLiked) {
+                    mViewModel.onSetLiked(isLiked);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
+        mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void isLiked(String key) {
+        Disposable disposable = mRepository.isLiked(key)
+//            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(new DisposableObserver<Boolean>() {
+                @Override
+                public void onNext(@NonNull Boolean isLiked) {
+                    mViewModel.onSetLiked(isLiked);
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
+        mCompositeDisposable.add(disposable);
     }
 }

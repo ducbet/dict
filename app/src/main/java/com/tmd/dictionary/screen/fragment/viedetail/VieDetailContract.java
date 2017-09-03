@@ -13,6 +13,8 @@ interface VieDetailContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onChangeLikeState();
+        void onSetLiked(Boolean isLiked);
     }
 
     /**
@@ -20,5 +22,7 @@ interface VieDetailContract {
      */
     interface Presenter extends BasePresenter {
         void saveToHistory(Realm realm, String primaryKey);
+        void changeLikeState(Realm realm, String key);
+        void isLiked(String key);
     }
 }

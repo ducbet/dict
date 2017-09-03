@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.tmd.dictionary.R;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 
 import io.reactivex.Observable;
@@ -69,5 +71,14 @@ public class BindingUtil {
                 }
             });
         viewModel.onSendToAllFragment(textChangeObservable);
+    }
+
+    @BindingAdapter("src")
+    public static void setLoveImgSource(final ImageView imageView, boolean isLiked) {
+        if (isLiked) {
+            imageView.setImageResource(R.drawable.ic_heart_fill);
+            return;
+        }
+        imageView.setImageResource(R.drawable.ic_heart_unfill);
     }
 }
