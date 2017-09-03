@@ -57,7 +57,14 @@ public class GrammarDetailFragment extends BaseFragment {
         FragmentGrammarDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_grammar_detail, container, false);
         binding.setViewModel((GrammarDetailViewModel) mViewModel);
+        mViewModel.onInitRealm();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.onCloseRealm();
     }
 
     @Override

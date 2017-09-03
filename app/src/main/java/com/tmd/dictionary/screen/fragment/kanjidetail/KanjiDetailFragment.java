@@ -57,7 +57,14 @@ public class KanjiDetailFragment extends BaseFragment {
         FragmentKanjiDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_kanji_detail, container, false);
         binding.setViewModel((KanjiDetailViewModel) mViewModel);
+        mViewModel.onInitRealm();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.onCloseRealm();
     }
 
     @Override

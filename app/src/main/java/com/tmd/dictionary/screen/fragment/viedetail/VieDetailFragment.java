@@ -57,7 +57,14 @@ public class VieDetailFragment extends BaseFragment {
         FragmentVieDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_vie_detail, container, false);
         binding.setViewModel((VieDetailViewModel) mViewModel);
+        mViewModel.onInitRealm();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.onCloseRealm();
     }
 
     @Override

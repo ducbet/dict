@@ -14,6 +14,8 @@ interface JpnDetailContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onInitRealm();
+        void onCloseRealm();
         void onClickKanji(Kanji kanji);
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);

@@ -27,15 +27,6 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
     public VieDetailViewModel(MainContract.ViewModel mainViewModel, VieWord vieWord) {
         mMainViewModel = mainViewModel;
         mVieWord = vieWord;
-        initRealm();
-    }
-
-    private void initRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
     }
 
     public VieWord getVieWord() {
@@ -63,6 +54,22 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
     @Override
     public void setPresenter(VieDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onInitRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
+    }
+
+    @Override
+    public void onCloseRealm() {
+        if (mRealm != null && !mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override

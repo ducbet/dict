@@ -27,15 +27,6 @@ public class KanjiDetailViewModel extends BaseObservable implements KanjiDetailC
     public KanjiDetailViewModel(MainContract.ViewModel mainViewModel, Kanji kanji) {
         mMainViewModel = mainViewModel;
         mKanji = kanji;
-        initRealm();
-    }
-
-    private void initRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
     }
 
     public Kanji getKanji() {
@@ -63,6 +54,22 @@ public class KanjiDetailViewModel extends BaseObservable implements KanjiDetailC
     @Override
     public void setPresenter(KanjiDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onInitRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
+    }
+
+    @Override
+    public void onCloseRealm() {
+        if (mRealm != null && !mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override
