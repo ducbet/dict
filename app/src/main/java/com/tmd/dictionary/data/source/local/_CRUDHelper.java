@@ -7,6 +7,7 @@ import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.RealmInteger;
 import com.tmd.dictionary.data.model.RealmString;
+import com.tmd.dictionary.data.model.TemporaryBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 import com.tmd.dictionary.util.DictApplication;
@@ -142,7 +143,7 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public void saveToHistory(Realm realm, final int type, final String primaryKey) {
+    public void saveToHistory(Realm realm, final int type, final String key) {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -150,7 +151,7 @@ public class _CRUDHelper implements DataSource {
                 if (history == null) {
                     history = realm.createObject(History.class);
                 }
-                history.getPrimaryKey().add(0, new RealmString(primaryKey));
+                history.getPrimaryKey().add(0, new RealmString(key));
                 history.getType().add(0, new RealmInteger(type));
             }
         });
@@ -160,8 +161,7 @@ public class _CRUDHelper implements DataSource {
     public Observable<History> getHistory() {
         return Observable.create(new ObservableOnSubscribe<History>() {
             @Override
-            public void subscribe(@NonNull final ObservableEmitter<History> e)
-                throws Exception {
+            public void subscribe(@NonNull final ObservableEmitter<History> e) throws Exception {
                 RealmConfiguration config = new RealmConfiguration.Builder()
                     .schemaVersion(SCHEMA_VERSION)
                     .assetFile(DictApplication.getContext().getString(R.string.database_name))
@@ -175,6 +175,77 @@ public class _CRUDHelper implements DataSource {
                             history = realm.createObject(History.class);
                         }
                         e.onNext(history);
+                    }
+                });
+                realm.close();
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(final int type, final String key) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
+                        if (box == null) {
+                            box = realm.createObject(TemporaryBox.class);
+                        }
+                        if (box.getPrimaryKey().contains(key)) {
+                            for (int i = 0; i < box.getPrimaryKey().size(); i++) {
+                                if (box.getPrimaryKey().get(i).equals(key)) {
+                                    box.getPrimaryKey().remove(i);
+                                    box.getType().remove(i);
+                                    break;
+                                }
+                            }
+                            e.onNext(false);
+                        } else {
+                            box.getPrimaryKey().add(0, new RealmString(key));
+                            box.getType().add(0, new RealmInteger(type));
+                            e.onNext(true);
+                        }
+                        e.onComplete();
+                    }
+                });
+                realm.close();
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(final String key) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                RealmConfiguration config = new RealmConfiguration.Builder()
+                    .schemaVersion(SCHEMA_VERSION)
+                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
+                    .build();
+                Realm realm = Realm.getInstance(config);
+                realm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
+                        if (box == null) {
+                            box = realm.createObject(TemporaryBox.class);
+                        }
+                        if (box.getPrimaryKey().contains(key)) {
+                            e.onNext(true);
+                        } else {
+                            e.onNext(false);
+                        }
+                        e.onComplete();
                     }
                 });
                 realm.close();

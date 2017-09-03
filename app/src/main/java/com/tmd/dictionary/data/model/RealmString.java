@@ -53,4 +53,12 @@ public class RealmString implements RealmModel, Parcelable {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof String && value.equals(obj)) {
+            return true;
+        }
+        return super.equals(obj);
+    }
 }

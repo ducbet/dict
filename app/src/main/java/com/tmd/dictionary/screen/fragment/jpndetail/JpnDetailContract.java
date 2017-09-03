@@ -15,12 +15,16 @@ interface JpnDetailContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onClickKanji(Kanji kanji);
+        void onChangeLikeState();
+        void onSetLiked(Boolean isLiked);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveToHistory(Realm realm, String primaryKey);
+        void saveToHistory(Realm realm, String key);
+        void changeLikeState(Realm realm, String key);
+        void isLiked(String key);
     }
 }

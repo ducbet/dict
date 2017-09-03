@@ -13,6 +13,8 @@ interface GrammarDetailContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onChangeLikeState();
+        void onSetLiked(Boolean isLiked);
     }
 
     /**
@@ -20,5 +22,7 @@ interface GrammarDetailContract {
      */
     interface Presenter extends BasePresenter {
         void saveToHistory(Realm realm, String primaryKey);
+        void changeLikeState(Realm realm, String key);
+        void isLiked(String key);
     }
 }

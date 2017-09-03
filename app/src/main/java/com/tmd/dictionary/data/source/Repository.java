@@ -7,6 +7,7 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -42,12 +43,22 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public void saveToHistory(Realm realm, final int type, final String primaryKey) {
-        mLocalDataSource.saveToHistory(realm, type, primaryKey);
+    public void saveToHistory(Realm realm, int type, String key) {
+        mLocalDataSource.saveToHistory(realm, type, key);
     }
 
     @Override
     public Observable<History> getHistory() {
         return mLocalDataSource.getHistory();
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(int type, String key) {
+        return mLocalDataSource.changeLikeState(type, key);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(String key) {
+        return mLocalDataSource.isLiked(key);
     }
 }

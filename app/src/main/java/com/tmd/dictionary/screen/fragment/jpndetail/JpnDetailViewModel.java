@@ -1,5 +1,9 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.tmd.dictionary.BR;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
@@ -14,13 +18,14 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 /**
  * Exposes the data to be used in the JpnWordDetail screen.
  */
-public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
+public class JpnDetailViewModel extends BaseObservable implements JpnDetailContract.ViewModel {
     private MainContract.ViewModel mMainViewModel;
     private JpnDetailContract.Presenter mPresenter;
     private JpnWord mJpnWord;
     private JpnDetailKanjisAdapter mJpnDetailKanjisAdapter;
     private JpnDetailExamplesAdapter mJpnDetailExamplesAdapter;
     private Realm mRealm;
+    private boolean mIsLiked;
 
     public JpnDetailViewModel(MainContract.ViewModel mainViewModel, JpnWord jpnWord) {
         mMainViewModel = mainViewModel;
@@ -42,6 +47,11 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
         return mJpnWord;
     }
 
+    @Bindable
+    public boolean isLiked() {
+        return mIsLiked;
+    }
+
     public JpnDetailKanjisAdapter getJpnDetailKanjisAdapter() {
         return mJpnDetailKanjisAdapter;
     }
@@ -53,6 +63,7 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.isLiked(mJpnWord.getOrigin());
         mPresenter.saveToHistory(mRealm, mJpnWord.getOrigin());
     }
 
@@ -70,5 +81,16 @@ public class JpnDetailViewModel implements JpnDetailContract.ViewModel {
     @Override
     public void onClickKanji(Kanji kanji) {
         mMainViewModel.onOpenKanjiDetailFragment(kanji);
+    }
+
+    @Override
+    public void onChangeLikeState() {
+        mPresenter.changeLikeState(mRealm, mJpnWord.getOrigin());
+    }
+
+    @Override
+    public void onSetLiked(Boolean isLiked) {
+        mIsLiked = isLiked;
+        notifyPropertyChanged(BR.liked);
     }
 }
