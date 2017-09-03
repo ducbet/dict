@@ -13,6 +13,8 @@ interface KanjiDetailContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onInitRealm();
+        void onCloseRealm();
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
     }

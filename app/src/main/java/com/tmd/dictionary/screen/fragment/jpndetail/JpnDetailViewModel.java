@@ -32,15 +32,6 @@ public class JpnDetailViewModel extends BaseObservable implements JpnDetailContr
         mJpnWord = jpnWord;
         mJpnDetailKanjisAdapter = new JpnDetailKanjisAdapter(this, jpnWord.getKanjis());
         mJpnDetailExamplesAdapter = new JpnDetailExamplesAdapter(this, jpnWord.getExamples());
-        initRealm();
-    }
-
-    private void initRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
     }
 
     public JpnWord getJpnWord() {
@@ -76,6 +67,22 @@ public class JpnDetailViewModel extends BaseObservable implements JpnDetailContr
     @Override
     public void setPresenter(JpnDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onInitRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
+    }
+
+    @Override
+    public void onCloseRealm() {
+        if (mRealm != null && !mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override

@@ -57,7 +57,14 @@ public class JpnDetailFragment extends BaseFragment {
         FragmentJpnDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_jpn_detail, container, false);
         binding.setViewModel((JpnDetailViewModel) mViewModel);
+        mViewModel.onInitRealm();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.onCloseRealm();
     }
 
     @Override

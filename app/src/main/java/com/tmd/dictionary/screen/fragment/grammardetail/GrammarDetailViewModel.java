@@ -28,15 +28,6 @@ public class GrammarDetailViewModel extends BaseObservable
     public GrammarDetailViewModel(MainContract.ViewModel mainViewModel, Grammar grammar) {
         mMainViewModel = mainViewModel;
         mGrammar = grammar;
-        initRealm();
-    }
-
-    private void initRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
     }
 
     public Grammar getGrammar() {
@@ -58,12 +49,27 @@ public class GrammarDetailViewModel extends BaseObservable
     @Override
     public void onStop() {
         mPresenter.onStop();
-        mRealm.close();
     }
 
     @Override
     public void setPresenter(GrammarDetailContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onInitRealm() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
+    }
+
+    @Override
+    public void onCloseRealm() {
+        if (mRealm != null && !mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override

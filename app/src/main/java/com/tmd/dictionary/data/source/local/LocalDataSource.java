@@ -9,7 +9,6 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.realm.Realm;
 import io.realm.RealmResults;
