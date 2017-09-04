@@ -14,7 +14,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentVieDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
-import com.tmd.dictionary.screen.activity.main.MainViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIE_WORD;
@@ -26,6 +27,7 @@ public class VieDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private VieDetailContract.ViewModel mViewModel;
     private VieWord mVieWord;
+    private Realm mRealm;
 
     public static VieDetailFragment newInstance(MainContract.ViewModel mainViewModel,
                                                 VieWord vieWord) {
@@ -45,8 +47,9 @@ public class VieDetailFragment extends BaseFragment {
             mVieWord = getArguments().getParcelable(BUNDLE_VIE_WORD);
         }
         mViewModel = new VieDetailViewModel(mMainViewModel, mVieWord);
-        VieDetailContract.Presenter presenter = new VieDetailPresenter(mViewModel,
-            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        VieDetailContract.Presenter presenter =
+            new VieDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -57,14 +60,12 @@ public class VieDetailFragment extends BaseFragment {
         FragmentVieDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_vie_detail, container, false);
         binding.setViewModel((VieDetailViewModel) mViewModel);
-        mViewModel.onInitRealm();
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.onCloseRealm();
     }
 
     @Override
@@ -76,6 +77,7 @@ public class VieDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 }

@@ -7,7 +7,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
 
@@ -39,12 +38,12 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(Realm realm, String key) {
-        mRepository.saveToHistory(realm, INT_JPN_WORD, key);
+    public void saveToHistory(String key) {
+        mRepository.saveToHistory(INT_JPN_WORD, key);
     }
 
     @Override
-    public void changeLikeState(Realm realm, String key) {
+    public void changeLikeState(String key) {
         Disposable disposable = mRepository.changeLikeState(INT_JPN_WORD, key)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())

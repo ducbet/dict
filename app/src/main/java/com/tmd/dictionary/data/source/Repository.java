@@ -8,7 +8,6 @@ import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
 import io.reactivex.Observable;
-import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -58,8 +57,8 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public void saveToHistory(Realm realm, int type, String key) {
-        mLocalDataSource.saveToHistory(realm, type, key);
+    public void saveToHistory(int type, String key) {
+        mLocalDataSource.saveToHistory(type, key);
     }
 
     @Override

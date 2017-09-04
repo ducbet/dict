@@ -4,15 +4,8 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.tmd.dictionary.BR;
-import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.screen.activity.main.MainContract;
-import com.tmd.dictionary.util.DictApplication;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
-import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 
 /**
  * Exposes the data to be used in the GrammarDetail screen.
@@ -22,7 +15,6 @@ public class GrammarDetailViewModel extends BaseObservable
     private MainContract.ViewModel mMainViewModel;
     private GrammarDetailContract.Presenter mPresenter;
     private Grammar mGrammar;
-    private Realm mRealm;
     private boolean mIsLiked;
 
     public GrammarDetailViewModel(MainContract.ViewModel mainViewModel, Grammar grammar) {
@@ -43,7 +35,7 @@ public class GrammarDetailViewModel extends BaseObservable
     public void onStart() {
         mPresenter.onStart();
         mPresenter.isLiked(mGrammar.getOrigin());
-        mPresenter.saveToHistory(mRealm, mGrammar.getOrigin());
+        mPresenter.saveToHistory(mGrammar.getOrigin());
     }
 
     @Override
@@ -57,24 +49,8 @@ public class GrammarDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onInitRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
-    }
-
-    @Override
-    public void onCloseRealm() {
-        if (mRealm != null && !mRealm.isClosed()) {
-            mRealm.close();
-        }
-    }
-
-    @Override
     public void onChangeLikeState() {
-        mPresenter.changeLikeState(mRealm, mGrammar.getOrigin());
+        mPresenter.changeLikeState(mGrammar.getOrigin());
     }
 
     @Override

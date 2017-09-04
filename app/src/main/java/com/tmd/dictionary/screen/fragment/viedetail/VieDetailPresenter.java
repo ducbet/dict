@@ -7,7 +7,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
 
@@ -39,12 +38,12 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(Realm realm, String primaryKey) {
-        mRepository.saveToHistory(realm, INT_VIE_WORD, primaryKey);
+    public void saveToHistory(String primaryKey) {
+        mRepository.saveToHistory(INT_VIE_WORD, primaryKey);
     }
 
     @Override
-    public void changeLikeState(Realm realm, String key) {
+    public void changeLikeState(String key) {
         Disposable
             disposable = mRepository.changeLikeState(INT_VIE_WORD, key)
 //            .subscribeOn(Schedulers.computation())

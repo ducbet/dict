@@ -7,7 +7,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
 
@@ -40,12 +39,12 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(Realm realm, String primaryKey) {
-        mRepository.saveToHistory(realm, INT_GRAMMAR, primaryKey);
+    public void saveToHistory(String primaryKey) {
+        mRepository.saveToHistory(INT_GRAMMAR, primaryKey);
     }
 
     @Override
-    public void changeLikeState(Realm realm, String key) {
+    public void changeLikeState(String key) {
         Disposable disposable = mRepository.changeLikeState(INT_GRAMMAR, key)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
