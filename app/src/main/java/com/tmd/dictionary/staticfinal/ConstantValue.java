@@ -21,7 +21,6 @@ public class ConstantValue {
     public static final int INT_VIE_WORD = 2;
     public static final int INT_KANJI = 3;
     public static final int INT_GRAMMAR = 4;
-    public static final int DELAY_SEARCH = 100;
     public static final Set<Character.UnicodeBlock> JAPANESE_UNICODE = new HashSet() {
         {
             add(Character.UnicodeBlock.HIRAGANA);

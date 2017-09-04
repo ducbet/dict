@@ -22,7 +22,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<RealmResults<JpnWord>> searchJpnVie(String input) {
+    public RealmResults<JpnWord> searchJpnVie(String input) {
         return mLocalDataSource.searchJpnVie(input);
     }
 

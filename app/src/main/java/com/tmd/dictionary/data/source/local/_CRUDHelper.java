@@ -17,6 +17,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import io.realm.Realm;
+import io.realm.RealmAsyncTask;
 import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -27,34 +28,27 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
  * Created by tmd on 09/07/2017.
  */
 public class _CRUDHelper implements DataSource {
+    private static RealmAsyncTask mRealmAsyncTask;
+    private Realm mRealm;
+
+    private void getRealmInstance() {
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .schemaVersion(SCHEMA_VERSION)
+            .assetFile(DictApplication.getContext().getString(R.string.database_name))
+            .build();
+        mRealm = Realm.getInstance(config);
+    }
+
     @Override
-    public Observable<RealmResults<JpnWord>> searchJpnVie(final String input) {
-        // SELECT * FROM jpn_vie_main WHERE c0origin LIKE ?
-        // OR c1kana LIKE ? ORDER BY c3priority DESC LIMIT 100
-        return Observable.create(new ObservableOnSubscribe<RealmResults<JpnWord>>() {
-            @Override
-            public void subscribe(@NonNull final ObservableEmitter<RealmResults<JpnWord>> e)
-                throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        RealmResults<JpnWord> jpnWords = realm.where(JpnWord.class)
-                            .like("origin", "*" + input + "*")
-                            .or()
-                            .like("kana", "*" + input + "*")
-                            .findAll();
-                        e.onNext(jpnWords);
-                        e.onComplete();
-                    }
-                });
-                realm.close();
-            }
-        });
+    public RealmResults<JpnWord> searchJpnVie(final String input) {
+        getRealmInstance();
+        RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
+            .like("origin", "*" + input + "*")
+            .or()
+            .like("kana", "*" + input + "*")
+            .findAllAsync();
+        mRealm.close();
+        return jpnWords;
     }
 
     @Override
