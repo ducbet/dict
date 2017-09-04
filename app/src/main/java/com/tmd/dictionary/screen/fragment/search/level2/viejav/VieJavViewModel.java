@@ -7,6 +7,10 @@ import com.tmd.dictionary.screen.fragment.search.SearchContract;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 /**
@@ -17,10 +21,22 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     private VieJavContract.Presenter mPresenter;
     private String mNeedSearch;
     private VieJpnAdapter mAdapter;
+    private RealmChangeListener mRealmChangeListener =
+        new RealmChangeListener<RealmResults<VieWord>>() {
+            @Override
+            public void onChange(RealmResults<VieWord> vieWords) {
+                mAdapter.setSource(vieWords);
+                if (vieWords.isEmpty()) {
+                    onRemoveLastResult();
+                }
+            }
+        };
+    private List<RealmResults<VieWord>> mListResults;
 
     public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
         mAdapter = new VieJpnAdapter(this);
+        mListResults = new ArrayList<>();
     }
 
     public VieJpnAdapter getAdapter() {
@@ -44,7 +60,8 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
 
     @Override
     public void onSearchVieJpnSuccess(RealmResults<VieWord> vieWords) {
-        mAdapter.setSource(vieWords);
+        vieWords.addChangeListener(mRealmChangeListener);
+        mListResults.add(vieWords);
     }
 
     @Override
@@ -53,8 +70,27 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
 
     @Override
     public void onSetNeedSearch(String needSearch) {
+        if (!mListResults.isEmpty()) {
+            if (needSearch.contains(mNeedSearch)) {
+                onChainingQuery(needSearch, mListResults.get(mListResults.size() - 1));
+            } else if (mNeedSearch.contains(needSearch)) {
+                onChainingQuery(needSearch, mListResults.get(needSearch.length() - 1));
+            }
+        } else {
+            mPresenter.search(needSearch);
+        }
         mNeedSearch = needSearch;
-        mPresenter.search(needSearch);
+    }
+
+    @Override
+    public void onChainingQuery(String needSearch, RealmResults<VieWord> parentsResult) {
+        mPresenter.chaningQuery(needSearch, parentsResult);
+    }
+
+    @Override
+    public void onRemoveLastResult() {
+        mListResults.get(mListResults.size() - 1).removeAllChangeListeners();
+        mListResults.remove(mListResults.size() - 1);
     }
 
     @Override

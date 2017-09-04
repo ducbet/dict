@@ -60,33 +60,15 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public Observable<RealmResults<VieWord>> searchVieJpn(final String input) {
-        // TODO: 30/08/2017  nếu không có .subscribeOn(Schedulers.computation())
-        // trong VieJavPresenter thì vẫn là thực hiện ở main thread
-        return Observable.create(new ObservableOnSubscribe<RealmResults<VieWord>>() {
-            @Override
-            public void subscribe(@NonNull final ObservableEmitter<RealmResults<VieWord>> e)
-                throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        RealmResults<VieWord> vieWords = realm.where(VieWord.class)
-                            .like("origin", "*" + input + "*")
-                            .or()
-                            .like("kana", "*" + input + "*")
-                            .findAll();
-                        e.onNext(vieWords);
-                        e.onComplete();
-                    }
-                });
-                realm.close();
-            }
-        });
+    public RealmResults<VieWord> searchVieJpn(final String input) {
+        getRealmInstance();
+        RealmResults<VieWord> vieWords = mRealm.where(VieWord.class)
+            .like("origin", "*" + input + "*")
+            .or()
+            .like("kana", "*" + input + "*")
+            .findAllAsync();
+        mRealm.close();
+        return vieWords;
     }
 
     @Override
@@ -144,8 +126,8 @@ public class _CRUDHelper implements DataSource {
         });
     }
 
-    @Override
-    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
+    public RealmResults<JpnWord> chaningJpnQuery(String input,
+                                                 RealmResults<JpnWord> parentsResult) {
         getRealmInstance();
         RealmResults<JpnWord> jpnWords = parentsResult.where()
             .like("origin", "*" + input + "*")
@@ -154,6 +136,19 @@ public class _CRUDHelper implements DataSource {
             .findAllAsync();
         mRealm.close();
         return jpnWords;
+    }
+
+    @Override
+    public RealmResults<VieWord> chaningVieQuery(String input,
+                                                 RealmResults<VieWord> parentsResult) {
+        getRealmInstance();
+        RealmResults<VieWord> vieWords = parentsResult.where()
+            .like("origin", "*" + input + "*")
+            .or()
+            .like("kana", "*" + input + "*")
+            .findAllAsync();
+        mRealm.close();
+        return vieWords;
     }
 
     @Override

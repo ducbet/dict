@@ -29,7 +29,7 @@ final class JavViePresenter implements JavVieContract.Presenter {
 
     @Override
     public void chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
-        mViewModel.onSearchJpnVieSuccess(mRepository.chaningQuery(input, parentsResult));
+        mViewModel.onSearchJpnVieSuccess(mRepository.chaningJpnQuery(input, parentsResult));
     }
 
     @Override

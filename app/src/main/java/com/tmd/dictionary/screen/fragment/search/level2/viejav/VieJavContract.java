@@ -17,6 +17,8 @@ interface VieJavContract {
         void onSearchVieJpnSuccess(RealmResults<VieWord> vieWords);
         void onSearchVieJpnFailed();
         void onSetNeedSearch(String needSearch);
+        void onChainingQuery(String needSearch, RealmResults<VieWord> parentsResult);
+        void onRemoveLastResult();
         void onClearRealmResults();
         void onItemClick(VieWord word);
     }
@@ -26,5 +28,6 @@ interface VieJavContract {
      */
     interface Presenter extends BasePresenter {
         void search(String needSearch);
+        void chaningQuery(String input, RealmResults<VieWord> parentsResult);
     }
 }

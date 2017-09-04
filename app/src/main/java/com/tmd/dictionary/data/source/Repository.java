@@ -32,7 +32,7 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<RealmResults<VieWord>> searchVieJpn(String input) {
+    public RealmResults<VieWord> searchVieJpn(String input) {
         return mLocalDataSource.searchVieJpn(input);
     }
 
@@ -46,9 +46,15 @@ public class Repository implements DataSource {
         return mLocalDataSource.searchGrammar(input);
     }
 
+    public RealmResults<JpnWord> chaningJpnQuery(String input,
+                                                 RealmResults<JpnWord> parentsResult) {
+        return mLocalDataSource.chaningJpnQuery(input, parentsResult);
+    }
+
     @Override
-    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
-        return mLocalDataSource.chaningQuery(input, parentsResult);
+    public RealmResults<VieWord> chaningVieQuery(String input,
+                                                 RealmResults<VieWord> parentsResult) {
+        return mLocalDataSource.chaningVieQuery(input, parentsResult);
     }
 
     @Override

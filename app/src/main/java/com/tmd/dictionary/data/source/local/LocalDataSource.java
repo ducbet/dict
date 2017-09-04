@@ -36,7 +36,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<RealmResults<VieWord>> searchVieJpn(String input) {
+    public RealmResults<VieWord> searchVieJpn(String input) {
         return mCRUDHelper.searchVieJpn(input);
     }
 
@@ -50,9 +50,13 @@ public class LocalDataSource implements DataSource {
         return mCRUDHelper.searchGrammar(input);
     }
 
+    public RealmResults<JpnWord> chaningJpnQuery(String input, RealmResults<JpnWord> parentsResult) {
+        return mCRUDHelper.chaningJpnQuery(input, parentsResult);
+    }
+
     @Override
-    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
-        return mCRUDHelper.chaningQuery(input, parentsResult);
+    public RealmResults<VieWord> chaningVieQuery(String input, RealmResults<VieWord> parentsResult) {
+        return mCRUDHelper.chaningVieQuery(input, parentsResult);
     }
 
     @Override
