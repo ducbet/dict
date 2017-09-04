@@ -13,7 +13,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentKanjiBinding;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
-import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
@@ -24,6 +25,7 @@ public class KanjiFragment extends BaseFragmentLevel2 {
     private static final String TAG = KanjiFragment.class.getName();
     private SearchContract.ViewModel mSearchViewModel;
     private KanjiContract.ViewModel mViewModel;
+    private Realm mRealm;
 
     public static KanjiFragment newInstance(SearchContract.ViewModel searchViewModel) {
         KanjiFragment kanjiFragment = new KanjiFragment();
@@ -40,8 +42,9 @@ public class KanjiFragment extends BaseFragmentLevel2 {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new KanjiViewModel(mSearchViewModel);
-        KanjiContract.Presenter presenter = new KanjiPresenter(mViewModel,
-            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        KanjiContract.Presenter presenter =
+            new KanjiPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -64,6 +67,7 @@ public class KanjiFragment extends BaseFragmentLevel2 {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 

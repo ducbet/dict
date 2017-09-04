@@ -17,7 +17,6 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import io.realm.Realm;
-import io.realm.RealmAsyncTask;
 import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -28,46 +27,35 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
  * Created by tmd on 09/07/2017.
  */
 public class _CRUDHelper implements DataSource {
-    private static RealmAsyncTask mRealmAsyncTask;
     private Realm mRealm;
 
-    private void getRealmInstance() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
+    public _CRUDHelper(Realm realm) {
+        mRealm = realm;
     }
 
     @Override
     public RealmResults<JpnWord> searchJpnWordHasKanjis(final String input) {
-        getRealmInstance();
         RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("origin", "*" + input + "*")
             .findAllAsync();
-        mRealm.close();
         return jpnWords;
     }
 
     @Override
     public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
-        getRealmInstance();
         RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("kana", "*" + input + "*")
             .findAllAsync();
-        mRealm.close();
         return jpnWords;
     }
 
     @Override
     public RealmResults<VieWord> searchVieJpn(final String input) {
-        getRealmInstance();
         RealmResults<VieWord> vieWords = mRealm.where(VieWord.class)
             .like("origin", "*" + input + "*")
             .or()
             .like("kana", "*" + input + "*")
             .findAllAsync();
-        mRealm.close();
         return vieWords;
     }
 
@@ -128,32 +116,28 @@ public class _CRUDHelper implements DataSource {
 
     public RealmResults<JpnWord> chaningJpnQuery(String input,
                                                  RealmResults<JpnWord> parentsResult) {
-        getRealmInstance();
         RealmResults<JpnWord> jpnWords = parentsResult.where()
             .like("origin", "*" + input + "*")
             .or()
             .like("kana", "*" + input + "*")
             .findAllAsync();
-        mRealm.close();
         return jpnWords;
     }
 
     @Override
     public RealmResults<VieWord> chaningVieQuery(String input,
                                                  RealmResults<VieWord> parentsResult) {
-        getRealmInstance();
         RealmResults<VieWord> vieWords = parentsResult.where()
             .like("origin", "*" + input + "*")
             .or()
             .like("kana", "*" + input + "*")
             .findAllAsync();
-        mRealm.close();
         return vieWords;
     }
 
     @Override
-    public void saveToHistory(Realm realm, final int type, final String key) {
-        realm.executeTransactionAsync(new Realm.Transaction() {
+    public void saveToHistory(final int type, final String key) {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 History history = realm.where(History.class).findFirst();
@@ -171,12 +155,7 @@ public class _CRUDHelper implements DataSource {
         return Observable.create(new ObservableOnSubscribe<History>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<History> e) throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransaction(new Realm.Transaction() {
+                mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
                         History history = realm.where(History.class).findFirst();
@@ -186,7 +165,6 @@ public class _CRUDHelper implements DataSource {
                         e.onNext(history);
                     }
                 });
-                realm.close();
             }
         });
     }
@@ -197,12 +175,7 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
                 throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransactionAsync(new Realm.Transaction() {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
                         TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
@@ -226,7 +199,6 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
-                realm.close();
             }
         });
     }
@@ -237,12 +209,7 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
                 throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransactionAsync(new Realm.Transaction() {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
                         TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
@@ -257,7 +224,6 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
-                realm.close();
             }
         });
     }

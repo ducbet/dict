@@ -14,7 +14,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
-import com.tmd.dictionary.screen.activity.main.MainViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_JPN_WORD;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
@@ -26,6 +27,7 @@ public class JpnDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private JpnDetailContract.ViewModel mViewModel;
     private JpnWord mJpnWord;
+    private Realm mRealm;
 
     public static JpnDetailFragment newInstance(MainContract.ViewModel mainViewModel,
                                                 JpnWord jpnWord) {
@@ -45,8 +47,9 @@ public class JpnDetailFragment extends BaseFragment {
             mJpnWord = getArguments().getParcelable(BUNDLE_JPN_WORD);
         }
         mViewModel = new JpnDetailViewModel(mMainViewModel, mJpnWord);
-        JpnDetailContract.Presenter presenter = new JpnDetailPresenter(mViewModel,
-            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        JpnDetailContract.Presenter presenter =
+            new JpnDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -57,14 +60,12 @@ public class JpnDetailFragment extends BaseFragment {
         FragmentJpnDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_jpn_detail, container, false);
         binding.setViewModel((JpnDetailViewModel) mViewModel);
-        mViewModel.onInitRealm();
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.onCloseRealm();
     }
 
     @Override
@@ -76,6 +77,7 @@ public class JpnDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 }

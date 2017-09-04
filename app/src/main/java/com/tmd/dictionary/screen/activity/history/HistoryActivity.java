@@ -9,18 +9,22 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.ActivityHistoryBinding;
 import com.tmd.dictionary.screen.BaseActivity;
 
+import io.realm.Realm;
+
 /**
  * History Screen.
  */
 public class HistoryActivity extends BaseActivity {
     private HistoryContract.ViewModel mViewModel;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new HistoryViewModel(this);
+        mRealm = Realm.getDefaultInstance();
         HistoryContract.Presenter presenter =
-            new HistoryPresenter(mViewModel, new Repository(new LocalDataSource(this)));
+            new HistoryPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
         ActivityHistoryBinding binding =
             DataBindingUtil.setContentView(this, R.layout.activity_history);
@@ -36,6 +40,7 @@ public class HistoryActivity extends BaseActivity {
     @Override
     protected void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 }

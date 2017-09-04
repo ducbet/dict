@@ -1,7 +1,5 @@
 package com.tmd.dictionary.data.source.local;
 
-import android.content.Context;
-
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
@@ -18,11 +16,9 @@ import io.realm.RealmResults;
  */
 public class LocalDataSource implements DataSource {
     private _CRUDHelper mCRUDHelper;
-    private Context mContext;
 
-    public LocalDataSource(Context context) {
-        mContext = context;
-        mCRUDHelper = new _CRUDHelper();
+    public LocalDataSource(Realm realm) {
+        mCRUDHelper = new _CRUDHelper(realm);
     }
 
     @Override
@@ -50,18 +46,20 @@ public class LocalDataSource implements DataSource {
         return mCRUDHelper.searchGrammar(input);
     }
 
-    public RealmResults<JpnWord> chaningJpnQuery(String input, RealmResults<JpnWord> parentsResult) {
+    public RealmResults<JpnWord> chaningJpnQuery(String input,
+                                                 RealmResults<JpnWord> parentsResult) {
         return mCRUDHelper.chaningJpnQuery(input, parentsResult);
     }
 
     @Override
-    public RealmResults<VieWord> chaningVieQuery(String input, RealmResults<VieWord> parentsResult) {
+    public RealmResults<VieWord> chaningVieQuery(String input,
+                                                 RealmResults<VieWord> parentsResult) {
         return mCRUDHelper.chaningVieQuery(input, parentsResult);
     }
 
     @Override
-    public void saveToHistory(Realm realm, int type, String key) {
-        mCRUDHelper.saveToHistory(realm, type, key);
+    public void saveToHistory(int type, String key) {
+        mCRUDHelper.saveToHistory(type, key);
     }
 
     @Override

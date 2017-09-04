@@ -14,7 +14,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentGrammarDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
-import com.tmd.dictionary.screen.activity.main.MainViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_GRAMMAR;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
@@ -26,6 +27,7 @@ public class GrammarDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private GrammarDetailContract.ViewModel mViewModel;
     private Grammar mGrammar;
+    private Realm mRealm;
 
     public static GrammarDetailFragment newInstance(MainContract.ViewModel mainViewModel,
                                                     Grammar grammar) {
@@ -45,8 +47,9 @@ public class GrammarDetailFragment extends BaseFragment {
             mGrammar = getArguments().getParcelable(BUNDLE_GRAMMAR);
         }
         mViewModel = new GrammarDetailViewModel(mMainViewModel, mGrammar);
-        GrammarDetailContract.Presenter presenter = new GrammarDetailPresenter(mViewModel,
-            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        GrammarDetailContract.Presenter presenter =
+            new GrammarDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -57,14 +60,12 @@ public class GrammarDetailFragment extends BaseFragment {
         FragmentGrammarDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_grammar_detail, container, false);
         binding.setViewModel((GrammarDetailViewModel) mViewModel);
-        mViewModel.onInitRealm();
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.onCloseRealm();
     }
 
     @Override
@@ -76,6 +77,7 @@ public class GrammarDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 }

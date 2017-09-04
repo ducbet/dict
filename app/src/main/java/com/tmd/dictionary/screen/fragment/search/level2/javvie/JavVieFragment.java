@@ -13,7 +13,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentJavVieBinding;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
-import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
@@ -24,6 +25,7 @@ public class JavVieFragment extends BaseFragmentLevel2 {
     private static final String TAG = JavVieFragment.class.getName();
     private SearchContract.ViewModel mSearchViewModel;
     private JavVieContract.ViewModel mViewModel;
+    private Realm mRealm;
 
     public static JavVieFragment newInstance(SearchContract.ViewModel searchViewModel) {
         JavVieFragment javVieFragment = new JavVieFragment();
@@ -40,8 +42,9 @@ public class JavVieFragment extends BaseFragmentLevel2 {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new JavVieViewModel(mSearchViewModel);
-        JavVieContract.Presenter presenter = new JavViePresenter(mViewModel,
-            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        JavVieContract.Presenter presenter =
+            new JavViePresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -64,6 +67,7 @@ public class JavVieFragment extends BaseFragmentLevel2 {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 

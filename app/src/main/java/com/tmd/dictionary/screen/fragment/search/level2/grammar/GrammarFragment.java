@@ -13,7 +13,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentGrammarBinding;
 import com.tmd.dictionary.screen.BaseFragmentLevel2;
 import com.tmd.dictionary.screen.fragment.search.SearchContract;
-import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
@@ -24,6 +25,7 @@ public class GrammarFragment extends BaseFragmentLevel2 {
     private static final String TAG = GrammarFragment.class.getName();
     private SearchContract.ViewModel mSearchViewModel;
     private GrammarContract.ViewModel mViewModel;
+    private Realm mRealm;
 
     public static GrammarFragment newInstance(SearchContract.ViewModel searchViewModel) {
         GrammarFragment grammarFragment = new GrammarFragment();
@@ -40,8 +42,9 @@ public class GrammarFragment extends BaseFragmentLevel2 {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
         mViewModel = new GrammarViewModel(mSearchViewModel);
-        GrammarContract.Presenter presenter = new GrammarPresenter(mViewModel,
-            new Repository(new LocalDataSource(((SearchViewModel) mSearchViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        GrammarContract.Presenter presenter =
+            new GrammarPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -64,6 +67,7 @@ public class GrammarFragment extends BaseFragmentLevel2 {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 

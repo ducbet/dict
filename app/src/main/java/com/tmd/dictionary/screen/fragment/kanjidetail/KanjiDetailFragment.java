@@ -14,7 +14,8 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentKanjiDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
-import com.tmd.dictionary.screen.activity.main.MainViewModel;
+
+import io.realm.Realm;
 
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
@@ -26,6 +27,7 @@ public class KanjiDetailFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private KanjiDetailContract.ViewModel mViewModel;
     private Kanji mKanji;
+    private Realm mRealm;
 
     public static KanjiDetailFragment newInstance(MainContract.ViewModel mainViewModel,
                                                   Kanji kanji) {
@@ -45,8 +47,9 @@ public class KanjiDetailFragment extends BaseFragment {
             mKanji = getArguments().getParcelable(BUNDLE_KANJI);
         }
         mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);
-        KanjiDetailContract.Presenter presenter = new KanjiDetailPresenter(mViewModel,
-            new Repository(new LocalDataSource(((MainViewModel) mMainViewModel).getContext())));
+        mRealm = Realm.getDefaultInstance();
+        KanjiDetailContract.Presenter presenter =
+            new KanjiDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -57,14 +60,12 @@ public class KanjiDetailFragment extends BaseFragment {
         FragmentKanjiDetailBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_kanji_detail, container, false);
         binding.setViewModel((KanjiDetailViewModel) mViewModel);
-        mViewModel.onInitRealm();
         return binding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.onCloseRealm();
     }
 
     @Override
@@ -76,6 +77,7 @@ public class KanjiDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
+        mRealm.close();
         super.onStop();
     }
 }
