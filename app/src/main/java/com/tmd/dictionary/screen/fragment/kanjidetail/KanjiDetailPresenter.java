@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.kanjidetail;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,8 +39,8 @@ final class KanjiDetailPresenter implements KanjiDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(String primaryKey) {
-        mRepository.saveToHistory(INT_KANJI, primaryKey);
+    public void saveToHistory(Kanji kanji) {
+        mRepository.saveToHistory(kanji);
     }
 
     @Override

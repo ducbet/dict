@@ -23,6 +23,7 @@ import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
+import com.tmd.dictionary.staticfinal.OpenFragment;
 import com.tmd.dictionary.util.DictApplication;
 
 import io.realm.Realm;
@@ -58,11 +59,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     private void initSearchFragment() {
-        mFragmentManager
-            .beginTransaction()
-            .add(R.id.frame_layout, SearchFragment.newInstance(this))
-            .addToBackStack(null)
-            .commit();
+        OpenFragment
+            .openFragment(mFragmentManager, R.id.frame_layout, SearchFragment.newInstance(this));
     }
 
     public Context getContext() {
@@ -98,42 +96,26 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
 
     @Override
     public void onOpenKanjiDetailFragment(Kanji kanji) {
-        mFragmentManager
-            .beginTransaction()
-            .add(R.id.frame_layout,
-                KanjiDetailFragment.newInstance(this, mRealm.copyFromRealm(kanji)))
-            .addToBackStack(null)
-            .commit();
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            KanjiDetailFragment.newInstance(this, mRealm.copyFromRealm(kanji)));
     }
 
     @Override
     public void onOpenJpnWordDetailFragment(JpnWord jpnWord) {
-        mFragmentManager
-            .beginTransaction()
-            .add(R.id.frame_layout,
-                JpnDetailFragment.newInstance(this, mRealm.copyFromRealm(jpnWord)))
-            .addToBackStack(null)
-            .commit();
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            JpnDetailFragment.newInstance(this, mRealm.copyFromRealm(jpnWord)));
     }
 
     @Override
     public void onOpenVieWordDetailFragment(VieWord vieWord) {
-        mFragmentManager
-            .beginTransaction()
-            .add(R.id.frame_layout,
-                VieDetailFragment.newInstance(this, mRealm.copyFromRealm(vieWord)))
-            .addToBackStack(null)
-            .commit();
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            VieDetailFragment.newInstance(this, mRealm.copyFromRealm(vieWord)));
     }
 
     @Override
     public void onOpenGrammarDetailFragment(Grammar grammar) {
-        mFragmentManager
-            .beginTransaction()
-            .add(R.id.frame_layout,
-                GrammarDetailFragment.newInstance(this, mRealm.copyFromRealm(grammar)))
-            .addToBackStack(null)
-            .commit();
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            GrammarDetailFragment.newInstance(this, mRealm.copyFromRealm(grammar)));
     }
 
     @Override

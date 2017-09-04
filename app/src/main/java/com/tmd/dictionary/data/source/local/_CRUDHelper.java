@@ -1,6 +1,6 @@
 package com.tmd.dictionary.data.source.local;
 
-import com.tmd.dictionary.R;
+import com.google.gson.Gson;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
@@ -10,18 +10,20 @@ import com.tmd.dictionary.data.model.RealmString;
 import com.tmd.dictionary.data.model.TemporaryBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
-import com.tmd.dictionary.util.DictApplication;
+import com.tmd.dictionary.staticfinal.CustomGson;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_KANJI;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
 
 /**
  * Created by tmd on 09/07/2017.
@@ -66,12 +68,7 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<Kanji>> e)
                 throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransaction(new Realm.Transaction() {
+                mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
                         RealmQuery query = realm.where(Kanji.class);
@@ -83,7 +80,6 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
-                realm.close();
             }
         });
     }
@@ -94,12 +90,7 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<Grammar>> e)
                 throws Exception {
-                RealmConfiguration config = new RealmConfiguration.Builder()
-                    .schemaVersion(SCHEMA_VERSION)
-                    .assetFile(DictApplication.getContext().getString(R.string.database_name))
-                    .build();
-                Realm realm = Realm.getInstance(config);
-                realm.executeTransaction(new Realm.Transaction() {
+                mRealm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
                         RealmResults<Grammar> grammars = realm.where(Grammar.class)
@@ -109,7 +100,6 @@ public class _CRUDHelper implements DataSource {
                         e.onComplete();
                     }
                 });
-                realm.close();
             }
         });
     }
@@ -136,7 +126,7 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public void saveToHistory(final int type, final String key) {
+    public void saveToHistory(final JpnWord jpnWord) {
         mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -144,29 +134,69 @@ public class _CRUDHelper implements DataSource {
                 if (history == null) {
                     history = realm.createObject(History.class);
                 }
-                history.getPrimaryKey().add(0, new RealmString(key));
-                history.getType().add(0, new RealmInteger(type));
+                Gson gson = CustomGson.getGson();
+                String json = gson.toJson(jpnWord);
+                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getType().add(0, new RealmInteger(INT_JPN_WORD));
             }
         });
     }
 
     @Override
-    public Observable<History> getHistory() {
-        return Observable.create(new ObservableOnSubscribe<History>() {
+    public void saveToHistory(final VieWord vieWord) {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void subscribe(@NonNull final ObservableEmitter<History> e) throws Exception {
-                mRealm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        History history = realm.where(History.class).findFirst();
-                        if (history == null) {
-                            history = realm.createObject(History.class);
-                        }
-                        e.onNext(history);
-                    }
-                });
+            public void execute(Realm realm) {
+                History history = realm.where(History.class).findFirst();
+                if (history == null) {
+                    history = realm.createObject(History.class);
+                }
+                Gson gson = CustomGson.getGson();
+                String json = gson.toJson(vieWord);
+                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getType().add(0, new RealmInteger(INT_VIE_WORD));
             }
         });
+    }
+
+    @Override
+    public void saveToHistory(final Kanji kanji) {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                History history = realm.where(History.class).findFirst();
+                if (history == null) {
+                    history = realm.createObject(History.class);
+                }
+                Gson gson = CustomGson.getGson();
+                String json = gson.toJson(kanji);
+                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getType().add(0, new RealmInteger(INT_KANJI));
+            }
+        });
+    }
+
+    @Override
+    public void saveToHistory(final Grammar grammar) {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                History history = realm.where(History.class).findFirst();
+                if (history == null) {
+                    history = realm.createObject(History.class);
+                }
+                Gson gson = CustomGson.getGson();
+                String json = gson.toJson(grammar);
+                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getType().add(0, new RealmInteger(INT_GRAMMAR));
+            }
+        });
+    }
+
+    @Override
+    public History getHistory() {
+        History history = mRealm.where(History.class).findFirstAsync();
+        return history;
     }
 
     @Override

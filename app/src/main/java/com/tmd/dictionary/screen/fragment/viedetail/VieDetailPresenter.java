@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.viedetail;
 
+import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,8 +39,8 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(String primaryKey) {
-        mRepository.saveToHistory(INT_VIE_WORD, primaryKey);
+    public void saveToHistory(VieWord vieWord) {
+        mRepository.saveToHistory(vieWord);
     }
 
     @Override

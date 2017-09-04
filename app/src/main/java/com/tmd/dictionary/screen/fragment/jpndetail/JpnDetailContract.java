@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
@@ -21,7 +22,7 @@ interface JpnDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveToHistory(String key);
+        void saveToHistory(JpnWord jpnWord);
         void changeLikeState(String key);
         void isLiked(String key);
     }

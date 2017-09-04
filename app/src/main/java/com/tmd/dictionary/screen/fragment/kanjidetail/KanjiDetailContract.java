@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.kanjidetail;
 
+import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
@@ -19,7 +20,7 @@ interface KanjiDetailContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void saveToHistory(String primaryKey);
+        void saveToHistory(Kanji kanji);
         void changeLikeState(String key);
         void isLiked(String key);
     }

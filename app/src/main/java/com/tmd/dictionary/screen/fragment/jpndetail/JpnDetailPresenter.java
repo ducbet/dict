@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,8 +39,8 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void saveToHistory(String key) {
-        mRepository.saveToHistory(INT_JPN_WORD, key);
+    public void saveToHistory(JpnWord jpnWord) {
+        mRepository.saveToHistory(jpnWord);
     }
 
     @Override

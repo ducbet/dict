@@ -34,6 +34,11 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemJpnVieBinding binding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),

@@ -57,12 +57,27 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public void saveToHistory(int type, String key) {
-        mLocalDataSource.saveToHistory(type, key);
+    public void saveToHistory(JpnWord jpnWord) {
+        mLocalDataSource.saveToHistory(jpnWord);
     }
 
     @Override
-    public Observable<History> getHistory() {
+    public void saveToHistory(VieWord vieWord) {
+        mLocalDataSource.saveToHistory(vieWord);
+    }
+
+    @Override
+    public void saveToHistory(Kanji kanji) {
+        mLocalDataSource.saveToHistory(kanji);
+    }
+
+    @Override
+    public void saveToHistory(Grammar grammar) {
+        mLocalDataSource.saveToHistory(grammar);
+    }
+
+    @Override
+    public History getHistory() {
         return mLocalDataSource.getHistory();
     }
 
