@@ -36,11 +36,6 @@ public class GrammarAdapter extends RecyclerView.Adapter<GrammarAdapter.ViewHold
         notifyItemInserted(mList.size() - 1);
     }
 
-    public void clearData() {
-        mList.clear();
-        notifyDataSetChanged();
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemGrammarBinding binding =

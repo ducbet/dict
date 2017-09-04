@@ -58,8 +58,7 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     }
 
     @Override
-    public void onClearData() {
-        mAdapter.clearData();
+    public void onClearRealmResults() {
     }
 
     @Override

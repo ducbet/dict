@@ -1,6 +1,9 @@
 package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
+import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.source.DataSource;
+
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link JavVieFragment}), retrieves the data and updates
@@ -25,7 +28,17 @@ final class JavViePresenter implements JavVieContract.Presenter {
     }
 
     @Override
-    public void search(final String needSearch) {
-        mViewModel.onSearchJpnVieSuccess(mRepository.searchJpnVie(needSearch));
+    public void chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
+        mViewModel.onSearchJpnVieSuccess(mRepository.chaningQuery(input, parentsResult));
+    }
+
+    @Override
+    public void searchJpnWordHasKanjis(String needSearch) {
+        mViewModel.onSearchJpnVieSuccess(mRepository.searchJpnWordHasKanjis(needSearch));
+    }
+
+    @Override
+    public void searchJpnWordNotHasKanjis(String needSearch) {
+        mViewModel.onSearchJpnVieSuccess(mRepository.searchJpnWordNotHasKanjis(needSearch));
     }
 }

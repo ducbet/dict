@@ -74,4 +74,12 @@ public class KanjiFragment extends BaseFragmentLevel2 {
         }
         mViewModel.onSetNeedSearch(needSearch);
     }
+
+    @Override
+    public void onClearRealmResults() {
+        if (mViewModel == null) {
+            return;
+        }
+        mViewModel.onClearRealmResults();
+    }
 }

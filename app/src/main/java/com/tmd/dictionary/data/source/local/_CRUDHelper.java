@@ -40,11 +40,19 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnVie(final String input) {
+    public RealmResults<JpnWord> searchJpnWordHasKanjis(final String input) {
         getRealmInstance();
         RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("origin", "*" + input + "*")
-            .or()
+            .findAllAsync();
+        mRealm.close();
+        return jpnWords;
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
+        getRealmInstance();
+        RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("kana", "*" + input + "*")
             .findAllAsync();
         mRealm.close();
@@ -134,6 +142,18 @@ public class _CRUDHelper implements DataSource {
                 realm.close();
             }
         });
+    }
+
+    @Override
+    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
+        getRealmInstance();
+        RealmResults<JpnWord> jpnWords = parentsResult.where()
+            .like("origin", "*" + input + "*")
+            .or()
+            .like("kana", "*" + input + "*")
+            .findAllAsync();
+        mRealm.close();
+        return jpnWords;
     }
 
     @Override

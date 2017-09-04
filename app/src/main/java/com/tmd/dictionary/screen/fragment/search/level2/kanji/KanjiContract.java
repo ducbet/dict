@@ -17,7 +17,7 @@ interface KanjiContract {
         void onSearchKanjiSuccess(RealmResults<Kanji> kanjis);
         void onSearchKanjiFailed();
         void onSetNeedSearch(String needSearch);
-        void onClearData();
+        void onClearRealmResults();
         void onItemClick(Kanji kanji);
     }
 

@@ -1,5 +1,6 @@
 package com.tmd.dictionary.staticfinal;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_UNICODE;
 import static com.tmd.dictionary.staticfinal.ConstantValue.WORD_TYPE;
 
@@ -87,6 +88,15 @@ public class StringHandling {
             }
         }
         return true;
+    }
+
+    public static boolean isWordHasKanjis(String needCheck) {
+        for (char c : needCheck.toCharArray()) {
+            if (JAPANESE_KANJI.contains(Character.UnicodeBlock.of(c))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
