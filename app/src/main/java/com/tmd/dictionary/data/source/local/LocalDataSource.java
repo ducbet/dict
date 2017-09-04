@@ -26,7 +26,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<RealmResults<JpnWord>> searchJpnVie(String input) {
+    public RealmResults<JpnWord> searchJpnVie(String input) {
         return mCRUDHelper.searchJpnVie(input);
     }
 

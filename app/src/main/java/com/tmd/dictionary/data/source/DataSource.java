@@ -14,7 +14,7 @@ import io.realm.RealmResults;
  * Created by tmd on 16/08/2017.
  */
 public interface DataSource {
-    Observable<RealmResults<JpnWord>> searchJpnVie(String input);
+    RealmResults<JpnWord> searchJpnVie(String input);
     Observable<RealmResults<VieWord>> searchVieJpn(String input);
     Observable<RealmResults<Kanji>> searchKanji(String input);
     Observable<RealmResults<Grammar>> searchGrammar(String input);

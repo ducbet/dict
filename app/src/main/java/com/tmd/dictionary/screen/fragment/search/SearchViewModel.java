@@ -20,7 +20,6 @@ import com.tmd.dictionary.staticfinal.StringHandling;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,8 +28,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.tmd.dictionary.staticfinal.ConstantValue.DELAY_SEARCH;
 
 /**
  * Exposes the data to be used in the Search screen.
@@ -119,7 +116,6 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
                     return false;
                 }
             })
-            .debounce(DELAY_SEARCH, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(new Consumer<String>() {

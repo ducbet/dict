@@ -7,6 +7,7 @@ import com.tmd.dictionary.screen.fragment.search.SearchContract;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 /**
@@ -17,6 +18,14 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     private JavVieContract.Presenter mPresenter;
     private String mNeedSearch;
     private JavVieAdapter mAdapter;
+    private RealmChangeListener mRealmChangeListener =
+        new RealmChangeListener<RealmResults<JpnWord>>() {
+            @Override
+            public void onChange(RealmResults<JpnWord> jpnWords) {
+                mAdapter.setSource(jpnWords);
+            }
+        };
+    private RealmResults<JpnWord> mJpnWords;
 
     public JavVieViewModel(SearchContract.ViewModel searchViewModel) {
         mSearchViewModel = searchViewModel;
@@ -35,6 +44,9 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     @Override
     public void onStop() {
         mPresenter.onStop();
+        if (mJpnWords != null) {
+            mJpnWords.removeAllChangeListeners();
+        }
     }
 
     @Override
@@ -44,7 +56,8 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
 
     @Override
     public void onSearchJpnVieSuccess(RealmResults<JpnWord> jpnWords) {
-        mAdapter.setSource(jpnWords);
+        jpnWords.addChangeListener(mRealmChangeListener);
+        mJpnWords = jpnWords;
     }
 
     @Override
