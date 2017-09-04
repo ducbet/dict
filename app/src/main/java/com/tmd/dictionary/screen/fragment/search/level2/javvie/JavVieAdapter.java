@@ -25,19 +25,11 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
 
     public void setSource(List<JpnWord> list) {
         if (list == null) {
+            mList = new ArrayList<>();
+            notifyDataSetChanged();
             return;
         }
         mList = list;
-        notifyDataSetChanged();
-    }
-
-    public void setSource(JpnWord jpnWord) {
-        mList.add(jpnWord);
-        notifyItemInserted(mList.size() - 1);
-    }
-
-    public void clearData() {
-        mList.clear();
         notifyDataSetChanged();
     }
 

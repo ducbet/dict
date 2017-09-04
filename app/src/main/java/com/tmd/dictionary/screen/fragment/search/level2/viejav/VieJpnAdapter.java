@@ -36,11 +36,6 @@ public class VieJpnAdapter extends RecyclerView.Adapter<VieJpnAdapter.ViewHolder
         notifyItemInserted(mList.size() - 1);
     }
 
-    public void clearData() {
-        mList.clear();
-        notifyDataSetChanged();
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemVieJpnBinding binding =

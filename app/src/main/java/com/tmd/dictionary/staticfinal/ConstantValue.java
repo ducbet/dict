@@ -28,4 +28,9 @@ public class ConstantValue {
             add(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
         }
     };
+    public static final Set<Character.UnicodeBlock> JAPANESE_KANJI = new HashSet() {
+        {
+            add(Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+        }
+    };
 }

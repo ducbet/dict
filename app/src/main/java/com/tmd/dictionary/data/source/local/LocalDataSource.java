@@ -26,8 +26,13 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnVie(String input) {
-        return mCRUDHelper.searchJpnVie(input);
+    public RealmResults<JpnWord> searchJpnWordHasKanjis(String input) {
+        return mCRUDHelper.searchJpnWordHasKanjis(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
+        return mCRUDHelper.searchJpnWordNotHasKanjis(input);
     }
 
     @Override
@@ -43,6 +48,11 @@ public class LocalDataSource implements DataSource {
     @Override
     public Observable<RealmResults<Grammar>> searchGrammar(String input) {
         return mCRUDHelper.searchGrammar(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
+        return mCRUDHelper.chaningQuery(input, parentsResult);
     }
 
     @Override

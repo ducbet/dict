@@ -22,8 +22,13 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnVie(String input) {
-        return mLocalDataSource.searchJpnVie(input);
+    public RealmResults<JpnWord> searchJpnWordHasKanjis(String input) {
+        return mLocalDataSource.searchJpnWordHasKanjis(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
+        return mLocalDataSource.searchJpnWordNotHasKanjis(input);
     }
 
     @Override
@@ -39,6 +44,11 @@ public class Repository implements DataSource {
     @Override
     public Observable<RealmResults<Grammar>> searchGrammar(String input) {
         return mLocalDataSource.searchGrammar(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
+        return mLocalDataSource.chaningQuery(input, parentsResult);
     }
 
     @Override

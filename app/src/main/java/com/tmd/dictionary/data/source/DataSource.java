@@ -14,10 +14,12 @@ import io.realm.RealmResults;
  * Created by tmd on 16/08/2017.
  */
 public interface DataSource {
-    RealmResults<JpnWord> searchJpnVie(String input);
+    RealmResults<JpnWord> searchJpnWordHasKanjis(String input);
+    RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input);
     Observable<RealmResults<VieWord>> searchVieJpn(String input);
     Observable<RealmResults<Kanji>> searchKanji(String input);
     Observable<RealmResults<Grammar>> searchGrammar(String input);
+    RealmResults<JpnWord> chaningQuery(String input, RealmResults<JpnWord> parentsResult);
     void saveToHistory(Realm realm, int type, String key);
     Observable<History> getHistory();
     Observable<Boolean> changeLikeState(int type, String key);

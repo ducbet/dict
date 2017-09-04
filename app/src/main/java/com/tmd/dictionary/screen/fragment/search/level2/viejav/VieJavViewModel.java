@@ -58,8 +58,7 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     }
 
     @Override
-    public void onClearData() {
-        mAdapter.clearData();
+    public void onClearRealmResults() {
     }
 
     @Override

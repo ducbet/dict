@@ -110,7 +110,13 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
             .filter(new Predicate<String>() {
                 @Override
                 public boolean test(@NonNull String s) throws Exception {
-                    if (!s.isEmpty() && !mNeedSearch.equals(s) && StringHandling.isUnion(s)) {
+                    if (s.isEmpty()) {
+                        for (BaseFragmentLevel2 fragment : mListFragments) {
+                            fragment.onClearRealmResults();
+                        }
+                        return false;
+                    }
+                    if (!mNeedSearch.equals(s) && StringHandling.isUnion(s)) {
                         return true;
                     }
                     return false;

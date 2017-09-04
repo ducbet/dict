@@ -15,9 +15,10 @@ interface JavVieContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSearchJpnVieSuccess(RealmResults<JpnWord> jpnWord);
-        void onSearchJpnVieFailed();
         void onSetNeedSearch(String needSearch);
-        void onClearData();
+        void onChainingQuery(String needSearch, RealmResults<JpnWord> parentsResult);
+        void onRemoveLastResult();
+        void onClearRealmResults();
         void onItemClick(JpnWord jpnWord);
     }
 
@@ -25,6 +26,8 @@ interface JavVieContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void search(String needSearch);
+        void chaningQuery(String input, RealmResults<JpnWord> parentsResult);
+        void searchJpnWordHasKanjis(String needSearch);
+        void searchJpnWordNotHasKanjis(String needSearch);
     }
 }

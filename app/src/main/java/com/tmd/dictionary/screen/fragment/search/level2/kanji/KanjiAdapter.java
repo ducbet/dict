@@ -36,11 +36,6 @@ public class KanjiAdapter extends RecyclerView.Adapter<KanjiAdapter.ViewHolder> 
         notifyItemInserted(mList.size() - 1);
     }
 
-    public void clearData() {
-        mList.clear();
-        notifyDataSetChanged();
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemKanjiBinding binding =

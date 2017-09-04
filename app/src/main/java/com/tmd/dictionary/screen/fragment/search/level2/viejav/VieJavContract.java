@@ -17,7 +17,7 @@ interface VieJavContract {
         void onSearchVieJpnSuccess(RealmResults<VieWord> vieWords);
         void onSearchVieJpnFailed();
         void onSetNeedSearch(String needSearch);
-        void onClearData();
+        void onClearRealmResults();
         void onItemClick(VieWord word);
     }
 
