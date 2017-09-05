@@ -97,25 +97,25 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     @Override
     public void onOpenKanjiDetailFragment(Kanji kanji) {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
-            KanjiDetailFragment.newInstance(this, mRealm.copyFromRealm(kanji)));
+            KanjiDetailFragment.newInstance(this, kanji));
     }
 
     @Override
     public void onOpenJpnWordDetailFragment(JpnWord jpnWord) {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
-            JpnDetailFragment.newInstance(this, mRealm.copyFromRealm(jpnWord)));
+            JpnDetailFragment.newInstance(this, jpnWord));
     }
 
     @Override
     public void onOpenVieWordDetailFragment(VieWord vieWord) {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
-            VieDetailFragment.newInstance(this, mRealm.copyFromRealm(vieWord)));
+            VieDetailFragment.newInstance(this, vieWord));
     }
 
     @Override
     public void onOpenGrammarDetailFragment(Grammar grammar) {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
-            GrammarDetailFragment.newInstance(this, mRealm.copyFromRealm(grammar)));
+            GrammarDetailFragment.newInstance(this, grammar));
     }
 
     @Override

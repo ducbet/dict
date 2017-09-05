@@ -41,8 +41,8 @@ public class JavVieFragment extends BaseFragmentLevel2 {
         if (getArguments() != null) {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new JavVieViewModel(mSearchViewModel);
         mRealm = Realm.getDefaultInstance();
+        mViewModel = new JavVieViewModel(mRealm, mSearchViewModel);
         JavVieContract.Presenter presenter =
             new JavViePresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);

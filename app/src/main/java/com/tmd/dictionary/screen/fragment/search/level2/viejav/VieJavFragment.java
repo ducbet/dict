@@ -41,8 +41,8 @@ public class VieJavFragment extends BaseFragmentLevel2 {
         if (getArguments() != null) {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new VieJavViewModel(mSearchViewModel);
         mRealm = Realm.getDefaultInstance();
+        mViewModel = new VieJavViewModel(mRealm, mSearchViewModel);
         VieJavContract.Presenter presenter =
             new VieJavPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);

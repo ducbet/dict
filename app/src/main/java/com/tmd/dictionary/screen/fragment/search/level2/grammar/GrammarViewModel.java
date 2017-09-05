@@ -7,6 +7,7 @@ import com.tmd.dictionary.screen.fragment.search.SearchContract;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -17,8 +18,10 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     private GrammarContract.Presenter mPresenter;
     private String mNeedSearch;
     private GrammarAdapter mAdapter;
+    private Realm mRealm;
 
-    public GrammarViewModel(SearchContract.ViewModel searchViewModel) {
+    public GrammarViewModel(Realm realm, SearchContract.ViewModel searchViewModel) {
+        mRealm = realm;
         mSearchViewModel = searchViewModel;
         mAdapter = new GrammarAdapter(this);
     }
@@ -64,6 +67,6 @@ public class GrammarViewModel implements GrammarContract.ViewModel {
     @Override
     public void onItemClick(Grammar grammar) {
         SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
-        mSearchViewModel.onItemClick(grammar);
+        mSearchViewModel.onItemClick(mRealm.copyFromRealm(grammar));
     }
 }
