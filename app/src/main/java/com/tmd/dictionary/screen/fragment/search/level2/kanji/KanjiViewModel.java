@@ -7,6 +7,7 @@ import com.tmd.dictionary.screen.fragment.search.SearchContract;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
 import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
@@ -18,8 +19,10 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     private KanjiContract.Presenter mPresenter;
     private String mNeedSearch;
     private KanjiAdapter mAdapter;
+    private Realm mRealm;
 
-    public KanjiViewModel(SearchContract.ViewModel searchViewModel) {
+    public KanjiViewModel(Realm realm, SearchContract.ViewModel searchViewModel) {
+        mRealm = realm;
         mSearchViewModel = searchViewModel;
         mAdapter = new KanjiAdapter(this);
     }
@@ -65,6 +68,6 @@ public class KanjiViewModel implements KanjiContract.ViewModel {
     @Override
     public void onItemClick(Kanji kanji) {
         SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
-        mSearchViewModel.onItemClick(kanji);
+        mSearchViewModel.onItemClick(mRealm.copyFromRealm(kanji));
     }
 }

@@ -10,6 +10,7 @@ import com.tmd.dictionary.staticfinal.SoftKeybroad;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
@@ -32,8 +33,10 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
             }
         };
     private List<RealmResults<VieWord>> mListResults;
+    private Realm mRealm;
 
-    public VieJavViewModel(SearchContract.ViewModel searchViewModel) {
+    public VieJavViewModel(Realm realm, SearchContract.ViewModel searchViewModel) {
+        mRealm = realm;
         mSearchViewModel = searchViewModel;
         mAdapter = new VieJpnAdapter(this);
         mListResults = new ArrayList<>();
@@ -100,6 +103,6 @@ public class VieJavViewModel implements VieJavContract.ViewModel {
     @Override
     public void onItemClick(VieWord vieWord) {
         SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
-        mSearchViewModel.onItemClick(vieWord);
+        mSearchViewModel.onItemClick(mRealm.copyFromRealm(vieWord));
     }
 }

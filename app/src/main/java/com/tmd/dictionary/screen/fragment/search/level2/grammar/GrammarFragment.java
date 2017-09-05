@@ -41,8 +41,8 @@ public class GrammarFragment extends BaseFragmentLevel2 {
         if (getArguments() != null) {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new GrammarViewModel(mSearchViewModel);
         mRealm = Realm.getDefaultInstance();
+        mViewModel = new GrammarViewModel(mRealm, mSearchViewModel);
         GrammarContract.Presenter presenter =
             new GrammarPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);

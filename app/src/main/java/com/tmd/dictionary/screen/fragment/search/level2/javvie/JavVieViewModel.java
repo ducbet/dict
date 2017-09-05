@@ -11,6 +11,7 @@ import com.tmd.dictionary.staticfinal.StringHandling;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
@@ -33,8 +34,10 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
             }
         };
     private List<RealmResults<JpnWord>> mListResults;
+    private Realm mRealm;
 
-    public JavVieViewModel(SearchContract.ViewModel searchViewModel) {
+    public JavVieViewModel(Realm realm, SearchContract.ViewModel searchViewModel) {
+        mRealm = realm;
         mSearchViewModel = searchViewModel;
         mAdapter = new JavVieAdapter(this);
         mListResults = new ArrayList<>();
@@ -116,6 +119,6 @@ public class JavVieViewModel implements JavVieContract.ViewModel {
     @Override
     public void onItemClick(JpnWord jpnWord) {
         SoftKeybroad.hide((Activity) ((SearchViewModel) mSearchViewModel).getContext());
-        mSearchViewModel.onItemClick(jpnWord);
+        mSearchViewModel.onItemClick(mRealm.copyFromRealm(jpnWord));
     }
 }

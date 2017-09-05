@@ -41,8 +41,8 @@ public class KanjiFragment extends BaseFragmentLevel2 {
         if (getArguments() != null) {
             mSearchViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         }
-        mViewModel = new KanjiViewModel(mSearchViewModel);
         mRealm = Realm.getDefaultInstance();
+        mViewModel = new KanjiViewModel(mRealm, mSearchViewModel);
         KanjiContract.Presenter presenter =
             new KanjiPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
