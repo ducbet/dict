@@ -2,14 +2,13 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.activity.history.HistoryViewModel"
+            type="com.tmd.dictionary.screen.fragment.history.HistoryViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>
@@ -19,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context="com.tmd.dictionary.screen.screen.history.HistoryActivity"
         >
 
         <android.support.v7.widget.RecyclerView

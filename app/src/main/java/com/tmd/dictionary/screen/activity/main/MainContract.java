@@ -22,7 +22,7 @@ public interface MainContract {
         void onOpenJpnWordDetailFragment(JpnWord jpnWord);
         void onOpenVieWordDetailFragment(VieWord vieWord);
         void onOpenGrammarDetailFragment(Grammar grammar);
-        void onOpenHistoryActivity();
+        void onOpenHistoryFragment();
         void onOpenBoxesActivity();
     }
 
