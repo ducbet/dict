@@ -132,6 +132,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(JpnWord word) {
+            mBinding.setViewModel((HistoryViewModel) mViewModel);
             mBinding.setJpnWord(word);
         }
     }
@@ -145,6 +146,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(Kanji kanji) {
+            mBinding.setViewModel((HistoryViewModel) mViewModel);
             mBinding.setKanji(kanji);
         }
     }
@@ -158,6 +160,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(Grammar grammar) {
+            mBinding.setViewModel((HistoryViewModel) mViewModel);
             mBinding.setGrammar(grammar);
         }
     }
@@ -171,6 +174,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(VieWord word) {
+            mBinding.setViewModel((HistoryViewModel) mViewModel);
             mBinding.setVieWord(word);
         }
     }

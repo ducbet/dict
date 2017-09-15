@@ -142,8 +142,8 @@ public class SearchViewModel extends BaseObservable
     }
 
     @Override
-    public void onItemClick(JpnWord word) {
-        mMainViewModel.onOpenJpnWordDetailFragment(word);
+    public void onItemClick(JpnWord jpnWord) {
+        mMainViewModel.onOpenJpnWordDetailFragment(jpnWord);
     }
 
     @Override
