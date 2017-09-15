@@ -15,10 +15,8 @@ interface KanjiContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSearchKanjiSuccess(RealmResults<Kanji> kanjis);
-        void onSearchKanjiFailed();
         void onSetNeedSearch(String needSearch);
         void onClearRealmResults();
-        void onItemClick(Kanji kanji);
     }
 
     /**

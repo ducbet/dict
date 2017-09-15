@@ -19,7 +19,6 @@ interface JavVieContract {
         void onChainingQuery(String needSearch, RealmResults<JpnWord> parentsResult);
         void onRemoveLastResult();
         void onClearRealmResults();
-        void onItemClick(JpnWord jpnWord);
     }
 
     /**

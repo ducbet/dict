@@ -15,12 +15,10 @@ interface VieJavContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onSearchVieJpnSuccess(RealmResults<VieWord> vieWords);
-        void onSearchVieJpnFailed();
         void onSetNeedSearch(String needSearch);
         void onChainingQuery(String needSearch, RealmResults<VieWord> parentsResult);
         void onRemoveLastResult();
         void onClearRealmResults();
-        void onItemClick(VieWord word);
     }
 
     /**

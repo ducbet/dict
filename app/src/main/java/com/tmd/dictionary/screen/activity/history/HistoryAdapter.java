@@ -98,7 +98,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (mListType.get(position).getValue()) {
             case INT_JPN_WORD:
-                // TODO: 04/09/2017
                 ((JpnViewHolder) holder)
                     .bindData(mGson.fromJson(mListKey.get(position).getValue(), JpnWord.class));
                 break;

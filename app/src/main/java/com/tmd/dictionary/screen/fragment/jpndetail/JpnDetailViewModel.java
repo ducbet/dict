@@ -6,12 +6,14 @@ import android.databinding.Bindable;
 import com.tmd.dictionary.BR;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.screen.OnClickSearchedItemListener;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
 /**
  * Exposes the data to be used in the JpnWordDetail screen.
  */
-public class JpnDetailViewModel extends BaseObservable implements JpnDetailContract.ViewModel {
+public class JpnDetailViewModel extends BaseObservable
+    implements JpnDetailContract.ViewModel, OnClickSearchedItemListener {
     private MainContract.ViewModel mMainViewModel;
     private JpnDetailContract.Presenter mPresenter;
     private JpnWord mJpnWord;
@@ -61,11 +63,6 @@ public class JpnDetailViewModel extends BaseObservable implements JpnDetailContr
     }
 
     @Override
-    public void onClickKanji(Kanji kanji) {
-        mMainViewModel.onOpenKanjiDetailFragment(kanji);
-    }
-
-    @Override
     public void onChangeLikeState() {
         mPresenter.changeLikeState(mJpnWord.getOrigin());
     }
@@ -74,5 +71,13 @@ public class JpnDetailViewModel extends BaseObservable implements JpnDetailContr
     public void onSetLiked(Boolean isLiked) {
         mIsLiked = isLiked;
         notifyPropertyChanged(BR.liked);
+    }
+
+    @Override
+    public void onClick(Object item) {
+        if (item instanceof Kanji) {
+            mMainViewModel.onOpenKanjiDetailFragment((Kanji) item);
+            return;
+        }
     }
 }
