@@ -14,6 +14,7 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentKanjiDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import io.realm.Realm;
 
@@ -42,12 +43,13 @@ public class KanjiDetailFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-            mKanji = getArguments().getParcelable(BUNDLE_KANJI);
+        if (getArguments() == null) {
+            return;
         }
+        mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
+        mKanji = getArguments().getParcelable(BUNDLE_KANJI);
         mViewModel = new KanjiDetailViewModel(mMainViewModel, mKanji);
-        mRealm = Realm.getDefaultInstance();
+        mRealm = ((MainViewModel) mMainViewModel).getRealm();
         KanjiDetailContract.Presenter presenter =
             new KanjiDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
@@ -77,7 +79,6 @@ public class KanjiDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
-        mRealm.close();
         super.onStop();
     }
 }
