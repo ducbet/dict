@@ -42,7 +42,7 @@ public class HistoryFragment extends BaseFragment {
             return;
         }
         mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-        mViewModel = new HistoryViewModel();
+        mViewModel = new HistoryViewModel(mMainViewModel);
         mRealm = ((MainViewModel) mMainViewModel).getRealm();
         HistoryContract.Presenter presenter =
             new HistoryPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
