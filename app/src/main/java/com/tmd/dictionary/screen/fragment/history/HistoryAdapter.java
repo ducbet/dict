@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.activity.history;
+package com.tmd.dictionary.screen.fragment.history;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;

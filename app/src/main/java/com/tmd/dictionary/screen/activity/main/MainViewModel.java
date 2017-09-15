@@ -17,8 +17,8 @@ import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.activity.boxs.BoxesActivity;
-import com.tmd.dictionary.screen.activity.history.HistoryActivity;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
+import com.tmd.dictionary.screen.fragment.history.HistoryFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
@@ -124,9 +124,9 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
-    public void onOpenHistoryActivity() {
-        Intent intent = new Intent(mContext, HistoryActivity.class);
-        mContext.startActivity(intent);
+    public void onOpenHistoryFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            HistoryFragment.newInstance(this));
     }
 
     @Override
@@ -166,7 +166,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.history:
-                onOpenHistoryActivity();
+                onOpenHistoryFragment();
                 break;
             case R.id.flash_card:
                 onOpenBoxesActivity();
