@@ -43,8 +43,9 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     private NavigationView mNavigationView;
     private Realm mRealm;
 
-    public MainViewModel(Context context) {
+    public MainViewModel(Context context, Realm realm) {
         mContext = context;
+        mRealm = realm;
         mFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
         initRealm();
         initSearchFragment();
@@ -61,6 +62,10 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     private void initSearchFragment() {
         OpenFragment
             .openFragment(mFragmentManager, R.id.frame_layout, SearchFragment.newInstance(this));
+    }
+
+    public Realm getRealm() {
+        return mRealm;
     }
 
     public Context getContext() {

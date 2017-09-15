@@ -14,6 +14,7 @@ import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.FragmentJpnDetailBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
+import com.tmd.dictionary.screen.activity.main.MainViewModel;
 
 import io.realm.Realm;
 
@@ -42,12 +43,13 @@ public class JpnDetailFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-            mJpnWord = getArguments().getParcelable(BUNDLE_JPN_WORD);
+        if (getArguments() == null) {
+            return;
         }
+        mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
+        mJpnWord = getArguments().getParcelable(BUNDLE_JPN_WORD);
         mViewModel = new JpnDetailViewModel(mMainViewModel, mJpnWord);
-        mRealm = Realm.getDefaultInstance();
+        mRealm = ((MainViewModel) mMainViewModel).getRealm();
         JpnDetailContract.Presenter presenter =
             new JpnDetailPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
@@ -77,7 +79,6 @@ public class JpnDetailFragment extends BaseFragment {
     @Override
     public void onStop() {
         mViewModel.onStop();
-        mRealm.close();
         super.onStop();
     }
 }

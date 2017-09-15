@@ -28,12 +28,13 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 /**
  * Exposes the data to be used in the Search screen.
  */
-public class SearchViewModel extends BaseObservable implements SearchContract.ViewModel,
-    Parcelable {
+public class SearchViewModel extends BaseObservable
+    implements SearchContract.ViewModel, Parcelable {
     private static final String TAG = SearchViewModel.class.getName();
     private MainContract.ViewModel mMainViewModel;
     private Context mContext;
@@ -42,9 +43,11 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
     private List<BaseFragmentLevel2> mListFragments;
     private String mNeedSearch = "";
     private Disposable mDisposable;
+    private Realm mRealm;
 
     public SearchViewModel(MainContract.ViewModel mainViewModel) {
         mMainViewModel = mainViewModel;
+        mRealm = ((MainViewModel) mMainViewModel).getRealm();
         mContext = ((MainViewModel) mMainViewModel).getContext();
         initViewPager();
     }
@@ -76,6 +79,10 @@ public class SearchViewModel extends BaseObservable implements SearchContract.Vi
 
     public List<BaseFragmentLevel2> getListFragments() {
         return mListFragments;
+    }
+
+    public Realm getRealm() {
+        return mRealm;
     }
 
     public Context getContext() {
