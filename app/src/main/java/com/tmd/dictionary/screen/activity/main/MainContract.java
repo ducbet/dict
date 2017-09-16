@@ -30,5 +30,7 @@ public interface MainContract {
      * Presenter.
      */
     interface Presenter extends BasePresenter {
+        void createHistoryObjectIfNotExist();
+        void createLikedWordObjectIfNotExist();
     }
 }

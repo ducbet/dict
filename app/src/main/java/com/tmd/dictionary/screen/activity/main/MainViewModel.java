@@ -80,6 +80,8 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mPresenter.createHistoryObjectIfNotExist();
+        mPresenter.createLikedWordObjectIfNotExist();
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 

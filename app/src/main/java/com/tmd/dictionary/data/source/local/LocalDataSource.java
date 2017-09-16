@@ -58,6 +58,11 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
+    public void createHistoryObjectIfNotExist() {
+        mCRUDHelper.createHistoryObjectIfNotExist();
+    }
+
+    @Override
     public void saveToHistory(JpnWord jpnWord) {
         mCRUDHelper.saveToHistory(jpnWord);
     }
@@ -83,12 +88,17 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> changeLikeState(int type, String key) {
-        return mCRUDHelper.changeLikeState(type, key);
+    public void createLikedWordObjectIfNotExist() {
+        mCRUDHelper.createLikedWordObjectIfNotExist();
     }
 
     @Override
-    public Observable<Boolean> isLiked(String key) {
-        return mCRUDHelper.isLiked(key);
+    public Observable<Boolean> changeLikeState(int type, String jsonWord) {
+        return mCRUDHelper.changeLikeState(type, jsonWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(String jsonWord) {
+        return mCRUDHelper.isLiked(jsonWord);
     }
 }

@@ -8,7 +8,7 @@ import io.realm.RealmObject;
  */
 public class History extends RealmObject {
     private RealmList<RealmInteger> type;
-    private RealmList<RealmString> primaryKey;
+    private RealmList<RealmString> jsonWord;
 
     public RealmList<RealmInteger> getType() {
         return type;
@@ -18,11 +18,11 @@ public class History extends RealmObject {
         this.type = type;
     }
 
-    public RealmList<RealmString> getPrimaryKey() {
-        return primaryKey;
+    public RealmList<RealmString> getJsonWord() {
+        return jsonWord;
     }
 
-    public void setPrimaryKey(RealmList<RealmString> primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setJsonWord(RealmList<RealmString> primaryKey) {
+        this.jsonWord = primaryKey;
     }
 }

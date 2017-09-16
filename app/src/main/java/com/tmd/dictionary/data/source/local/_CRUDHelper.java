@@ -5,9 +5,9 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.LikedWord;
 import com.tmd.dictionary.data.model.RealmInteger;
 import com.tmd.dictionary.data.model.RealmString;
-import com.tmd.dictionary.data.model.TemporaryBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 import com.tmd.dictionary.staticfinal.CustomGson;
@@ -126,6 +126,19 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
+    public void createHistoryObjectIfNotExist() {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                History history = realm.where(History.class).findFirst();
+                if (history == null) {
+                    realm.createObject(History.class);
+                }
+            }
+        });
+    }
+
+    @Override
     public void saveToHistory(final JpnWord jpnWord) {
         mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -136,7 +149,7 @@ public class _CRUDHelper implements DataSource {
                 }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(jpnWord);
-                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getJsonWord().add(0, new RealmString(json));
                 history.getType().add(0, new RealmInteger(INT_JPN_WORD));
             }
         });
@@ -153,7 +166,7 @@ public class _CRUDHelper implements DataSource {
                 }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(vieWord);
-                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getJsonWord().add(0, new RealmString(json));
                 history.getType().add(0, new RealmInteger(INT_VIE_WORD));
             }
         });
@@ -170,7 +183,7 @@ public class _CRUDHelper implements DataSource {
                 }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(kanji);
-                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getJsonWord().add(0, new RealmString(json));
                 history.getType().add(0, new RealmInteger(INT_KANJI));
             }
         });
@@ -187,7 +200,7 @@ public class _CRUDHelper implements DataSource {
                 }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(grammar);
-                history.getPrimaryKey().add(0, new RealmString(json));
+                history.getJsonWord().add(0, new RealmString(json));
                 history.getType().add(0, new RealmInteger(INT_GRAMMAR));
             }
         });
@@ -200,7 +213,20 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> changeLikeState(final int type, final String key) {
+    public void createLikedWordObjectIfNotExist() {
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                LikedWord likedWord = realm.where(LikedWord.class).findFirst();
+                if (likedWord == null) {
+                    realm.createObject(LikedWord.class);
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(final int type, final String jsonWord) {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
@@ -208,22 +234,22 @@ public class _CRUDHelper implements DataSource {
                 mRealm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
-                        if (box == null) {
-                            box = realm.createObject(TemporaryBox.class);
+                        LikedWord likedWords = realm.where(LikedWord.class).findFirst();
+                        if (likedWords == null) {
+                            likedWords = realm.createObject(LikedWord.class);
                         }
-                        if (box.getPrimaryKey().contains(key)) {
-                            for (int i = 0; i < box.getPrimaryKey().size(); i++) {
-                                if (box.getPrimaryKey().get(i).equals(key)) {
-                                    box.getPrimaryKey().remove(i);
-                                    box.getType().remove(i);
+                        if (likedWords.getJsonWord().contains(jsonWord)) {
+                            for (int i = 0; i < likedWords.getJsonWord().size(); i++) {
+                                if (likedWords.getJsonWord().get(i).equals(jsonWord)) {
+                                    likedWords.getJsonWord().remove(i);
+                                    likedWords.getType().remove(i);
                                     break;
                                 }
                             }
                             e.onNext(false);
                         } else {
-                            box.getPrimaryKey().add(0, new RealmString(key));
-                            box.getType().add(0, new RealmInteger(type));
+                            likedWords.getJsonWord().add(0, new RealmString(jsonWord));
+                            likedWords.getType().add(0, new RealmInteger(type));
                             e.onNext(true);
                         }
                         e.onComplete();
@@ -234,7 +260,7 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> isLiked(final String key) {
+    public Observable<Boolean> isLiked(final String jsonWord) {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
@@ -242,11 +268,11 @@ public class _CRUDHelper implements DataSource {
                 mRealm.executeTransactionAsync(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
-                        TemporaryBox box = realm.where(TemporaryBox.class).findFirst();
-                        if (box == null) {
-                            box = realm.createObject(TemporaryBox.class);
+                        LikedWord likedWord = realm.where(LikedWord.class).findFirst();
+                        if (likedWord == null) {
+                            likedWord = realm.createObject(LikedWord.class);
                         }
-                        if (box.getPrimaryKey().contains(key)) {
+                        if (likedWord.getJsonWord().contains(jsonWord)) {
                             e.onNext(true);
                         } else {
                             e.onNext(false);

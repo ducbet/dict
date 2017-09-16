@@ -45,7 +45,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (history == null) {
             return;
         }
-        mListKey = history.getPrimaryKey();
+        mListKey = history.getJsonWord();
         mListType = history.getType();
         notifyDataSetChanged();
     }

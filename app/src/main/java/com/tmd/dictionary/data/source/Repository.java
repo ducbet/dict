@@ -57,6 +57,11 @@ public class Repository implements DataSource {
     }
 
     @Override
+    public void createHistoryObjectIfNotExist() {
+        mLocalDataSource.createHistoryObjectIfNotExist();
+    }
+
+    @Override
     public void saveToHistory(JpnWord jpnWord) {
         mLocalDataSource.saveToHistory(jpnWord);
     }
@@ -82,12 +87,17 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> changeLikeState(int type, String key) {
-        return mLocalDataSource.changeLikeState(type, key);
+    public void createLikedWordObjectIfNotExist() {
+        mLocalDataSource.createLikedWordObjectIfNotExist();
     }
 
     @Override
-    public Observable<Boolean> isLiked(String key) {
-        return mLocalDataSource.isLiked(key);
+    public Observable<Boolean> changeLikeState(int type, String jsonWord) {
+        return mLocalDataSource.changeLikeState(type, jsonWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(String jsonWord) {
+        return mLocalDataSource.isLiked(jsonWord);
     }
 }
