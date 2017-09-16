@@ -213,6 +213,12 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
+    public LikedWord getLikedWords() {
+        LikedWord likedWords = mRealm.where(LikedWord.class).findFirstAsync();
+        return likedWords;
+    }
+
+    @Override
     public void createLikedWordObjectIfNotExist() {
         mRealm.executeTransactionAsync(new Realm.Transaction() {
             @Override
@@ -226,7 +232,7 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> changeLikeState(final int type, final String jsonWord) {
+    public Observable<Boolean> changeLikeState(final JpnWord jpnWord) {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
@@ -238,9 +244,11 @@ public class _CRUDHelper implements DataSource {
                         if (likedWords == null) {
                             likedWords = realm.createObject(LikedWord.class);
                         }
-                        if (likedWords.getJsonWord().contains(jsonWord)) {
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(jpnWord);
+                        if (likedWords.getJsonWord().contains(json)) {
                             for (int i = 0; i < likedWords.getJsonWord().size(); i++) {
-                                if (likedWords.getJsonWord().get(i).equals(jsonWord)) {
+                                if (likedWords.getJsonWord().get(i).equals(json)) {
                                     likedWords.getJsonWord().remove(i);
                                     likedWords.getType().remove(i);
                                     break;
@@ -248,8 +256,116 @@ public class _CRUDHelper implements DataSource {
                             }
                             e.onNext(false);
                         } else {
-                            likedWords.getJsonWord().add(0, new RealmString(jsonWord));
-                            likedWords.getType().add(0, new RealmInteger(type));
+                            likedWords.getJsonWord().add(0, new RealmString(json));
+                            likedWords.getType().add(0, new RealmInteger(INT_JPN_WORD));
+                            e.onNext(true);
+                        }
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(final VieWord vieWord) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWords = realm.where(LikedWord.class).findFirst();
+                        if (likedWords == null) {
+                            likedWords = realm.createObject(LikedWord.class);
+                        }
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(vieWord);
+                        if (likedWords.getJsonWord().contains(json)) {
+                            for (int i = 0; i < likedWords.getJsonWord().size(); i++) {
+                                if (likedWords.getJsonWord().get(i).equals(json)) {
+                                    likedWords.getJsonWord().remove(i);
+                                    likedWords.getType().remove(i);
+                                    break;
+                                }
+                            }
+                            e.onNext(false);
+                        } else {
+                            likedWords.getJsonWord().add(0, new RealmString(json));
+                            likedWords.getType().add(0, new RealmInteger(INT_VIE_WORD));
+                            e.onNext(true);
+                        }
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(final Kanji kanji) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWords = realm.where(LikedWord.class).findFirst();
+                        if (likedWords == null) {
+                            likedWords = realm.createObject(LikedWord.class);
+                        }
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(kanji);
+                        if (likedWords.getJsonWord().contains(json)) {
+                            for (int i = 0; i < likedWords.getJsonWord().size(); i++) {
+                                if (likedWords.getJsonWord().get(i).equals(json)) {
+                                    likedWords.getJsonWord().remove(i);
+                                    likedWords.getType().remove(i);
+                                    break;
+                                }
+                            }
+                            e.onNext(false);
+                        } else {
+                            likedWords.getJsonWord().add(0, new RealmString(json));
+                            likedWords.getType().add(0, new RealmInteger(INT_KANJI));
+                            e.onNext(true);
+                        }
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(final Grammar grammar) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWords = realm.where(LikedWord.class).findFirst();
+                        if (likedWords == null) {
+                            likedWords = realm.createObject(LikedWord.class);
+                        }
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(grammar);
+                        if (likedWords.getJsonWord().contains(json)) {
+                            for (int i = 0; i < likedWords.getJsonWord().size(); i++) {
+                                if (likedWords.getJsonWord().get(i).equals(json)) {
+                                    likedWords.getJsonWord().remove(i);
+                                    likedWords.getType().remove(i);
+                                    break;
+                                }
+                            }
+                            e.onNext(false);
+                        } else {
+                            likedWords.getJsonWord().add(0, new RealmString(json));
+                            likedWords.getType().add(0, new RealmInteger(INT_GRAMMAR));
                             e.onNext(true);
                         }
                         e.onComplete();

@@ -49,7 +49,7 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
 
     @Override
     public void onChangeLikeState() {
-        mPresenter.changeLikeState(mVieWord.getOrigin());
+        mPresenter.changeLikeState(mVieWord);
     }
 
     @Override

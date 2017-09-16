@@ -23,4 +23,9 @@ final class LikedWordsPresenter implements LikedWordsContract.Presenter {
     @Override
     public void onStop() {
     }
+
+    @Override
+    public void getLikedWords() {
+        mViewModel.onGetLikedWordsSuccess(mRepository.getLikedWords());
+    }
 }

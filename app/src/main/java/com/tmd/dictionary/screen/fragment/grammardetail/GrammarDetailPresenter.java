@@ -9,8 +9,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
-
 /**
  * Listens to user actions from the UI ({@link GrammarDetailFragment}), retrieves the data and updates
  * the UI as required.
@@ -45,8 +43,8 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
     }
 
     @Override
-    public void changeLikeState(String key) {
-        Disposable disposable = mRepository.changeLikeState(INT_GRAMMAR, key)
+    public void changeLikeState(Grammar grammar) {
+        Disposable disposable = mRepository.changeLikeState(grammar)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

@@ -4,6 +4,7 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.LikedWord;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
@@ -87,13 +88,33 @@ public class Repository implements DataSource {
     }
 
     @Override
+    public LikedWord getLikedWords() {
+        return mLocalDataSource.getLikedWords();
+    }
+
+    @Override
     public void createLikedWordObjectIfNotExist() {
         mLocalDataSource.createLikedWordObjectIfNotExist();
     }
 
     @Override
-    public Observable<Boolean> changeLikeState(int type, String jsonWord) {
-        return mLocalDataSource.changeLikeState(type, jsonWord);
+    public Observable<Boolean> changeLikeState(JpnWord jpnWord) {
+        return mLocalDataSource.changeLikeState(jpnWord);
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(VieWord vieWord) {
+        return mLocalDataSource.changeLikeState(vieWord);
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(Kanji kanji) {
+        return mLocalDataSource.changeLikeState(kanji);
+    }
+
+    @Override
+    public Observable<Boolean> changeLikeState(Grammar grammar) {
+        return mLocalDataSource.changeLikeState(grammar);
     }
 
     @Override

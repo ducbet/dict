@@ -44,8 +44,8 @@ final class KanjiDetailPresenter implements KanjiDetailContract.Presenter {
     }
 
     @Override
-    public void changeLikeState(String key) {
-        Disposable disposable = mRepository.changeLikeState(INT_KANJI, key)
+    public void changeLikeState(Kanji kanji) {
+        Disposable disposable = mRepository.changeLikeState(kanji)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

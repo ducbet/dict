@@ -22,7 +22,7 @@ interface JpnDetailContract {
      */
     interface Presenter extends BasePresenter {
         void saveToHistory(JpnWord jpnWord);
-        void changeLikeState(String key);
+        void changeLikeState(JpnWord jpnWord);
         void isLiked(String key);
     }
 }

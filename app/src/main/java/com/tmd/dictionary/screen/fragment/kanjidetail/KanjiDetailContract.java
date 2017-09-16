@@ -21,7 +21,7 @@ interface KanjiDetailContract {
      */
     interface Presenter extends BasePresenter {
         void saveToHistory(Kanji kanji);
-        void changeLikeState(String key);
+        void changeLikeState(Kanji kanji);
         void isLiked(String key);
     }
 }

@@ -9,8 +9,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
-
 /**
  * Listens to user actions from the UI ({@link VieDetailFragment}), retrieves the data and updates
  * the UI as required.
@@ -44,9 +42,9 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
     }
 
     @Override
-    public void changeLikeState(String key) {
+    public void changeLikeState(VieWord vieWord) {
         Disposable
-            disposable = mRepository.changeLikeState(INT_VIE_WORD, key)
+            disposable = mRepository.changeLikeState(vieWord)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

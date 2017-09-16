@@ -1,14 +1,12 @@
 package com.tmd.dictionary.data.model;
 
 import io.realm.RealmList;
-import io.realm.RealmModel;
-import io.realm.annotations.RealmClass;
+import io.realm.RealmObject;
 
 /**
  * Created by tmd on 02/09/2017.
  */
-@RealmClass
-public class LikedWord implements RealmModel {
+public class LikedWord extends RealmObject {
     private RealmList<RealmInteger> type;
     private RealmList<RealmString> jsonWord;
 

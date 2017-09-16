@@ -50,7 +50,7 @@ public class GrammarDetailViewModel extends BaseObservable
 
     @Override
     public void onChangeLikeState() {
-        mPresenter.changeLikeState(mGrammar.getOrigin());
+        mPresenter.changeLikeState(mGrammar);
     }
 
     @Override
