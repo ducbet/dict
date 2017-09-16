@@ -21,6 +21,7 @@ import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.history.HistoryFragment;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
+import com.tmd.dictionary.screen.fragment.likedwords.LikedWordsFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 import com.tmd.dictionary.staticfinal.OpenFragment;
@@ -132,6 +133,12 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
+    public void onOpenLikedFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            LikedWordsFragment.newInstance(this));
+    }
+
+    @Override
     public void onOpenBoxesActivity() {
         Intent intent = new Intent(mContext, BoxesActivity.class);
         mContext.startActivity(intent);
@@ -169,6 +176,9 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
         switch (item.getItemId()) {
             case R.id.history:
                 onOpenHistoryFragment();
+                break;
+            case R.id.liked:
+                onOpenLikedFragment();
                 break;
             case R.id.flash_card:
                 onOpenBoxesActivity();
