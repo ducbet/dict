@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.tmd.dictionary.screen.fragment.history.HistoryViewModel"
+            type="com.tmd.dictionary.screen.fragment.likedwords.LikedWordsViewModel"
             />
 
         <import type="com.tmd.dictionary.util.LayoutManagers"/>
@@ -25,14 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/history"
+            android:text="@string/liked_words"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_20"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            bind:adapter="@{viewModel.adapter}"
             bind:layoutManager="@{LayoutManagers.linear()}"/>
     </LinearLayout>
 </layout>
