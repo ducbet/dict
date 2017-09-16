@@ -65,8 +65,8 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
     }
 
     @Override
-    public void isLiked(String key) {
-        Disposable disposable = mRepository.isLiked(key)
+    public void isLiked(VieWord vieWord) {
+        Disposable disposable = mRepository.isLiked(vieWord)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

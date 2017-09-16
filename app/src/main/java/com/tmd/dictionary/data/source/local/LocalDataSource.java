@@ -119,7 +119,22 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> isLiked(String jsonWord) {
-        return mCRUDHelper.isLiked(jsonWord);
+    public Observable<Boolean> isLiked(JpnWord jpnWord) {
+        return mCRUDHelper.isLiked(jpnWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(VieWord vieWord) {
+        return mCRUDHelper.isLiked(vieWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(Kanji kanji) {
+        return mCRUDHelper.isLiked(kanji);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(Grammar grammar) {
+        return mCRUDHelper.isLiked(grammar);
     }
 }

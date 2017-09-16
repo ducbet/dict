@@ -118,7 +118,22 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> isLiked(String jsonWord) {
-        return mLocalDataSource.isLiked(jsonWord);
+    public Observable<Boolean> isLiked(JpnWord jpnWord) {
+        return mLocalDataSource.isLiked(jpnWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(VieWord vieWord) {
+        return mLocalDataSource.isLiked(vieWord);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(Kanji kanji) {
+        return mLocalDataSource.isLiked(kanji);
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(Grammar grammar) {
+        return mLocalDataSource.isLiked(grammar);
     }
 }

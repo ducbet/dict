@@ -144,9 +144,6 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void execute(Realm realm) {
                 History history = realm.where(History.class).findFirst();
-                if (history == null) {
-                    history = realm.createObject(History.class);
-                }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(jpnWord);
                 history.getJsonWord().add(0, new RealmString(json));
@@ -161,9 +158,6 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void execute(Realm realm) {
                 History history = realm.where(History.class).findFirst();
-                if (history == null) {
-                    history = realm.createObject(History.class);
-                }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(vieWord);
                 history.getJsonWord().add(0, new RealmString(json));
@@ -178,9 +172,6 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void execute(Realm realm) {
                 History history = realm.where(History.class).findFirst();
-                if (history == null) {
-                    history = realm.createObject(History.class);
-                }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(kanji);
                 history.getJsonWord().add(0, new RealmString(json));
@@ -195,9 +186,6 @@ public class _CRUDHelper implements DataSource {
             @Override
             public void execute(Realm realm) {
                 History history = realm.where(History.class).findFirst();
-                if (history == null) {
-                    history = realm.createObject(History.class);
-                }
                 Gson gson = CustomGson.getGson();
                 String json = gson.toJson(grammar);
                 history.getJsonWord().add(0, new RealmString(json));
@@ -241,9 +229,6 @@ public class _CRUDHelper implements DataSource {
                     @Override
                     public void execute(Realm realm) {
                         LikedWord likedWords = realm.where(LikedWord.class).findFirst();
-                        if (likedWords == null) {
-                            likedWords = realm.createObject(LikedWord.class);
-                        }
                         Gson gson = CustomGson.getGson();
                         String json = gson.toJson(jpnWord);
                         if (likedWords.getJsonWord().contains(json)) {
@@ -277,9 +262,6 @@ public class _CRUDHelper implements DataSource {
                     @Override
                     public void execute(Realm realm) {
                         LikedWord likedWords = realm.where(LikedWord.class).findFirst();
-                        if (likedWords == null) {
-                            likedWords = realm.createObject(LikedWord.class);
-                        }
                         Gson gson = CustomGson.getGson();
                         String json = gson.toJson(vieWord);
                         if (likedWords.getJsonWord().contains(json)) {
@@ -313,9 +295,6 @@ public class _CRUDHelper implements DataSource {
                     @Override
                     public void execute(Realm realm) {
                         LikedWord likedWords = realm.where(LikedWord.class).findFirst();
-                        if (likedWords == null) {
-                            likedWords = realm.createObject(LikedWord.class);
-                        }
                         Gson gson = CustomGson.getGson();
                         String json = gson.toJson(kanji);
                         if (likedWords.getJsonWord().contains(json)) {
@@ -349,9 +328,6 @@ public class _CRUDHelper implements DataSource {
                     @Override
                     public void execute(Realm realm) {
                         LikedWord likedWords = realm.where(LikedWord.class).findFirst();
-                        if (likedWords == null) {
-                            likedWords = realm.createObject(LikedWord.class);
-                        }
                         Gson gson = CustomGson.getGson();
                         String json = gson.toJson(grammar);
                         if (likedWords.getJsonWord().contains(json)) {
@@ -376,7 +352,7 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public Observable<Boolean> isLiked(final String jsonWord) {
+    public Observable<Boolean> isLiked(final JpnWord jpnWord) {
         return Observable.create(new ObservableOnSubscribe<Boolean>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
@@ -385,10 +361,81 @@ public class _CRUDHelper implements DataSource {
                     @Override
                     public void execute(Realm realm) {
                         LikedWord likedWord = realm.where(LikedWord.class).findFirst();
-                        if (likedWord == null) {
-                            likedWord = realm.createObject(LikedWord.class);
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(jpnWord);
+                        if (likedWord.getJsonWord().contains(json)) {
+                            e.onNext(true);
+                        } else {
+                            e.onNext(false);
                         }
-                        if (likedWord.getJsonWord().contains(jsonWord)) {
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(final VieWord vieWord) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWord = realm.where(LikedWord.class).findFirst();
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(vieWord);
+                        if (likedWord.getJsonWord().contains(json)) {
+                            e.onNext(true);
+                        } else {
+                            e.onNext(false);
+                        }
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(final Kanji kanji) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWord = realm.where(LikedWord.class).findFirst();
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(kanji);
+                        if (likedWord.getJsonWord().contains(json)) {
+                            e.onNext(true);
+                        } else {
+                            e.onNext(false);
+                        }
+                        e.onComplete();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public Observable<Boolean> isLiked(final Grammar grammar) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(@NonNull final ObservableEmitter<Boolean> e)
+                throws Exception {
+                mRealm.executeTransactionAsync(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        LikedWord likedWord = realm.where(LikedWord.class).findFirst();
+                        Gson gson = CustomGson.getGson();
+                        String json = gson.toJson(grammar);
+                        if (likedWord.getJsonWord().contains(json)) {
                             e.onNext(true);
                         } else {
                             e.onNext(false);

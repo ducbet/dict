@@ -34,7 +34,7 @@ public class GrammarDetailViewModel extends BaseObservable
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.isLiked(mGrammar.getOrigin());
+        mPresenter.isLiked(mGrammar);
         mPresenter.saveToHistory(mGrammar);
     }
 

@@ -65,8 +65,8 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
     }
 
     @Override
-    public void isLiked(String key) {
-        Disposable disposable = mRepository.isLiked(key)
+    public void isLiked(Grammar grammar) {
+        Disposable disposable = mRepository.isLiked(grammar)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {
