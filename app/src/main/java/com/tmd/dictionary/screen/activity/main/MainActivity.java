@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.source.Repository;
+import com.tmd.dictionary.data.source.local.LocalDataSource;
 import com.tmd.dictionary.databinding.ActivityMainBinding;
 import com.tmd.dictionary.databinding.NavigationHeaderBinding;
 import com.tmd.dictionary.screen.BaseActivity;
@@ -28,7 +30,8 @@ public class MainActivity extends BaseActivity implements Serializable {
         super.onCreate(savedInstanceState);
         mRealm = Realm.getDefaultInstance();
         mViewModel = new MainViewModel(this, mRealm);
-        MainContract.Presenter presenter = new MainPresenter(mViewModel);
+        MainContract.Presenter presenter =
+            new MainPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
         ActivityMainBinding binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main);

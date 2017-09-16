@@ -8,9 +8,9 @@ import io.realm.annotations.RealmClass;
  * Created by tmd on 02/09/2017.
  */
 @RealmClass
-public class TemporaryBox implements RealmModel {
+public class LikedWord implements RealmModel {
     private RealmList<RealmInteger> type;
-    private RealmList<RealmString> primaryKey;
+    private RealmList<RealmString> jsonWord;
 
     public RealmList<RealmInteger> getType() {
         return type;
@@ -20,11 +20,11 @@ public class TemporaryBox implements RealmModel {
         this.type = type;
     }
 
-    public RealmList<RealmString> getPrimaryKey() {
-        return primaryKey;
+    public RealmList<RealmString> getJsonWord() {
+        return jsonWord;
     }
 
-    public void setPrimaryKey(RealmList<RealmString> primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setJsonWord(RealmList<RealmString> primaryKey) {
+        this.jsonWord = primaryKey;
     }
 }
