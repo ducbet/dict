@@ -64,8 +64,8 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void isLiked(String key) {
-        Disposable disposable = mRepository.isLiked(key)
+    public void isLiked(JpnWord jpnWord) {
+        Disposable disposable = mRepository.isLiked(jpnWord)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

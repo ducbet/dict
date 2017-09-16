@@ -9,8 +9,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.INT_KANJI;
-
 /**
  * Listens to user actions from the UI ({@link KanjiDetailFragment}), retrieves the data and updates
  * the UI as required.
@@ -66,8 +64,8 @@ final class KanjiDetailPresenter implements KanjiDetailContract.Presenter {
     }
 
     @Override
-    public void isLiked(String key) {
-        Disposable disposable = mRepository.isLiked(key)
+    public void isLiked(Kanji kanji) {
+        Disposable disposable = mRepository.isLiked(kanji)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

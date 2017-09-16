@@ -23,6 +23,6 @@ interface JpnDetailContract {
     interface Presenter extends BasePresenter {
         void saveToHistory(JpnWord jpnWord);
         void changeLikeState(JpnWord jpnWord);
-        void isLiked(String key);
+        void isLiked(JpnWord jpnWord);
     }
 }

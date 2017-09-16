@@ -22,6 +22,6 @@ interface VieDetailContract {
     interface Presenter extends BasePresenter {
         void saveToHistory(VieWord vieWord);
         void changeLikeState(VieWord vieWord);
-        void isLiked(String key);
+        void isLiked(VieWord vieWord);
     }
 }

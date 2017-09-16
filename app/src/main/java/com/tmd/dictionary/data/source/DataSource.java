@@ -33,5 +33,8 @@ public interface DataSource {
     Observable<Boolean> changeLikeState(VieWord vieWord);
     Observable<Boolean> changeLikeState(Kanji kanji);
     Observable<Boolean> changeLikeState(Grammar grammar);
-    Observable<Boolean> isLiked(String jsonWord);
+    Observable<Boolean> isLiked(JpnWord jpnWord);
+    Observable<Boolean> isLiked(VieWord vieWord);
+    Observable<Boolean> isLiked(Kanji kanji);
+    Observable<Boolean> isLiked(Grammar grammar);
 }

@@ -33,7 +33,7 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.isLiked(mVieWord.getOrigin());
+        mPresenter.isLiked(mVieWord);
         mPresenter.saveToHistory(mVieWord);
     }
 

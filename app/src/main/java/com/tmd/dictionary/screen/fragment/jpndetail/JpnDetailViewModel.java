@@ -48,7 +48,7 @@ public class JpnDetailViewModel extends BaseObservable
     @Override
     public void onStart() {
         mPresenter.onStart();
-        mPresenter.isLiked(mJpnWord.getOrigin());
+        mPresenter.isLiked(mJpnWord);
         mPresenter.saveToHistory(mJpnWord);
     }
 
