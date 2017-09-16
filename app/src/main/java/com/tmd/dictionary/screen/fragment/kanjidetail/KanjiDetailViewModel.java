@@ -49,7 +49,7 @@ public class KanjiDetailViewModel extends BaseObservable implements KanjiDetailC
 
     @Override
     public void onChangeLikeState() {
-        mPresenter.changeLikeState(mKanji.getOrigin());
+        mPresenter.changeLikeState(mKanji);
     }
 
     @Override

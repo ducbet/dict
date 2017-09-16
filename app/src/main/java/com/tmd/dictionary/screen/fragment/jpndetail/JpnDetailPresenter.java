@@ -9,8 +9,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
-
 /**
  * Listens to user actions from the UI ({@link JpnDetailFragment}), retrieves the data and updates
  * the UI as required.
@@ -44,8 +42,8 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     }
 
     @Override
-    public void changeLikeState(String key) {
-        Disposable disposable = mRepository.changeLikeState(INT_JPN_WORD, key)
+    public void changeLikeState(JpnWord jpnWord) {
+        Disposable disposable = mRepository.changeLikeState(jpnWord)
 //            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(new DisposableObserver<Boolean>() {

@@ -4,6 +4,7 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.History;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.LikedWord;
 import com.tmd.dictionary.data.model.VieWord;
 
 import io.reactivex.Observable;
@@ -26,7 +27,11 @@ public interface DataSource {
     void saveToHistory(Kanji kanji);
     void saveToHistory(Grammar grammar);
     History getHistory();
+    LikedWord getLikedWords();
     void createLikedWordObjectIfNotExist();
-    Observable<Boolean> changeLikeState(int type, String jsonWord);
+    Observable<Boolean> changeLikeState(JpnWord jpnWord);
+    Observable<Boolean> changeLikeState(VieWord vieWord);
+    Observable<Boolean> changeLikeState(Kanji kanji);
+    Observable<Boolean> changeLikeState(Grammar grammar);
     Observable<Boolean> isLiked(String jsonWord);
 }

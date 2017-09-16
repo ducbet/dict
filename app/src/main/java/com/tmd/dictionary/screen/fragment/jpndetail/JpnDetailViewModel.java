@@ -64,7 +64,7 @@ public class JpnDetailViewModel extends BaseObservable
 
     @Override
     public void onChangeLikeState() {
-        mPresenter.changeLikeState(mJpnWord.getOrigin());
+        mPresenter.changeLikeState(mJpnWord);
     }
 
     @Override

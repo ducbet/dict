@@ -42,7 +42,7 @@ public class LikedWordsFragment extends BaseFragment {
             return;
         }
         mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-        mViewModel = new LikedWordsViewModel();
+        mViewModel = new LikedWordsViewModel(mMainViewModel);
         mRealm = ((MainViewModel) mMainViewModel).getRealm();
         LikedWordsContract.Presenter presenter =
             new LikedWordsPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));

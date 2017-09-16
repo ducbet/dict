@@ -21,7 +21,7 @@ interface GrammarDetailContract {
      */
     interface Presenter extends BasePresenter {
         void saveToHistory(Grammar grammar);
-        void changeLikeState(String key);
+        void changeLikeState(Grammar grammar);
         void isLiked(String key);
     }
 }
