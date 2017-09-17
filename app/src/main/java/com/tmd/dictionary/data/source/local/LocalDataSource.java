@@ -23,13 +23,23 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnWordHasKanjis(String input) {
-        return mCRUDHelper.searchJpnWordHasKanjis(input);
+    public RealmResults<JpnWord> searchEqualJpnWordHasKanjis(String input) {
+        return mCRUDHelper.searchEqualJpnWordHasKanjis(input);
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
-        return mCRUDHelper.searchJpnWordNotHasKanjis(input);
+    public RealmResults<JpnWord> searchLikeJpnWordHasKanjis(String input) {
+        return mCRUDHelper.searchLikeJpnWordHasKanjis(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchEqualJpnWordNotHasKanjis(String input) {
+        return mCRUDHelper.searchEqualJpnWordNotHasKanjis(input);
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchLikeJpnWordNotHasKanjis(String input) {
+        return mCRUDHelper.searchLikeJpnWordNotHasKanjis(input);
     }
 
     @Override
@@ -47,9 +57,15 @@ public class LocalDataSource implements DataSource {
         return mCRUDHelper.searchGrammar(input);
     }
 
-    public RealmResults<JpnWord> chaningJpnQuery(String input,
-                                                 RealmResults<JpnWord> parentsResult) {
-        return mCRUDHelper.chaningJpnQuery(input, parentsResult);
+    public RealmResults<JpnWord> chaningJpnQueryEqual(String input,
+                                                      RealmResults<JpnWord> parentsResult) {
+        return mCRUDHelper.chaningJpnQueryEqual(input, parentsResult);
+    }
+
+    @Override
+    public RealmResults<JpnWord> chaningJpnQueryLike(String input,
+                                                     RealmResults<JpnWord> parentsResult) {
+        return mCRUDHelper.chaningJpnQueryLike(input, parentsResult);
     }
 
     @Override

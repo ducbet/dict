@@ -28,17 +28,32 @@ final class JavViePresenter implements JavVieContract.Presenter {
     }
 
     @Override
-    public void chaningQuery(String input, RealmResults<JpnWord> parentsResult) {
-        mViewModel.onSearchJpnVieSuccess(mRepository.chaningJpnQuery(input, parentsResult));
+    public void chaningQueryEqual(String input, RealmResults<JpnWord> parentsResult) {
+        mViewModel.onSearchEqualSuccess(mRepository.chaningJpnQueryEqual(input, parentsResult));
     }
 
     @Override
-    public void searchJpnWordHasKanjis(String needSearch) {
-        mViewModel.onSearchJpnVieSuccess(mRepository.searchJpnWordHasKanjis(needSearch));
+    public void chaningQueryLike(String input, RealmResults<JpnWord> parentsResult) {
+        mViewModel.onSearchLikeSuccess(mRepository.chaningJpnQueryLike(input, parentsResult));
     }
 
     @Override
-    public void searchJpnWordNotHasKanjis(String needSearch) {
-        mViewModel.onSearchJpnVieSuccess(mRepository.searchJpnWordNotHasKanjis(needSearch));
+    public void searchEqualHasKanjis(String needSearch) {
+        mViewModel.onSearchEqualSuccess(mRepository.searchEqualJpnWordHasKanjis(needSearch));
+    }
+
+    @Override
+    public void searchLikeHasKanjis(String needSearch) {
+        mViewModel.onSearchLikeSuccess(mRepository.searchLikeJpnWordHasKanjis(needSearch));
+    }
+
+    @Override
+    public void searchEqualNotHasKanjis(String needSearch) {
+        mViewModel.onSearchEqualSuccess(mRepository.searchEqualJpnWordNotHasKanjis(needSearch));
+    }
+
+    @Override
+    public void searchLikeNotHasKanjis(String needSearch) {
+        mViewModel.onSearchLikeSuccess(mRepository.searchLikeJpnWordNotHasKanjis(needSearch));
     }
 }
