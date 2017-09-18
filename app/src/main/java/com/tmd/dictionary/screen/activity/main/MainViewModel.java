@@ -19,9 +19,11 @@ import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.activity.boxs.BoxesActivity;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.history.HistoryFragment;
+import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailContract;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.likedwords.LikedWordsFragment;
+import com.tmd.dictionary.screen.fragment.movetobox.MoveToBoxFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 import com.tmd.dictionary.staticfinal.OpenFragment;
@@ -147,6 +149,12 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenLikedFragment() {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
             LikedWordsFragment.newInstance(this));
+    }
+
+    @Override
+    public void onMoveToBoxFragment(JpnDetailContract.ViewModel viewModel) {
+        MoveToBoxFragment moveToBoxFragment = MoveToBoxFragment.newInstance(viewModel);
+        moveToBoxFragment.show(((MainActivity) mContext).getFragmentManager(), null);
     }
 
     @Override

@@ -458,11 +458,16 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public JpnBox createFlashcardBox(JpnBox newBox) {
+    public void createFlashcardBox(final JpnBox newBox) {
         if (isBoxExits(newBox)) {
-            return null;
+            return;
         }
-        return mRealm.copyToRealm(newBox);
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealm(newBox);
+            }
+        });
     }
 
     private boolean isBoxExits(VieBox box) {
@@ -505,5 +510,10 @@ public class _CRUDHelper implements DataSource {
             return null;
         }
         return mRealm.copyToRealm(newBox);
+    }
+
+    @Override
+    public RealmResults<JpnBox> getAllJpnBoxes() {
+        return mRealm.where(JpnBox.class).findAllAsync();
     }
 }

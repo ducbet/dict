@@ -142,8 +142,8 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public JpnBox createFlashcardBox(JpnBox newBox) {
-        return mLocalDataSource.createFlashcardBox(newBox);
+    public void createFlashcardBox(JpnBox newBox) {
+        mLocalDataSource.createFlashcardBox(newBox);
     }
 
     @Override
@@ -159,5 +159,10 @@ public class Repository implements DataSource {
     @Override
     public GrammarBox createFlashcardBox(GrammarBox newBox) {
         return mLocalDataSource.createFlashcardBox(newBox);
+    }
+
+    @Override
+    public RealmResults<JpnBox> getAllJpnBoxes() {
+        return mLocalDataSource.getAllJpnBoxes();
     }
 }

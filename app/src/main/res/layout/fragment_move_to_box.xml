@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tmd.dictionary.screen.fragment.movetobox.MoveToBoxViewModel"
+            />
+
+        <import type="com.tmd.dictionary.util.LayoutManagers"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_light"
+            android:gravity="center"
+            android:text="@{viewModel.word}"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_25"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.createBox()}"
+            android:text="CREATE BOX"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"
+            android:text="@{viewModel.boxesCount}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_25"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            bind:adapter="@{viewModel.adapter}"
+            bind:layoutManager="@{LayoutManagers.linear()}"/>
+    </LinearLayout>
+</layout>

@@ -17,4 +17,10 @@ public class SoftKeybroad {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    public static void show(Activity activity) {
+        InputMethodManager imm =
+            (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
 }

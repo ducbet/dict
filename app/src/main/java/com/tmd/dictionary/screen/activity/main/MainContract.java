@@ -8,6 +8,7 @@ import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
+import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailContract;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -26,6 +27,7 @@ public interface MainContract {
         void onOpenSearchFragment(String needSearch);
         void onOpenHistoryFragment();
         void onOpenLikedFragment();
+        void onMoveToBoxFragment(JpnDetailContract.ViewModel viewModel);
         void onOpenBoxesActivity();
     }
 
