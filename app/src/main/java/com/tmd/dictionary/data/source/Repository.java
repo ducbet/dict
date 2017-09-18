@@ -1,10 +1,14 @@
 package com.tmd.dictionary.data.source;
 
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.GrammarBox;
 import com.tmd.dictionary.data.model.History;
+import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.KanjiBox;
 import com.tmd.dictionary.data.model.LikedWord;
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
 
@@ -135,5 +139,25 @@ public class Repository implements DataSource {
     @Override
     public Observable<Boolean> isLiked(Grammar grammar) {
         return mLocalDataSource.isLiked(grammar);
+    }
+
+    @Override
+    public JpnBox createFlashcardBox(JpnBox newBox) {
+        return mLocalDataSource.createFlashcardBox(newBox);
+    }
+
+    @Override
+    public VieBox createFlashcardBox(VieBox newBox) {
+        return mLocalDataSource.createFlashcardBox(newBox);
+    }
+
+    @Override
+    public KanjiBox createFlashcardBox(KanjiBox newBox) {
+        return mLocalDataSource.createFlashcardBox(newBox);
+    }
+
+    @Override
+    public GrammarBox createFlashcardBox(GrammarBox newBox) {
+        return mLocalDataSource.createFlashcardBox(newBox);
     }
 }
