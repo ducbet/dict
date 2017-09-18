@@ -6,12 +6,22 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.screen.fragment.search.SearchViewModel;
+import com.tmd.dictionary.screen.fragment.viedetail.VieDetailViewModel;
+import com.tmd.dictionary.staticfinal.StringHandling;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -80,5 +90,26 @@ public class BindingUtil {
             return;
         }
         imageView.setImageResource(R.drawable.ic_heart_unfill);
+    }
+
+    @BindingAdapter({"viewModel", "linksText"})
+    public static void linksText(final TextView textView, final VieDetailViewModel viewModel,
+                                 String definition) {
+        SpannableString spannableString = new SpannableString(definition);
+        List<String> tokens = StringHandling.japaneseFilter(definition);
+        int begin, end = 0;
+        for (final String token : tokens) {
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View view) {
+                    viewModel.onOpenSearchFragment(token);
+                }
+            };
+            begin = definition.indexOf(token, end);
+            end = begin + token.length();
+            spannableString.setSpan(clickableSpan, begin, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        textView.setText(spannableString);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

@@ -12,6 +12,7 @@ import com.tmd.dictionary.databinding.FragmentSearchBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.main.MainContract;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_NEED_SEARCH;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
@@ -20,6 +21,7 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 public class SearchFragment extends BaseFragment {
     private MainContract.ViewModel mMainViewModel;
     private SearchContract.ViewModel mViewModel;
+    private String mNeedSearch;
 
     public static SearchFragment newInstance(MainContract.ViewModel mainViewModel) {
         SearchFragment vieJavFragment = new SearchFragment();
@@ -29,15 +31,27 @@ public class SearchFragment extends BaseFragment {
         return vieJavFragment;
     }
 
+    public static SearchFragment newInstance(MainContract.ViewModel mainViewModel,
+                                             String needSearch) {
+        SearchFragment vieJavFragment = new SearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, mainViewModel);
+        bundle.putString(BUNDLE_NEED_SEARCH, needSearch);
+        vieJavFragment.setArguments(bundle);
+        return vieJavFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
+        if (getArguments() == null) {
+            return;
         }
-        mViewModel = new SearchViewModel(mMainViewModel);
+        mMainViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
+        mViewModel = new SearchViewModel(mMainViewModel, this);
         SearchContract.Presenter presenter = new SearchPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
+        mNeedSearch = getArguments().getString(BUNDLE_NEED_SEARCH, "");
     }
 
     @Nullable
@@ -54,6 +68,9 @@ public class SearchFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         mViewModel.onStart();
+        if (!mNeedSearch.isEmpty()) {
+            mViewModel.onSend(mNeedSearch);
+        }
     }
 
     @Override

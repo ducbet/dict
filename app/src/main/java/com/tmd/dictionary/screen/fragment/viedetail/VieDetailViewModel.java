@@ -57,4 +57,8 @@ public class VieDetailViewModel extends BaseObservable implements VieDetailContr
         mIsLiked = isLiked;
         notifyPropertyChanged(BR.liked);
     }
+
+    public void onOpenSearchFragment(String needSearch) {
+        mMainViewModel.onOpenSearchFragment(needSearch);
+    }
 }

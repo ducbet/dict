@@ -22,6 +22,8 @@ public interface MainContract {
         void onOpenJpnWordDetailFragment(JpnWord jpnWord);
         void onOpenVieWordDetailFragment(VieWord vieWord);
         void onOpenGrammarDetailFragment(Grammar grammar);
+        void onOpenSearchFragment();
+        void onOpenSearchFragment(String needSearch);
         void onOpenHistoryFragment();
         void onOpenLikedFragment();
         void onOpenBoxesActivity();
