@@ -1,5 +1,8 @@
 package com.tmd.dictionary.staticfinal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.JAPANESE_UNICODE;
 import static com.tmd.dictionary.staticfinal.ConstantValue.WORD_TYPE;
@@ -73,6 +76,30 @@ public class StringHandling {
         WORD_TYPE.put("n", "danh từ");
     }
 
+    public static List<String> japaneseFilter(String string) {
+        List<String> result = new ArrayList<>();
+        char[] charsArray = string.toCharArray();
+        int begin = 0, end;
+        boolean beginCheck = false;
+        for (int i = 0; i < charsArray.length; i++) {
+            if (!beginCheck &&
+                JAPANESE_UNICODE.contains(Character.UnicodeBlock.of(charsArray[i]))) {
+                begin = i;
+                beginCheck = true;
+            }
+            if (beginCheck &&
+                !JAPANESE_UNICODE.contains(Character.UnicodeBlock.of(charsArray[i]))) {
+                end = i;
+                result.add(string.substring(begin, end));
+                beginCheck = false;
+            }
+        }
+        if (beginCheck) {
+            result.add(string.substring(begin, charsArray.length));
+        }
+        return result;
+    }
+
     public static boolean isUnion(String needCheck) {
         boolean hasJapanese = false;
         boolean hasCharNotJapanese = false;
@@ -97,6 +124,15 @@ public class StringHandling {
             }
         }
         return false;
+    }
+
+    public static boolean isjapanese(String needCheck) {
+        for (char c : needCheck.toCharArray()) {
+            if (!JAPANESE_UNICODE.contains(Character.UnicodeBlock.of(c))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

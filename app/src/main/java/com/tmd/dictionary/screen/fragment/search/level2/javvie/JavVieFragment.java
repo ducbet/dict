@@ -27,6 +27,7 @@ public class JavVieFragment extends BaseFragmentLevel2 {
     private SearchContract.ViewModel mSearchViewModel;
     private JavVieContract.ViewModel mViewModel;
     private Realm mRealm;
+    private String mNeedSearch;
 
     public static JavVieFragment newInstance(SearchContract.ViewModel searchViewModel) {
         JavVieFragment javVieFragment = new JavVieFragment();
@@ -57,6 +58,9 @@ public class JavVieFragment extends BaseFragmentLevel2 {
         FragmentJavVieBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_jav_vie, container, false);
         binding.setViewModel((JavVieViewModel) mViewModel);
+        if (mNeedSearch != null) {
+            mViewModel.onSetNeedSearch(mNeedSearch);
+        }
         return binding.getRoot();
     }
 
@@ -74,10 +78,11 @@ public class JavVieFragment extends BaseFragmentLevel2 {
 
     @Override
     public void onSetNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
         if (mViewModel == null) {
             return;
         }
-        mViewModel.onSetNeedSearch(needSearch);
+        mViewModel.onSetNeedSearch(mNeedSearch);
     }
 
     @Override

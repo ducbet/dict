@@ -20,6 +20,7 @@ public interface SearchContract {
      */
     interface ViewModel extends BaseViewModel<Presenter>, Parcelable {
         void onSendToAllFragment(Observable<String> textChangeObservable);
+        void onSend(String needSearch);
         void onItemClick(JpnWord jpnWord);
         void onItemClick(VieWord vieWord);
         void onItemClick(Grammar grammar);

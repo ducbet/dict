@@ -2,9 +2,11 @@ package com.tmd.dictionary.screen.fragment.search;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.tmd.dictionary.BR;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
@@ -37,6 +39,7 @@ public class SearchViewModel extends BaseObservable
     implements SearchContract.ViewModel, Parcelable {
     private static final String TAG = SearchViewModel.class.getName();
     private MainContract.ViewModel mMainViewModel;
+    private SearchFragment mSearchFragment;
     private Context mContext;
     private SearchContract.Presenter mPresenter;
     private SearchPagerAdapter mPagerAdapter;
@@ -45,8 +48,9 @@ public class SearchViewModel extends BaseObservable
     private Disposable mDisposable;
     private Realm mRealm;
 
-    public SearchViewModel(MainContract.ViewModel mainViewModel) {
+    public SearchViewModel(MainContract.ViewModel mainViewModel, SearchFragment searchFragment) {
         mMainViewModel = mainViewModel;
+        mSearchFragment = searchFragment;
         mRealm = ((MainViewModel) mMainViewModel).getRealm();
         mContext = ((MainViewModel) mMainViewModel).getContext();
         initViewPager();
@@ -74,7 +78,7 @@ public class SearchViewModel extends BaseObservable
         mListFragments.add(KanjiFragment.newInstance(this));
         mListFragments.add(VieJavFragment.newInstance(this));
         mListFragments.add(GrammarFragment.newInstance(this));
-        mPagerAdapter = new SearchPagerAdapter(mContext, mListFragments);
+        mPagerAdapter = new SearchPagerAdapter(mSearchFragment, mListFragments);
     }
 
     public List<BaseFragmentLevel2> getListFragments() {
@@ -91,6 +95,16 @@ public class SearchViewModel extends BaseObservable
 
     public SearchPagerAdapter getPagerAdapter() {
         return mPagerAdapter;
+    }
+
+    @Bindable
+    public String getNeedSearch() {
+        return mNeedSearch;
+    }
+
+    public void setNeedSearch(String needSearch) {
+        mNeedSearch = needSearch;
+        notifyPropertyChanged(BR.needSearch);
     }
 
     @Override
@@ -134,11 +148,17 @@ public class SearchViewModel extends BaseObservable
             .subscribe(new Consumer<String>() {
                 @Override
                 public void accept(@NonNull String s) throws Exception {
-                    for (BaseFragmentLevel2 fragment : mListFragments) {
-                        fragment.onSetNeedSearch(s);
-                    }
+                    onSend(s);
                 }
             });
+    }
+
+    @Override
+    public void onSend(String needSearch) {
+        setNeedSearch(needSearch);
+        for (BaseFragmentLevel2 fragment : mListFragments) {
+            fragment.onSetNeedSearch(needSearch);
+        }
     }
 
     @Override

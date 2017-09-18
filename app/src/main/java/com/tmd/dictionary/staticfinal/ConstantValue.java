@@ -12,6 +12,7 @@ public class ConstantValue {
     public static final String MY_TAG = "MY_TAG";
     public static final int SCHEMA_VERSION = 1;
     public static final String BUNDLE_VIEW_MODEL = "BUNDLE_VIEW_MODEL";
+    public static final String BUNDLE_NEED_SEARCH = "BUNDLE_NEED_SEARCH";
     public static final String BUNDLE_JPN_WORD = "BUNDLE_JPN_WORD";
     public static final String BUNDLE_VIE_WORD = "BUNDLE_VIE_WORD";
     public static final String BUNDLE_KANJI = "BUNDLE_KANJI";

@@ -61,8 +61,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     private void initSearchFragment() {
-        OpenFragment
-            .openFragment(mFragmentManager, R.id.frame_layout, SearchFragment.newInstance(this));
+        onOpenSearchFragment();
     }
 
     public Realm getRealm() {
@@ -124,6 +123,18 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     public void onOpenGrammarDetailFragment(Grammar grammar) {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
             GrammarDetailFragment.newInstance(this, grammar));
+    }
+
+    @Override
+    public void onOpenSearchFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            SearchFragment.newInstance(this));
+    }
+
+    @Override
+    public void onOpenSearchFragment(String needSearch) {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout,
+            SearchFragment.newInstance(this, needSearch));
     }
 
     @Override

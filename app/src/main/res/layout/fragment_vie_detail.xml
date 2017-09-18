@@ -50,9 +50,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_5"
-            android:text="@{viewModel.vieWord.definition}"
             android:textColor="@color/color_brown_100"
-            android:textSize="@dimen/sp_15"/>
+            android:textSize="@dimen/sp_15"
+            bind:linksText="@{viewModel.vieWord.definition}"
+            bind:viewModel="@{viewModel}"/>
 
     </LinearLayout>
 </layout>
