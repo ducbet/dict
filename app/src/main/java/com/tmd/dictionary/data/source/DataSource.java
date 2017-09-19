@@ -42,8 +42,9 @@ public interface DataSource {
     Observable<Boolean> isLiked(Kanji kanji);
     Observable<Boolean> isLiked(Grammar grammar);
     void createFlashcardBox(JpnBox newBox);
-    VieBox createFlashcardBox(VieBox newBox);
+    void createFlashcardBox(VieBox newBox);
     KanjiBox createFlashcardBox(KanjiBox newBox);
     GrammarBox createFlashcardBox(GrammarBox newBox);
     RealmResults<JpnBox> getAllJpnBoxes();
+    RealmResults<VieBox> getAllVieBoxes();
 }

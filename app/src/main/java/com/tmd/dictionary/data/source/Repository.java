@@ -147,8 +147,8 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public VieBox createFlashcardBox(VieBox newBox) {
-        return mLocalDataSource.createFlashcardBox(newBox);
+    public void createFlashcardBox(VieBox newBox) {
+        mLocalDataSource.createFlashcardBox(newBox);
     }
 
     @Override
@@ -164,5 +164,10 @@ public class Repository implements DataSource {
     @Override
     public RealmResults<JpnBox> getAllJpnBoxes() {
         return mLocalDataSource.getAllJpnBoxes();
+    }
+
+    @Override
+    public RealmResults<VieBox> getAllVieBoxes() {
+        return mLocalDataSource.getAllVieBoxes();
     }
 }

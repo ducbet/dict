@@ -13,9 +13,8 @@ import android.view.Window;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.databinding.FragmentMoveToBoxBinding;
 import com.tmd.dictionary.screen.OpenableMoveToBoxFrag;
-import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailContract;
 
-import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_JPN_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
  * Created by tmd on 18/09/2017.
@@ -24,10 +23,10 @@ public class MoveToBoxFragment extends DialogFragment {
     private OpenableMoveToBoxFrag mWordDetailViewModel;
     private MoveToBoxViewModel mViewModel;
 
-    public static MoveToBoxFragment newInstance(JpnDetailContract.ViewModel viewModel) {
+    public static MoveToBoxFragment newInstance(OpenableMoveToBoxFrag viewModel) {
         MoveToBoxFragment moveToBoxFragment = new MoveToBoxFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(BUNDLE_JPN_WORD, viewModel);
+        bundle.putParcelable(BUNDLE_VIEW_MODEL, viewModel);
         moveToBoxFragment.setArguments(bundle);
         return moveToBoxFragment;
     }
@@ -38,11 +37,8 @@ public class MoveToBoxFragment extends DialogFragment {
         if (getArguments() == null) {
             return;
         }
-        mWordDetailViewModel = getArguments().getParcelable(BUNDLE_JPN_WORD);
-        if (mWordDetailViewModel != null) {
-            mViewModel = new MoveToBoxViewModel(mWordDetailViewModel);
-            return;
-        }
+        mWordDetailViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
+        mViewModel = new MoveToBoxViewModel(mWordDetailViewModel);
     }
 
     @Nullable

@@ -1,19 +1,23 @@
 package com.tmd.dictionary.screen.fragment.viedetail;
 
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.screen.BasePresenter;
 import com.tmd.dictionary.screen.BaseViewModel;
 
+import io.realm.RealmResults;
+
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface VieDetailContract {
+public interface VieDetailContract {
     /**
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
+        void onMoveToBox();
     }
 
     /**
@@ -23,5 +27,7 @@ interface VieDetailContract {
         void saveToHistory(VieWord vieWord);
         void changeLikeState(VieWord vieWord);
         void isLiked(VieWord vieWord);
+        RealmResults<VieBox> getAllFlashcardBoxes();
+        void createFlashcardBox(VieBox newBox);
     }
 }
