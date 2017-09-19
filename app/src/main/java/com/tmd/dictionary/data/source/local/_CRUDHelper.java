@@ -2,12 +2,16 @@ package com.tmd.dictionary.data.source.local;
 
 import com.google.gson.Gson;
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.GrammarBox;
 import com.tmd.dictionary.data.model.History;
+import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.KanjiBox;
 import com.tmd.dictionary.data.model.LikedWord;
 import com.tmd.dictionary.data.model.RealmInteger;
 import com.tmd.dictionary.data.model.RealmString;
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 import com.tmd.dictionary.staticfinal.CustomGson;
@@ -445,5 +449,61 @@ public class _CRUDHelper implements DataSource {
                 });
             }
         });
+    }
+
+    private boolean isBoxExits(JpnBox box) {
+        return mRealm.where(JpnBox.class)
+            .equalTo("name.value", box.getName().getValue())
+            .findFirst() != null;
+    }
+
+    @Override
+    public JpnBox createFlashcardBox(JpnBox newBox) {
+        if (isBoxExits(newBox)) {
+            return null;
+        }
+        return mRealm.copyToRealm(newBox);
+    }
+
+    private boolean isBoxExits(VieBox box) {
+        return mRealm.where(VieBox.class)
+            .equalTo("name.value", box.getName().getValue())
+            .findFirst() != null;
+    }
+
+    @Override
+    public VieBox createFlashcardBox(VieBox newBox) {
+        if (isBoxExits(newBox)) {
+            return null;
+        }
+        return mRealm.copyToRealm(newBox);
+    }
+
+    private boolean isBoxExits(KanjiBox box) {
+        return mRealm.where(KanjiBox.class)
+            .equalTo("name.value", box.getName().getValue())
+            .findFirst() != null;
+    }
+
+    @Override
+    public KanjiBox createFlashcardBox(KanjiBox newBox) {
+        if (isBoxExits(newBox)) {
+            return null;
+        }
+        return mRealm.copyToRealm(newBox);
+    }
+
+    private boolean isBoxExits(GrammarBox box) {
+        return mRealm.where(GrammarBox.class)
+            .equalTo("name.value", box.getName().getValue())
+            .findFirst() != null;
+    }
+
+    @Override
+    public GrammarBox createFlashcardBox(GrammarBox newBox) {
+        if (isBoxExits(newBox)) {
+            return null;
+        }
+        return mRealm.copyToRealm(newBox);
     }
 }

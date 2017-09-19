@@ -1,5 +1,6 @@
 package com.tmd.dictionary.staticfinal;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,6 +23,8 @@ public class ConstantValue {
     public static final int INT_VIE_WORD = 2;
     public static final int INT_KANJI = 3;
     public static final int INT_GRAMMAR = 4;
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT =
+        new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
     public static final Set<Character.UnicodeBlock> JAPANESE_UNICODE = new HashSet() {
         {
             add(Character.UnicodeBlock.HIRAGANA);

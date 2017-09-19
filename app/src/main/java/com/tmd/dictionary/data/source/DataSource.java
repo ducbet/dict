@@ -1,10 +1,14 @@
 package com.tmd.dictionary.data.source;
 
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.GrammarBox;
 import com.tmd.dictionary.data.model.History;
+import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.KanjiBox;
 import com.tmd.dictionary.data.model.LikedWord;
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.data.model.VieWord;
 
 import io.reactivex.Observable;
@@ -37,4 +41,8 @@ public interface DataSource {
     Observable<Boolean> isLiked(VieWord vieWord);
     Observable<Boolean> isLiked(Kanji kanji);
     Observable<Boolean> isLiked(Grammar grammar);
+    JpnBox createFlashcardBox(JpnBox newBox);
+    VieBox createFlashcardBox(VieBox newBox);
+    KanjiBox createFlashcardBox(KanjiBox newBox);
+    GrammarBox createFlashcardBox(GrammarBox newBox);
 }
