@@ -143,8 +143,8 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public JpnBox createFlashcardBox(JpnBox newBox) {
-        return mCRUDHelper.createFlashcardBox(newBox);
+    public void createFlashcardBox(JpnBox newBox) {
+        mCRUDHelper.createFlashcardBox(newBox);
     }
 
     @Override
@@ -160,5 +160,10 @@ public class LocalDataSource implements DataSource {
     @Override
     public GrammarBox createFlashcardBox(GrammarBox newBox) {
         return mCRUDHelper.createFlashcardBox(newBox);
+    }
+
+    @Override
+    public RealmResults<JpnBox> getAllJpnBoxes() {
+        return mCRUDHelper.getAllJpnBoxes();
     }
 }

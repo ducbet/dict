@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
+import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.source.DataSource;
 
@@ -8,6 +9,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link JpnDetailFragment}), retrieves the data and updates
@@ -83,5 +85,15 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
                 }
             });
         mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public RealmResults<JpnBox> getAllFlashcardBoxes() {
+        return mRepository.getAllJpnBoxes();
+    }
+
+    @Override
+    public void createFlashcardBox(JpnBox newBox) {
+        mRepository.createFlashcardBox(newBox);
     }
 }
