@@ -16,10 +16,10 @@ import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.data.model.Kanji;
 import com.tmd.dictionary.data.model.VieWord;
+import com.tmd.dictionary.screen.OpenableMoveToBoxFrag;
 import com.tmd.dictionary.screen.activity.boxs.BoxesActivity;
 import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailFragment;
 import com.tmd.dictionary.screen.fragment.history.HistoryFragment;
-import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailContract;
 import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailFragment;
 import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailFragment;
 import com.tmd.dictionary.screen.fragment.likedwords.LikedWordsFragment;
@@ -152,7 +152,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
-    public void onMoveToBoxFragment(JpnDetailContract.ViewModel viewModel) {
+    public void onMoveToBoxFragment(OpenableMoveToBoxFrag viewModel) {
         MoveToBoxFragment moveToBoxFragment = MoveToBoxFragment.newInstance(viewModel);
         moveToBoxFragment.show(((MainActivity) mContext).getFragmentManager(), null);
     }

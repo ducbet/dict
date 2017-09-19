@@ -148,8 +148,8 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public VieBox createFlashcardBox(VieBox newBox) {
-        return mCRUDHelper.createFlashcardBox(newBox);
+    public void createFlashcardBox(VieBox newBox) {
+        mCRUDHelper.createFlashcardBox(newBox);
     }
 
     @Override
@@ -165,5 +165,10 @@ public class LocalDataSource implements DataSource {
     @Override
     public RealmResults<JpnBox> getAllJpnBoxes() {
         return mCRUDHelper.getAllJpnBoxes();
+    }
+
+    @Override
+    public RealmResults<VieBox> getAllVieBoxes() {
+        return mCRUDHelper.getAllVieBoxes();
     }
 }

@@ -1,5 +1,6 @@
 package com.tmd.dictionary.screen.fragment.viedetail;
 
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.data.model.VieWord;
 import com.tmd.dictionary.data.source.DataSource;
 
@@ -8,6 +9,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link VieDetailFragment}), retrieves the data and updates
@@ -84,5 +86,15 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
                 }
             });
         mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public RealmResults<VieBox> getAllFlashcardBoxes() {
+        return mRepository.getAllVieBoxes();
+    }
+
+    @Override
+    public void createFlashcardBox(VieBox newBox) {
+        mRepository.createFlashcardBox(newBox);
     }
 }

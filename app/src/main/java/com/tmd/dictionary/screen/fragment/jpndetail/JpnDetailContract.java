@@ -1,7 +1,5 @@
 package com.tmd.dictionary.screen.fragment.jpndetail;
 
-import android.os.Parcelable;
-
 import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.BasePresenter;
@@ -16,7 +14,7 @@ public interface JpnDetailContract {
     /**
      * View.
      */
-    interface ViewModel extends BaseViewModel<Presenter>, Parcelable {
+    interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
         void onMoveToBox();
