@@ -1,6 +1,7 @@
 package com.tmd.dictionary.screen.fragment.grammardetail;
 
 import com.tmd.dictionary.data.model.Grammar;
+import com.tmd.dictionary.data.model.GrammarBox;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -8,6 +9,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link GrammarDetailFragment}), retrieves the data and updates
@@ -84,5 +86,15 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
                 }
             });
         mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public RealmResults<GrammarBox> getAllFlashcardBoxes() {
+        return mRepository.getAllGrammarBoxes();
+    }
+
+    @Override
+    public void createFlashcardBox(GrammarBox newBox) {
+        mRepository.createFlashcardBox(newBox);
     }
 }

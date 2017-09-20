@@ -67,7 +67,6 @@ public class _CRUDHelper implements DataSource {
 
     @Override
     public Observable<RealmResults<Kanji>> searchKanji(final String input) {
-        // SELECT * FROM kanji_main WHERE kanji = ?
         return Observable.create(new ObservableOnSubscribe<RealmResults<Kanji>>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<RealmResults<Kanji>> e)
@@ -496,11 +495,16 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public KanjiBox createFlashcardBox(KanjiBox newBox) {
+    public void createFlashcardBox(final KanjiBox newBox) {
         if (isBoxExits(newBox)) {
-            return null;
+            return;
         }
-        return mRealm.copyToRealm(newBox);
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealm(newBox);
+            }
+        });
     }
 
     private boolean isBoxExits(GrammarBox box) {
@@ -510,11 +514,16 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public GrammarBox createFlashcardBox(GrammarBox newBox) {
+    public void createFlashcardBox(final GrammarBox newBox) {
         if (isBoxExits(newBox)) {
-            return null;
+            return;
         }
-        return mRealm.copyToRealm(newBox);
+        mRealm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealm(newBox);
+            }
+        });
     }
 
     @Override
@@ -525,5 +534,15 @@ public class _CRUDHelper implements DataSource {
     @Override
     public RealmResults<VieBox> getAllVieBoxes() {
         return mRealm.where(VieBox.class).findAllAsync();
+    }
+
+    @Override
+    public RealmResults<KanjiBox> getAllKanjiBoxes() {
+        return mRealm.where(KanjiBox.class).findAllAsync();
+    }
+
+    @Override
+    public RealmResults<GrammarBox> getAllGrammarBoxes() {
+        return mRealm.where(GrammarBox.class).findAllAsync();
     }
 }
