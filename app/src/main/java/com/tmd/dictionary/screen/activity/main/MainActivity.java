@@ -3,6 +3,7 @@ package com.tmd.dictionary.screen.activity.main;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.tmd.dictionary.R;
@@ -15,6 +16,8 @@ import com.tmd.dictionary.screen.BaseActivity;
 import java.io.Serializable;
 
 import io.realm.Realm;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Main Screen.
@@ -48,6 +51,7 @@ public class MainActivity extends BaseActivity implements Serializable {
 
     @Override
     protected void onStart() {
+        Log.e(MY_TAG, "onStart: MainActivity");
         super.onStart();
         mViewModel.onStart();
     }
@@ -55,13 +59,17 @@ public class MainActivity extends BaseActivity implements Serializable {
     @Override
     protected void onStop() {
         mViewModel.onStop();
+        Log.e(MY_TAG, "onStop: MainActivity");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRealm.close();
+        Log.e(MY_TAG, "onDestroy: MainActivity");
+        if (!mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override

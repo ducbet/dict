@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Cancellable;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Created by tmd on 15/08/2017.
@@ -68,6 +71,7 @@ public class BindingUtil {
 
                         @Override
                         public void afterTextChanged(Editable editable) {
+                            Log.e(MY_TAG, "afterTextChanged: " + editText.getText().toString());
                             e.onNext(editText.getText().toString());
                         }
                     };
@@ -80,6 +84,7 @@ public class BindingUtil {
                     });
                 }
             });
+        Log.e(MY_TAG, "onSendToAllFragment: ");
         viewModel.onSendToAllFragment(textChangeObservable);
     }
 

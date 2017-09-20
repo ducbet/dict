@@ -51,6 +51,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/text_view_search"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_50"
                 android:layout_margin="@dimen/dp_5"
@@ -62,8 +63,7 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/darker_gray"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/sp_25"
-                bind:addTextWatcher="@{viewModel}"/>
+                android:textSize="@dimen/sp_25"/>
 
             <ImageView
                 android:layout_width="@dimen/dp_30"
