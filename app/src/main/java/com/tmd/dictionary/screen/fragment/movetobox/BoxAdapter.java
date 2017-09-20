@@ -10,7 +10,9 @@ import com.tmd.dictionary.data.model.GrammarBox;
 import com.tmd.dictionary.data.model.JpnBox;
 import com.tmd.dictionary.data.model.KanjiBox;
 import com.tmd.dictionary.data.model.VieBox;
+import com.tmd.dictionary.databinding.ItemGrammarBoxBinding;
 import com.tmd.dictionary.databinding.ItemJpnBoxBinding;
+import com.tmd.dictionary.databinding.ItemKanjiBoxBinding;
 import com.tmd.dictionary.databinding.ItemVieBoxBinding;
 
 import java.util.ArrayList;
@@ -80,7 +82,15 @@ public class BoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     R.layout.item_vie_box, parent, false);
                 return new VieBoxViewHolder(vieBoxBinding);
             case INT_KANJI:
+                ItemKanjiBoxBinding kanjiBoxBinding = DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.getContext()),
+                    R.layout.item_kanji_box, parent, false);
+                return new KanjiBoxViewHolder(kanjiBoxBinding);
             case INT_GRAMMAR:
+                ItemGrammarBoxBinding grammarBoxBinding = DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.getContext()),
+                    R.layout.item_grammar_box, parent, false);
+                return new GrammarBoxViewHolder(grammarBoxBinding);
             default:
                 return null;
         }
@@ -98,8 +108,12 @@ public class BoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((VieBoxViewHolder) holder).bind(vieBox);
                 break;
             case INT_KANJI:
+                KanjiBox kanjiBox = (KanjiBox) mList.get(position);
+                ((KanjiBoxViewHolder) holder).bind(kanjiBox);
                 break;
             case INT_GRAMMAR:
+                GrammarBox grammarBox = (GrammarBox) mList.get(position);
+                ((GrammarBoxViewHolder) holder).bind(grammarBox);
                 break;
             default:
                 break;
@@ -134,6 +148,34 @@ public class BoxAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(VieBox box) {
+            mBinding.setViewModel(mViewModel);
+            mBinding.setBox(box);
+        }
+    }
+
+    public class KanjiBoxViewHolder extends RecyclerView.ViewHolder {
+        private ItemKanjiBoxBinding mBinding;
+
+        public KanjiBoxViewHolder(ItemKanjiBoxBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        public void bind(KanjiBox box) {
+            mBinding.setViewModel(mViewModel);
+            mBinding.setBox(box);
+        }
+    }
+
+    public class GrammarBoxViewHolder extends RecyclerView.ViewHolder {
+        private ItemGrammarBoxBinding mBinding;
+
+        public GrammarBoxViewHolder(ItemGrammarBoxBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        public void bind(GrammarBox box) {
             mBinding.setViewModel(mViewModel);
             mBinding.setBox(box);
         }

@@ -153,13 +153,13 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public KanjiBox createFlashcardBox(KanjiBox newBox) {
-        return mCRUDHelper.createFlashcardBox(newBox);
+    public void createFlashcardBox(KanjiBox newBox) {
+        mCRUDHelper.createFlashcardBox(newBox);
     }
 
     @Override
-    public GrammarBox createFlashcardBox(GrammarBox newBox) {
-        return mCRUDHelper.createFlashcardBox(newBox);
+    public void createFlashcardBox(GrammarBox newBox) {
+        mCRUDHelper.createFlashcardBox(newBox);
     }
 
     @Override
@@ -170,5 +170,15 @@ public class LocalDataSource implements DataSource {
     @Override
     public RealmResults<VieBox> getAllVieBoxes() {
         return mCRUDHelper.getAllVieBoxes();
+    }
+
+    @Override
+    public RealmResults<KanjiBox> getAllKanjiBoxes() {
+        return mCRUDHelper.getAllKanjiBoxes();
+    }
+
+    @Override
+    public RealmResults<GrammarBox> getAllGrammarBoxes() {
+        return mCRUDHelper.getAllGrammarBoxes();
     }
 }

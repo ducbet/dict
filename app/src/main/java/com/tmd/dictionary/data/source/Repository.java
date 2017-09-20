@@ -152,13 +152,13 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public KanjiBox createFlashcardBox(KanjiBox newBox) {
-        return mLocalDataSource.createFlashcardBox(newBox);
+    public void createFlashcardBox(KanjiBox newBox) {
+        mLocalDataSource.createFlashcardBox(newBox);
     }
 
     @Override
-    public GrammarBox createFlashcardBox(GrammarBox newBox) {
-        return mLocalDataSource.createFlashcardBox(newBox);
+    public void createFlashcardBox(GrammarBox newBox) {
+        mLocalDataSource.createFlashcardBox(newBox);
     }
 
     @Override
@@ -169,5 +169,15 @@ public class Repository implements DataSource {
     @Override
     public RealmResults<VieBox> getAllVieBoxes() {
         return mLocalDataSource.getAllVieBoxes();
+    }
+
+    @Override
+    public RealmResults<KanjiBox> getAllKanjiBoxes() {
+        return mLocalDataSource.getAllKanjiBoxes();
+    }
+
+    @Override
+    public RealmResults<GrammarBox> getAllGrammarBoxes() {
+        return mLocalDataSource.getAllGrammarBoxes();
     }
 }

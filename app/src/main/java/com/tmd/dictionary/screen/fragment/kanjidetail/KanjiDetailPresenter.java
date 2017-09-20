@@ -1,6 +1,7 @@
 package com.tmd.dictionary.screen.fragment.kanjidetail;
 
 import com.tmd.dictionary.data.model.Kanji;
+import com.tmd.dictionary.data.model.KanjiBox;
 import com.tmd.dictionary.data.source.DataSource;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -8,6 +9,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import io.realm.RealmResults;
 
 /**
  * Listens to user actions from the UI ({@link KanjiDetailFragment}), retrieves the data and updates
@@ -83,5 +85,15 @@ final class KanjiDetailPresenter implements KanjiDetailContract.Presenter {
                 }
             });
         mCompositeDisposable.add(disposable);
+    }
+
+    @Override
+    public RealmResults<KanjiBox> getAllFlashcardBoxes() {
+        return mRepository.getAllKanjiBoxes();
+    }
+
+    @Override
+    public void createFlashcardBox(KanjiBox newBox) {
+        mRepository.createFlashcardBox(newBox);
     }
 }
