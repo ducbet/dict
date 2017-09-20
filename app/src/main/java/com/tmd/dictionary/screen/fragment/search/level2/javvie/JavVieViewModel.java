@@ -1,6 +1,7 @@
 package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.tmd.dictionary.data.model.JpnWord;
 import com.tmd.dictionary.screen.OnClickSearchedItemListener;
@@ -16,6 +17,8 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
+
 /**
  * Exposes the data to be used in the JavVie screen.
  */
@@ -30,6 +33,7 @@ public class JavVieViewModel
             @Override
             public void onChange(RealmResults<JpnWord> jpnWords) {
                 mAdapter.setSource(jpnWords);
+                Log.e(MY_TAG, "onChange: " + jpnWords.size());
                 if (jpnWords.isEmpty()) {
                     onRemoveLastResult();
                 }
@@ -73,10 +77,12 @@ public class JavVieViewModel
     public void onSearchJpnVieSuccess(RealmResults<JpnWord> jpnWords) {
         jpnWords.addChangeListener(mRealmChangeListener);
         mListResults.add(jpnWords);
+        Log.e(MY_TAG, "onSearchJpnVieSuccess: " + mNeedSearch);
     }
 
     @Override
     public void onSetNeedSearch(String needSearch) {
+        Log.e(MY_TAG, "onSetNeedSearch: " + needSearch);
         if (!mListResults.isEmpty()) {
             if (needSearch.contains(mNeedSearch)) {
                 // mNeedSearch: abc

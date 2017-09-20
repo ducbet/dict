@@ -5,6 +5,10 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.EditText;
 
 import com.tmd.dictionary.BR;
 import com.tmd.dictionary.data.model.Grammar;
@@ -24,13 +28,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Cancellable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Exposes the data to be used in the Search screen.
@@ -110,6 +119,48 @@ public class SearchViewModel extends BaseObservable
     @Override
     public void onStart() {
         mPresenter.onStart();
+        addTextWatcher();
+    }
+
+    private EditText editText;
+
+    public void setTextView(EditText textViewSearch) {
+        editText = textViewSearch;
+    }
+
+    public void addTextWatcher() {
+        Observable<String> textChangeObservable = Observable.create(
+            new ObservableOnSubscribe<String>() {
+                @Override
+                public void subscribe(@NonNull final ObservableEmitter<String> e) throws Exception {
+                    final TextWatcher textWatcher = new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence,
+                                                      int i, int i1, int i2) {
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence,
+                                                  int i, int i1, int i2) {
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            Log.e(MY_TAG, "afterTextChanged: " + editText.getText().toString());
+                            e.onNext(editText.getText().toString());
+                        }
+                    };
+                    editText.addTextChangedListener(textWatcher);
+                    e.setCancellable(new Cancellable() {
+                        @Override
+                        public void cancel() throws Exception {
+                            editText.removeTextChangedListener(textWatcher);
+                        }
+                    });
+                }
+            });
+        Log.e(MY_TAG, "onSendToAllFragment: ");
+        onSendToAllFragment(textChangeObservable);
     }
 
     @Override

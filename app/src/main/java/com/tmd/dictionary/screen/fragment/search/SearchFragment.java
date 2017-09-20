@@ -61,6 +61,7 @@ public class SearchFragment extends BaseFragment {
         FragmentSearchBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false);
         binding.setViewModel((SearchViewModel) mViewModel);
+        ((SearchViewModel) mViewModel).setTextView(binding.textViewSearch);
         return binding.getRoot();
     }
 

@@ -90,7 +90,6 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     @Override
     public void onStop() {
         mPresenter.onStop();
-        mRealm.close();
     }
 
     @Override
