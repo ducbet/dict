@@ -1,6 +1,12 @@
 package com.tmd.dictionary.screen.activity.boxs;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.support.v4.app.FragmentManager;
+
+import com.tmd.dictionary.R;
+import com.tmd.dictionary.screen.fragment.jpnboxes.JpnBoxesFragment;
+import com.tmd.dictionary.staticfinal.OpenFragment;
 
 import io.realm.Realm;
 
@@ -10,11 +16,17 @@ import io.realm.Realm;
 public class BoxesViewModel implements BoxesContract.ViewModel {
     private BoxesContract.Presenter mPresenter;
     private Context mContext;
+    private FragmentManager mFragmentManager;
     private Realm mRealm;
 
     public BoxesViewModel(Context context, Realm realm) {
         mContext = context;
         mRealm = realm;
+        mFragmentManager = ((BoxesActivity) mContext).getSupportFragmentManager();
+    }
+
+    public Realm getRealm() {
+        return mRealm;
     }
 
     @Override
@@ -33,18 +45,47 @@ public class BoxesViewModel implements BoxesContract.ViewModel {
     }
 
     @Override
-    public void onJpnBoxesClicked() {
+    public void onOpenJpnBoxesFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
+            JpnBoxesFragment.newInstance(this));
     }
 
     @Override
-    public void onVieBoxesClicked() {
+    public void onOpenVieBoxesFragment() {
     }
 
     @Override
-    public void onKanjiBoxesClicked() {
+    public void onOpenKanjiBoxesFragment() {
     }
 
     @Override
-    public void onGrammarBoxesClicked() {
+    public void onOpenGrammarBoxesFragment() {
+    }
+
+    /**
+     * Parcelable
+     */
+    protected BoxesViewModel(Parcel in) {
+    }
+
+    public static final Creator<BoxesViewModel> CREATOR = new Creator<BoxesViewModel>() {
+        @Override
+        public BoxesViewModel createFromParcel(Parcel in) {
+            return new BoxesViewModel(in);
+        }
+
+        @Override
+        public BoxesViewModel[] newArray(int size) {
+            return new BoxesViewModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
     }
 }
