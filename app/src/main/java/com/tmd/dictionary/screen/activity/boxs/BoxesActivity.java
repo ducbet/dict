@@ -7,16 +7,20 @@ import com.tmd.dictionary.R;
 import com.tmd.dictionary.databinding.ActivityBoxesBinding;
 import com.tmd.dictionary.screen.BaseActivity;
 
+import io.realm.Realm;
+
 /**
  * FlashCardBoxs Screen.
  */
 public class BoxesActivity extends BaseActivity {
     private BoxesContract.ViewModel mViewModel;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new BoxesViewModel();
+        mRealm = Realm.getDefaultInstance();
+        mViewModel = new BoxesViewModel(this, mRealm);
         BoxesContract.Presenter presenter = new BoxesPresenter(mViewModel);
         mViewModel.setPresenter(presenter);
         ActivityBoxesBinding binding =
@@ -34,5 +38,13 @@ public class BoxesActivity extends BaseActivity {
     protected void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 }
