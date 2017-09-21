@@ -1,4 +1,4 @@
-package com.tmd.dictionary.screen.fragment.jpnboxes;
+package com.tmd.dictionary.screen.fragment.listboxes;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -10,27 +10,31 @@ import android.view.ViewGroup;
 import com.tmd.dictionary.R;
 import com.tmd.dictionary.data.source.Repository;
 import com.tmd.dictionary.data.source.local.LocalDataSource;
-import com.tmd.dictionary.databinding.FragmentJpnBoxesBinding;
+import com.tmd.dictionary.databinding.FragmentListBoxesBinding;
 import com.tmd.dictionary.screen.BaseFragment;
 import com.tmd.dictionary.screen.activity.boxs.BoxesContract;
 import com.tmd.dictionary.screen.activity.boxs.BoxesViewModel;
 
 import io.realm.Realm;
 
+import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_BOX_TYPE;
 import static com.tmd.dictionary.staticfinal.ConstantValue.BUNDLE_VIEW_MODEL;
 
 /**
  * JpnBoxes Screen.
  */
-public class JpnBoxesFragment extends BaseFragment {
+public class ListBoxesFragment extends BaseFragment {
     private BoxesContract.ViewModel mBoxesViewModel;
-    private JpnBoxesContract.ViewModel mViewModel;
+    private ListBoxesContract.ViewModel mViewModel;
     private Realm mRealm;
+    private int mBoxType;
 
-    public static JpnBoxesFragment newInstance(BoxesContract.ViewModel boxesViewModel) {
-        JpnBoxesFragment jpnBoxesFragment = new JpnBoxesFragment();
+    public static ListBoxesFragment newInstance(BoxesContract.ViewModel boxesViewModel,
+                                                int boxType) {
+        ListBoxesFragment jpnBoxesFragment = new ListBoxesFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(BUNDLE_VIEW_MODEL, boxesViewModel);
+        bundle.putInt(BUNDLE_BOX_TYPE, boxType);
         jpnBoxesFragment.setArguments(bundle);
         return jpnBoxesFragment;
     }
@@ -42,10 +46,11 @@ public class JpnBoxesFragment extends BaseFragment {
             return;
         }
         mBoxesViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
-        mViewModel = new JpnBoxesViewModel();
+        mBoxType = getArguments().getInt(BUNDLE_BOX_TYPE);
+        mViewModel = new ListBoxesViewModel(mBoxType);
         mRealm = ((BoxesViewModel) mBoxesViewModel).getRealm();
-        JpnBoxesContract.Presenter presenter =
-            new JpnBoxesPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
+        ListBoxesContract.Presenter presenter =
+            new ListBoxesPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
     }
 
@@ -53,9 +58,9 @@ public class JpnBoxesFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        FragmentJpnBoxesBinding binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_jpn_boxes, container, false);
-        binding.setViewModel((JpnBoxesViewModel) mViewModel);
+        FragmentListBoxesBinding binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_list_boxes, container, false);
+        binding.setViewModel((ListBoxesViewModel) mViewModel);
         return binding.getRoot();
     }
 
