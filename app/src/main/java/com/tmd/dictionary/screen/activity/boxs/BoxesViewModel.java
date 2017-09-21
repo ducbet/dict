@@ -5,10 +5,15 @@ import android.os.Parcel;
 import android.support.v4.app.FragmentManager;
 
 import com.tmd.dictionary.R;
-import com.tmd.dictionary.screen.fragment.jpnboxes.JpnBoxesFragment;
+import com.tmd.dictionary.screen.fragment.listboxes.ListBoxesFragment;
 import com.tmd.dictionary.staticfinal.OpenFragment;
 
 import io.realm.Realm;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_KANJI;
+import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
 
 /**
  * Exposes the data to be used in the FlashCardBoxs screen.
@@ -47,19 +52,25 @@ public class BoxesViewModel implements BoxesContract.ViewModel {
     @Override
     public void onOpenJpnBoxesFragment() {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
-            JpnBoxesFragment.newInstance(this));
+            ListBoxesFragment.newInstance(this, INT_JPN_WORD));
     }
 
     @Override
     public void onOpenVieBoxesFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
+            ListBoxesFragment.newInstance(this, INT_VIE_WORD));
     }
 
     @Override
     public void onOpenKanjiBoxesFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
+            ListBoxesFragment.newInstance(this, INT_KANJI));
     }
 
     @Override
     public void onOpenGrammarBoxesFragment() {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
+            ListBoxesFragment.newInstance(this, INT_GRAMMAR));
     }
 
     /**
