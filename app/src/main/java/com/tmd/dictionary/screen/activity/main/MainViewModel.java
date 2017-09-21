@@ -27,12 +27,8 @@ import com.tmd.dictionary.screen.fragment.movetobox.MoveToBoxFragment;
 import com.tmd.dictionary.screen.fragment.search.SearchFragment;
 import com.tmd.dictionary.screen.fragment.viedetail.VieDetailFragment;
 import com.tmd.dictionary.staticfinal.OpenFragment;
-import com.tmd.dictionary.util.DictApplication;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
-import static com.tmd.dictionary.staticfinal.ConstantValue.SCHEMA_VERSION;
 
 /**
  * Exposes the data to be used in the Main screen.
@@ -50,16 +46,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
         mContext = context;
         mRealm = realm;
         mFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-        initRealm();
         initSearchFragment();
-    }
-
-    private void initRealm() {
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .schemaVersion(SCHEMA_VERSION)
-            .assetFile(DictApplication.getContext().getString(R.string.database_name))
-            .build();
-        mRealm = Realm.getInstance(config);
     }
 
     private void initSearchFragment() {
@@ -90,7 +77,6 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     @Override
     public void onStop() {
         mPresenter.onStop();
-        mRealm.close();
     }
 
     @Override

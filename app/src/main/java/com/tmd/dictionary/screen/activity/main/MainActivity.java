@@ -61,7 +61,9 @@ public class MainActivity extends BaseActivity implements Serializable {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRealm.close();
+        if (!mRealm.isClosed()) {
+            mRealm.close();
+        }
     }
 
     @Override

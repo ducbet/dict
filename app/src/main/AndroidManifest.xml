@@ -20,11 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screen.activity.history.HistoryActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".screen.activity.boxs.BoxesActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

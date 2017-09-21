@@ -11,6 +11,10 @@ interface BoxesContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onJpnBoxesClicked();
+        void onVieBoxesClicked();
+        void onKanjiBoxesClicked();
+        void onGrammarBoxesClicked();
     }
 
     /**
