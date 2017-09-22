@@ -17,7 +17,8 @@ public interface VieDetailContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
-        void onMoveToBox();
+        void onOpenMoveToBoxFragment();
+        void onMoveToBox(VieBox vieBox, VieWord vieWord);
     }
 
     /**
@@ -29,5 +30,6 @@ public interface VieDetailContract {
         void isLiked(VieWord vieWord);
         RealmResults<VieBox> getAllFlashcardBoxes();
         void createFlashcardBox(VieBox newBox);
+        void moveToBox(VieBox vieBox, VieWord vieWord);
     }
 }

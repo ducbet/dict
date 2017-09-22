@@ -11,7 +11,15 @@ import android.widget.Toast;
 
 import com.tmd.dictionary.BR;
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.GrammarBox;
+import com.tmd.dictionary.data.model.JpnBox;
+import com.tmd.dictionary.data.model.KanjiBox;
+import com.tmd.dictionary.data.model.VieBox;
 import com.tmd.dictionary.screen.OpenableMoveToBoxFrag;
+import com.tmd.dictionary.screen.fragment.grammardetail.GrammarDetailViewModel;
+import com.tmd.dictionary.screen.fragment.jpndetail.JpnDetailViewModel;
+import com.tmd.dictionary.screen.fragment.kanjidetail.KanjiDetailViewModel;
+import com.tmd.dictionary.screen.fragment.viedetail.VieDetailViewModel;
 import com.tmd.dictionary.staticfinal.SoftKeybroad;
 
 import io.realm.RealmChangeListener;
@@ -35,12 +43,16 @@ public class MoveToBoxViewModel extends BaseObservable {
     };
     private RealmResults mBoxes;
 
-    public MoveToBoxViewModel(OpenableMoveToBoxFrag baseViewModel) {
-        mWordDetailViewModel = baseViewModel;
+    public MoveToBoxViewModel(OpenableMoveToBoxFrag openableMoveToBoxFrag) {
+        mWordDetailViewModel = openableMoveToBoxFrag;
         mContext = mWordDetailViewModel.getContext();
         mWord = mWordDetailViewModel.getWordOrigin();
         mAdapter = new BoxAdapter(this);
         getAllBoxes();
+    }
+
+    public void onStop() {
+        mBoxes.removeAllChangeListeners();
     }
 
     public BoxAdapter getAdapter() {
@@ -94,7 +106,23 @@ public class MoveToBoxViewModel extends BaseObservable {
             .show();
     }
 
-    public void onStop() {
-        mBoxes.removeAllChangeListeners();
+    public void onMoveToBox(JpnBox jpnBox) {
+        ((JpnDetailViewModel) mWordDetailViewModel).onMoveToBox(jpnBox,
+            ((JpnDetailViewModel) mWordDetailViewModel).getJpnWord());
+    }
+
+    public void onMoveToBox(VieBox vieBox) {
+        ((VieDetailViewModel) mWordDetailViewModel).onMoveToBox(vieBox,
+            ((VieDetailViewModel) mWordDetailViewModel).getVieWord());
+    }
+
+    public void onMoveToBox(KanjiBox kanjiBox) {
+        ((KanjiDetailViewModel) mWordDetailViewModel).onMoveToBox(kanjiBox,
+            ((KanjiDetailViewModel) mWordDetailViewModel).getKanji());
+    }
+
+    public void onMoveToBox(GrammarBox grammarBox) {
+        ((GrammarDetailViewModel) mWordDetailViewModel).onMoveToBox(grammarBox,
+            ((GrammarDetailViewModel) mWordDetailViewModel).getGrammar());
     }
 }

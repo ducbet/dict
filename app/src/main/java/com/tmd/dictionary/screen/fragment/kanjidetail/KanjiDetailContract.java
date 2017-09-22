@@ -17,7 +17,8 @@ public interface KanjiDetailContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
-        void onMoveToBox();
+        void onOpenMoveToBoxFragment();
+        void onMoveToBox(KanjiBox kanjiBox, Kanji kanji);
     }
 
     /**
@@ -29,5 +30,6 @@ public interface KanjiDetailContract {
         void isLiked(Kanji kanji);
         RealmResults<KanjiBox> getAllFlashcardBoxes();
         void createFlashcardBox(KanjiBox newBox);
+        void moveToBox(KanjiBox kanjiBox, Kanji kanji);
     }
 }

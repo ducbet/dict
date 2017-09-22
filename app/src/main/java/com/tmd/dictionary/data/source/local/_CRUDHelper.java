@@ -545,4 +545,44 @@ public class _CRUDHelper implements DataSource {
     public RealmResults<GrammarBox> getAllGrammarBoxes() {
         return mRealm.where(GrammarBox.class).findAllAsync();
     }
+
+    @Override
+    public void moveToBox(final JpnBox jpnBox, final JpnWord jpnWord) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                jpnBox.getWords().add(jpnWord);
+            }
+        });
+    }
+
+    @Override
+    public void moveToBox(final VieBox vieBox, final VieWord vieWord) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                vieBox.getWords().add(vieWord);
+            }
+        });
+    }
+
+    @Override
+    public void moveToBox(final KanjiBox kanjiBox, final Kanji kanji) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                kanjiBox.getKanjis().add(kanji);
+            }
+        });
+    }
+
+    @Override
+    public void moveToBox(final GrammarBox grammarBox, final Grammar grammar) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                grammarBox.getGrammars().add(grammar);
+            }
+        });
+    }
 }

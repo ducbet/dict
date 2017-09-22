@@ -17,7 +17,8 @@ public interface JpnDetailContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
-        void onMoveToBox();
+        void onOpenMoveToBoxFragment();
+        void onMoveToBox(JpnBox jpnBox, JpnWord jpnWord);
     }
 
     /**
@@ -29,5 +30,6 @@ public interface JpnDetailContract {
         void isLiked(JpnWord jpnWord);
         RealmResults<JpnBox> getAllFlashcardBoxes();
         void createFlashcardBox(JpnBox newBox);
+        void moveToBox(JpnBox jpnBox, JpnWord jpnWord);
     }
 }

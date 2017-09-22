@@ -96,4 +96,9 @@ final class KanjiDetailPresenter implements KanjiDetailContract.Presenter {
     public void createFlashcardBox(KanjiBox newBox) {
         mRepository.createFlashcardBox(newBox);
     }
+
+    @Override
+    public void moveToBox(KanjiBox kanjiBox, Kanji kanji) {
+        mRepository.moveToBox(kanjiBox, kanji);
+    }
 }

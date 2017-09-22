@@ -49,4 +49,8 @@ public interface DataSource {
     RealmResults<VieBox> getAllVieBoxes();
     RealmResults<KanjiBox> getAllKanjiBoxes();
     RealmResults<GrammarBox> getAllGrammarBoxes();
+    void moveToBox(JpnBox jpnBox, JpnWord jpnWord);
+    void moveToBox(VieBox vieBox, VieWord vieWord);
+    void moveToBox(KanjiBox kanjiBox, Kanji kanji);
+    void moveToBox(GrammarBox grammarBox, Grammar grammar);
 }

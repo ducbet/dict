@@ -97,4 +97,9 @@ final class VieDetailPresenter implements VieDetailContract.Presenter {
     public void createFlashcardBox(VieBox newBox) {
         mRepository.createFlashcardBox(newBox);
     }
+
+    @Override
+    public void moveToBox(VieBox vieBox, VieWord vieWord) {
+        mRepository.moveToBox(vieBox, vieWord);
+    }
 }

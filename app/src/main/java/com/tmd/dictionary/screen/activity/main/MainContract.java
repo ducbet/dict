@@ -27,7 +27,7 @@ public interface MainContract {
         void onOpenSearchFragment(String needSearch);
         void onOpenHistoryFragment();
         void onOpenLikedFragment();
-        void onMoveToBoxFragment(OpenableMoveToBoxFrag viewModel);
+        void onOpenMoveToBoxFragment(OpenableMoveToBoxFrag viewModel);
         void onOpenBoxesActivity();
     }
 

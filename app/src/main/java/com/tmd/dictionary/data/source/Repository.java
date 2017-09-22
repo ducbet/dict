@@ -180,4 +180,24 @@ public class Repository implements DataSource {
     public RealmResults<GrammarBox> getAllGrammarBoxes() {
         return mLocalDataSource.getAllGrammarBoxes();
     }
+
+    @Override
+    public void moveToBox(JpnBox jpnBox, JpnWord jpnWord) {
+        mLocalDataSource.moveToBox(jpnBox, jpnWord);
+    }
+
+    @Override
+    public void moveToBox(VieBox vieBox, VieWord vieWord) {
+        mLocalDataSource.moveToBox(vieBox, vieWord);
+    }
+
+    @Override
+    public void moveToBox(KanjiBox kanjiBox, Kanji kanji) {
+        mLocalDataSource.moveToBox(kanjiBox, kanji);
+    }
+
+    @Override
+    public void moveToBox(GrammarBox grammarBox, Grammar grammar) {
+        mLocalDataSource.moveToBox(grammarBox, grammar);
+    }
 }

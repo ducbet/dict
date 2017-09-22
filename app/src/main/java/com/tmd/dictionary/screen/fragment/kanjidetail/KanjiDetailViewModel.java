@@ -67,8 +67,13 @@ public class KanjiDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onMoveToBox() {
-        mMainViewModel.onMoveToBoxFragment(this);
+    public void onOpenMoveToBoxFragment() {
+        mMainViewModel.onOpenMoveToBoxFragment(this);
+    }
+
+    @Override
+    public void onMoveToBox(KanjiBox kanjiBox, Kanji kanji) {
+        mPresenter.moveToBox(kanjiBox, kanji);
     }
 
     /**

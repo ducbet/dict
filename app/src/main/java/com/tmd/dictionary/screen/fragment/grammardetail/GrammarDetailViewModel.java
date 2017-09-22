@@ -67,8 +67,13 @@ public class GrammarDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onMoveToBox() {
-        mMainViewModel.onMoveToBoxFragment(this);
+    public void onOpenMoveToBoxFragment() {
+        mMainViewModel.onOpenMoveToBoxFragment(this);
+    }
+
+    @Override
+    public void onMoveToBox(GrammarBox grammarBox, Grammar grammar) {
+        mPresenter.moveToBox(grammarBox, grammar);
     }
 
     /**
