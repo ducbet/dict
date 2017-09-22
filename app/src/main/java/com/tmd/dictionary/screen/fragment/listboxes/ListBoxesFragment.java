@@ -47,8 +47,8 @@ public class ListBoxesFragment extends BaseFragment {
         }
         mBoxesViewModel = getArguments().getParcelable(BUNDLE_VIEW_MODEL);
         mBoxType = getArguments().getInt(BUNDLE_BOX_TYPE);
-        mViewModel = new ListBoxesViewModel(mBoxType);
         mRealm = ((BoxesViewModel) mBoxesViewModel).getRealm();
+        mViewModel = new ListBoxesViewModel(mBoxesViewModel, mBoxType, mRealm);
         ListBoxesContract.Presenter presenter =
             new ListBoxesPresenter(mViewModel, new Repository(new LocalDataSource(mRealm)));
         mViewModel.setPresenter(presenter);
