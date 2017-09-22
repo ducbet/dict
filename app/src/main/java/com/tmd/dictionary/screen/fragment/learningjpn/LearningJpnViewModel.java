@@ -12,6 +12,7 @@ public class LearningJpnViewModel implements LearningJpnContract.ViewModel {
     private ListBoxesContract.ViewModel mListBoxesViewModel;
     private LearningJpnContract.Presenter mPresenter;
     private Realm mRealm;
+    private LearningJpnAdapter mAdapter;
     private JpnBox mJpnBox;
 
     public LearningJpnViewModel(ListBoxesContract.ViewModel listBoxesViewModel, JpnBox jpnBox,
@@ -19,6 +20,11 @@ public class LearningJpnViewModel implements LearningJpnContract.ViewModel {
         mListBoxesViewModel = listBoxesViewModel;
         mJpnBox = jpnBox;
         mRealm = realm;
+        mAdapter = new LearningJpnAdapter(this, mJpnBox);
+    }
+
+    public LearningJpnAdapter getAdapter() {
+        return mAdapter;
     }
 
     @Override
