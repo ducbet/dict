@@ -16,6 +16,7 @@ public class ConstantValue {
     public static final String BUNDLE_NEED_SEARCH = "BUNDLE_NEED_SEARCH";
     public static final String BUNDLE_BOX_TYPE = "BUNDLE_BOX_TYPE";
     public static final String BUNDLE_JPN_WORD = "BUNDLE_JPN_WORD";
+    public static final String BUNDLE_JPN_BOX = "BUNDLE_JPN_BOX";
     public static final String BUNDLE_VIE_WORD = "BUNDLE_VIE_WORD";
     public static final String BUNDLE_KANJI = "BUNDLE_KANJI";
     public static final String BUNDLE_GRAMMAR = "BUNDLE_GRAMMAR";

@@ -1,5 +1,8 @@
 package com.tmd.dictionary.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 import io.realm.RealmList;
@@ -10,7 +13,7 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.SIMPLE_DATE_FORMAT;
 /**
  * Created by tmd on 02/09/2017.
  */
-public class JpnBox extends RealmObject {
+public class JpnBox extends RealmObject implements Parcelable {
     private RealmList<JpnWord> words;
     private RealmString name;
     private RealmString description;
@@ -66,5 +69,40 @@ public class JpnBox extends RealmObject {
 
     public void setUpdateAt(RealmString updateAt) {
         this.updateAt = updateAt;
+    }
+
+    /**
+     * Parcelable
+     */
+    protected JpnBox(Parcel in) {
+        name = in.readParcelable(RealmString.class.getClassLoader());
+        description = in.readParcelable(RealmString.class.getClassLoader());
+        craeteAt = in.readParcelable(RealmString.class.getClassLoader());
+        updateAt = in.readParcelable(RealmString.class.getClassLoader());
+    }
+
+    public static final Creator<JpnBox> CREATOR = new Creator<JpnBox>() {
+        @Override
+        public JpnBox createFromParcel(Parcel in) {
+            return new JpnBox(in);
+        }
+
+        @Override
+        public JpnBox[] newArray(int size) {
+            return new JpnBox[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(name, i);
+        parcel.writeParcelable(description, i);
+        parcel.writeParcelable(craeteAt, i);
+        parcel.writeParcelable(updateAt, i);
     }
 }

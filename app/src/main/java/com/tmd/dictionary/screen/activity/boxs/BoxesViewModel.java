@@ -5,6 +5,9 @@ import android.os.Parcel;
 import android.support.v4.app.FragmentManager;
 
 import com.tmd.dictionary.R;
+import com.tmd.dictionary.data.model.JpnBox;
+import com.tmd.dictionary.screen.fragment.learningjpn.LearningJpnFragment;
+import com.tmd.dictionary.screen.fragment.listboxes.ListBoxesContract;
 import com.tmd.dictionary.screen.fragment.listboxes.ListBoxesFragment;
 import com.tmd.dictionary.staticfinal.OpenFragment;
 
@@ -71,6 +74,25 @@ public class BoxesViewModel implements BoxesContract.ViewModel {
     public void onOpenGrammarBoxesFragment() {
         OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
             ListBoxesFragment.newInstance(this, INT_GRAMMAR));
+    }
+
+    @Override
+    public void onOpenLearningJpnFragment(ListBoxesContract.ViewModel mListBoxesViewModel,
+                                          JpnBox box) {
+        OpenFragment.openFragment(mFragmentManager, R.id.frame_layout_boxes,
+            LearningJpnFragment.newInstance(mListBoxesViewModel, box));
+    }
+
+    @Override
+    public void onOpenLearningVieFragment() {
+    }
+
+    @Override
+    public void onOpenLearningKanjiFragment() {
+    }
+
+    @Override
+    public void onOpenLearningGrammarFragment() {
     }
 
     /**
