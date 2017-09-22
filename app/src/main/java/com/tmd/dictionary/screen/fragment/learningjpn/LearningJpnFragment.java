@@ -3,6 +3,8 @@ package com.tmd.dictionary.screen.fragment.learningjpn;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,8 @@ public class LearningJpnFragment extends BaseFragment {
         FragmentLearningJpnBinding binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_learning_jpn, container, false);
         binding.setViewModel((LearningJpnViewModel) mViewModel);
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(binding.spanHelperRecyclerview);
         return binding.getRoot();
     }
 
