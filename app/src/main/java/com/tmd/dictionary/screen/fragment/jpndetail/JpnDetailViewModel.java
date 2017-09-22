@@ -81,8 +81,13 @@ public class JpnDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onMoveToBox() {
-        mMainViewModel.onMoveToBoxFragment(this);
+    public void onOpenMoveToBoxFragment() {
+        mMainViewModel.onOpenMoveToBoxFragment(this);
+    }
+
+    @Override
+    public void onMoveToBox(JpnBox jpnBox, JpnWord jpnWord) {
+        mPresenter.moveToBox(jpnBox, jpnWord);
     }
 
     @Override

@@ -17,7 +17,8 @@ interface GrammarDetailContract {
     interface ViewModel extends BaseViewModel<Presenter> {
         void onChangeLikeState();
         void onSetLiked(Boolean isLiked);
-        void onMoveToBox();
+        void onOpenMoveToBoxFragment();
+        void onMoveToBox(GrammarBox grammarBox, Grammar grammar);
     }
 
     /**
@@ -29,5 +30,6 @@ interface GrammarDetailContract {
         void isLiked(Grammar grammar);
         RealmResults<GrammarBox> getAllFlashcardBoxes();
         void createFlashcardBox(GrammarBox newBox);
+        void moveToBox(GrammarBox grammarBox, Grammar grammar);
     }
 }

@@ -67,8 +67,13 @@ public class VieDetailViewModel extends BaseObservable
     }
 
     @Override
-    public void onMoveToBox() {
-        mMainViewModel.onMoveToBoxFragment(this);
+    public void onOpenMoveToBoxFragment() {
+        mMainViewModel.onOpenMoveToBoxFragment(this);
+    }
+
+    @Override
+    public void onMoveToBox(VieBox vieBox, VieWord vieWord) {
+        mPresenter.moveToBox(vieBox, vieWord);
     }
 
     public void onOpenSearchFragment(String needSearch) {

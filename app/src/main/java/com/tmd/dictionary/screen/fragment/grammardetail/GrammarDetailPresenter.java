@@ -97,4 +97,9 @@ final class GrammarDetailPresenter implements GrammarDetailContract.Presenter {
     public void createFlashcardBox(GrammarBox newBox) {
         mRepository.createFlashcardBox(newBox);
     }
+
+    @Override
+    public void moveToBox(GrammarBox grammarBox, Grammar grammar) {
+        mRepository.moveToBox(grammarBox, grammar);
+    }
 }

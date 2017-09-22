@@ -138,7 +138,7 @@ public class MainViewModel implements MainContract.ViewModel, Parcelable,
     }
 
     @Override
-    public void onMoveToBoxFragment(OpenableMoveToBoxFrag viewModel) {
+    public void onOpenMoveToBoxFragment(OpenableMoveToBoxFrag viewModel) {
         MoveToBoxFragment moveToBoxFragment = MoveToBoxFragment.newInstance(viewModel);
         moveToBoxFragment.show(((MainActivity) mContext).getFragmentManager(), null);
     }

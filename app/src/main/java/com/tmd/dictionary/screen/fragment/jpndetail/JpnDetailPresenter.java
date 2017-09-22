@@ -96,4 +96,9 @@ final class JpnDetailPresenter implements JpnDetailContract.Presenter {
     public void createFlashcardBox(JpnBox newBox) {
         mRepository.createFlashcardBox(newBox);
     }
+
+    @Override
+    public void moveToBox(JpnBox jpnBox, JpnWord jpnWord) {
+        mRepository.moveToBox(jpnBox, jpnWord);
+    }
 }

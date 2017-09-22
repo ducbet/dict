@@ -181,4 +181,24 @@ public class LocalDataSource implements DataSource {
     public RealmResults<GrammarBox> getAllGrammarBoxes() {
         return mCRUDHelper.getAllGrammarBoxes();
     }
+
+    @Override
+    public void moveToBox(JpnBox jpnBox, JpnWord jpnWord) {
+        mCRUDHelper.moveToBox(jpnBox, jpnWord);
+    }
+
+    @Override
+    public void moveToBox(VieBox vieBox, VieWord vieWord) {
+        mCRUDHelper.moveToBox(vieBox, vieWord);
+    }
+
+    @Override
+    public void moveToBox(KanjiBox kanjiBox, Kanji kanji) {
+        mCRUDHelper.moveToBox(kanjiBox, kanji);
+    }
+
+    @Override
+    public void moveToBox(GrammarBox grammarBox, Grammar grammar) {
+        mCRUDHelper.moveToBox(grammarBox, grammar);
+    }
 }
