@@ -9,4 +9,6 @@
     <color name="color_blue_grey_900_2">#303030</color>
     <color name="color_orange_500">#FA9A05</color>
     <color name="color_brown_100">#e6d9d5</color>
+    <color name="color_line">#640099cc</color>
+    <color name="color_vertical_line">#60ff4444</color>
 </resources>

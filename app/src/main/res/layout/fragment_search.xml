@@ -22,62 +22,72 @@
         tools:context=".screen.fragment.search.SearchFragment"
         >
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            bind:setPagerAdapter="@{viewModel.pagerAdapter}"/>
-
-
-        <android.support.design.widget.TabLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/colorPrimaryDark"
-            bind:setViewPager="@{(viewPager)}"
-            bind:tabIndicatorColor="@android:color/white"
-            bind:tabIndicatorHeight="@dimen/dp_2"
-            bind:tabMode="fixed"
-            bind:tabSelectedTextColor="@android:color/white"
-            bind:tabTextColor="@android:color/darker_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <EditText
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_margin="@dimen/dp_5"
-                android:layout_weight="1"
-                android:backgroundTint="@color/color_orange_500"
+                android:backgroundTint="@color/color_line"
                 android:inputType="text"
                 android:maxLines="1"
                 android:text="@{viewModel.needSearch}"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/sp_25"
                 bind:addTextWatcher="@{viewModel}"/>
 
             <ImageView
+                android:id="@+id/image_view_camera"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:layout_margin="@dimen/dp_5"
-                android:src="@drawable/ic_photo_camera_white_24px"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:src="@drawable/ic_photo_camera_black_24px"/>
 
             <ImageView
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:layout_margin="@dimen/dp_5"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_toLeftOf="@+id/image_view_camera"
+                android:layout_toStartOf="@+id/image_view_camera"
                 android:padding="@dimen/dp_5"
-                android:src="@drawable/ic_pencil"/>
-        </LinearLayout>
+                android:src="@drawable/ic_pencil_black_24px"/>
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scrollIndicators="left"
+            bind:setViewPager="@{(viewPager)}"
+            bind:tabIndicatorColor="@android:color/holo_red_light"
+            bind:tabIndicatorHeight="@dimen/dp_1"
+            bind:tabMode="scrollable"
+            bind:tabSelectedTextColor="@android:color/holo_red_light"
+            bind:tabTextColor="@android:color/darker_gray"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@android:color/holo_red_light"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            bind:setPagerAdapter="@{viewModel.pagerAdapter}"/>
+
 
     </LinearLayout>
 </layout>
