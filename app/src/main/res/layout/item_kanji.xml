@@ -29,7 +29,7 @@
             >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dp_70"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -38,20 +38,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="@dimen/dp_70"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="@{kanji.origin}"
                     android:textColor="@android:color/black"
-                    android:textSize="50sp"/>
+                    android:textSize="@dimen/sp_50"/>
 
                 <TextView
-                    android:layout_width="@dimen/dp_70"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@{kanji.hanViet}"
                     android:textColor="@android:color/black"
-                    android:textSize="15sp"/>
+                    android:textSize="@dimen/sp_15"/>
             </LinearLayout>
 
             <LinearLayout
