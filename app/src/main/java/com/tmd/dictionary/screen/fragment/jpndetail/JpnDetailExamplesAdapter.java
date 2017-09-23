@@ -39,6 +39,10 @@ public class JpnDetailExamplesAdapter
         notifyDataSetChanged();
     }
 
+    public boolean isEmpty() {
+        return mList.isEmpty();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemExampleJpnDetailBinding binding =

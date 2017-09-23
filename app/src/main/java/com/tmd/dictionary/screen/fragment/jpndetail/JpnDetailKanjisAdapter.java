@@ -38,6 +38,10 @@ public class JpnDetailKanjisAdapter
         notifyDataSetChanged();
     }
 
+    public boolean isEmpty() {
+        return mList.isEmpty();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemKanjiJpnDetailBinding binding =
