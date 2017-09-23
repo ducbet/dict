@@ -33,7 +33,7 @@
             android:paddingStart="@dimen/dp_25"
             android:paddingTop="@dimen/dp_15"
             android:text="@{vieWord.origin}"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="20sp"
             android:textStyle="bold"
             app:linesColor="@color/color_line"

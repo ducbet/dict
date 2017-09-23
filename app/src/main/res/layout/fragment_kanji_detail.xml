@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     >
 
@@ -19,62 +20,175 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:orientation="vertical"
-        android:padding="@dimen/dp_5"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="0dp"
+            <com.tmd.dictionary.util.PaperTextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_5"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginStart="@dimen/dp_15"
-                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="@dimen/dp_15"
+                android:paddingEnd="@dimen/dp_90"
+                android:paddingLeft="@dimen/dp_35"
+                android:paddingRight="@dimen/dp_90"
+                android:paddingStart="@dimen/dp_35"
+                android:paddingTop="@dimen/dp_15"
                 android:text="@{viewModel.kanji.origin}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_25"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="@dimen/sp_30"
+                android:textStyle="bold"
+                app:linesColor="@color/color_line"
+                app:linesPaddingLeft="@dimen/dp_20"
+                app:linesPaddingRight="@dimen/dp_20"
+                app:strokeWidth=".5dp"
                 />
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
+                android:id="@+id/image_view_like"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
                 android:onClick="@{()->viewModel.onChangeLikeState()}"
                 bind:src="@{viewModel.liked}"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
+                android:layout_toLeftOf="@+id/image_view_like"
+                android:layout_toStartOf="@+id/image_view_like"
                 android:onClick="@{()->viewModel.onOpenMoveToBoxFragment()}"
                 android:src="@drawable/ic_box_black_24px"/>
-        </LinearLayout>
+        </RelativeLayout>
 
-        <TextView
+        <com.tmd.dictionary.util.PaperTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_5"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_35"
+            android:paddingStart="@dimen/dp_35"
+            android:paddingTop="@dimen/dp_15"
             android:text="@{viewModel.kanji.hanViet}"
-            android:textColor="@color/color_brown_100"
-            android:textSize="@dimen/sp_15"/>
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="italic"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
 
-        <TextView
+        <com.tmd.dictionary.util.PaperTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_5"
-            android:text="@{viewModel.kanji.meaning}"
-            android:textColor="@color/color_brown_100"
-            android:textSize="@dimen/sp_15"/>
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Meaning: ` + viewModel.kanji.meaning}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
 
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Onyomi: ` +viewModel.kanji.onyomi}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
 
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Kunyomi: ` + viewModel.kanji.kunyomi}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
+
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Stroke: ` + String.valueOf(viewModel.kanji.stroke)}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
+
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Radical: ` + viewModel.kanji.radical}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
+
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{`Level: ` + String.valueOf(viewModel.kanji.level)}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
     </LinearLayout>
 </layout>
