@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="PaperTextView">
+        <attr name="linesColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="linesPaddingLeft" format="dimension"/>
+        <attr name="linesPaddingRight" format="dimension"/>
+    </declare-styleable>
 </resources>

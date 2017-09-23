@@ -17,42 +17,61 @@
             />
     </data>
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_5"
-        app:cardBackgroundColor="@color/color_blue_grey_900_2"
-        app:cardCornerRadius="@dimen/dp_5">
+        android:onClick="@{()->viewModel.onClick(vieWord)}"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <com.tmd.dictionary.util.PaperTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:onClick="@{()->viewModel.onClick(vieWord)}"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_5"
-            >
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingStart="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{vieWord.origin}"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginStart="@dimen/dp_10"
-                android:text="@{vieWord.origin}"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/sp_17"
-                />
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingLeft="@dimen/dp_35"
+            android:paddingStart="@dimen/dp_35"
+            android:paddingTop="@dimen/dp_15"
+            android:text="@{vieWord.definition}"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_5"
-                android:text="@{vieWord.definition}"
-                android:textColor="@color/color_brown_100"
-                android:textSize="@dimen/sp_15"/>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+        <com.tmd.dictionary.util.PaperTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/split_lines"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_15"
+            android:textSize="@dimen/sp_15"
+            app:linesColor="@color/color_line"
+            app:linesPaddingLeft="@dimen/dp_20"
+            app:linesPaddingRight="@dimen/dp_20"
+            app:strokeWidth=".5dp"
+            />
+    </LinearLayout>
 
 </layout>
