@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_15"
             android:text="@string/jpn_boxes"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/sp_20"/>
 
         <android.support.v7.widget.RecyclerView
