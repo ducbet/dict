@@ -2,6 +2,7 @@ package com.tmd.dictionary.screen.fragment.search.level2.javvie;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +12,8 @@ import com.tmd.dictionary.databinding.ItemJpnVieBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Created by tmd on 18/08/2017.
@@ -29,8 +32,15 @@ public class JavVieAdapter extends RecyclerView.Adapter<JavVieAdapter.ViewHolder
             notifyDataSetChanged();
             return;
         }
-        mList = list;
+        Log.e(MY_TAG, "mList: " + mList.size());
+        Log.e(MY_TAG, "list: " + list.size());
+        mList.addAll(list);
         notifyDataSetChanged();
+        Log.e(MY_TAG, "notifyDataSetChanged: " + mList.size());
+    }
+
+    public void clear() {
+        mList.clear();
     }
 
     @Override

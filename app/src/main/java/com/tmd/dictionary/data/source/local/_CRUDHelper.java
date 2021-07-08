@@ -1,5 +1,7 @@
 package com.tmd.dictionary.data.source.local;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.tmd.dictionary.data.model.Grammar;
 import com.tmd.dictionary.data.model.GrammarBox;
@@ -28,6 +30,7 @@ import static com.tmd.dictionary.staticfinal.ConstantValue.INT_GRAMMAR;
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_JPN_WORD;
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_KANJI;
 import static com.tmd.dictionary.staticfinal.ConstantValue.INT_VIE_WORD;
+import static com.tmd.dictionary.staticfinal.ConstantValue.MY_TAG;
 
 /**
  * Created by tmd on 09/07/2017.
@@ -40,7 +43,15 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnWordHasKanjis(final String input) {
+    public RealmResults<JpnWord> searchEqualJpnWordHasKanjis(final String input) {
+        RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
+            .equalTo("origin", input)
+            .findAllAsync();
+        return jpnWords;
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchLikeJpnWordHasKanjis(String input) {
         RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("origin", "*" + input + "*")
             .findAllAsync();
@@ -48,10 +59,20 @@ public class _CRUDHelper implements DataSource {
     }
 
     @Override
-    public RealmResults<JpnWord> searchJpnWordNotHasKanjis(String input) {
+    public RealmResults<JpnWord> searchEqualJpnWordNotHasKanjis(String input) {
+        RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
+            .equalTo("kana", input)
+            .findAllAsync();
+        Log.e(MY_TAG, "searchEqualJpnWordNotHasKanjis: ");
+        return jpnWords;
+    }
+
+    @Override
+    public RealmResults<JpnWord> searchLikeJpnWordNotHasKanjis(String input) {
         RealmResults<JpnWord> jpnWords = mRealm.where(JpnWord.class)
             .like("kana", "*" + input + "*")
             .findAllAsync();
+        Log.e(MY_TAG, "searchLikeJpnWordNotHasKanjis: ");
         return jpnWords;
     }
 
@@ -107,8 +128,31 @@ public class _CRUDHelper implements DataSource {
         });
     }
 
-    public RealmResults<JpnWord> chaningJpnQuery(String input,
-                                                 RealmResults<JpnWord> parentsResult) {
+    @Override
+    public RealmResults<JpnWord> chaningJpnQueryEqual(String input,
+                                                      RealmResults<JpnWord> parentsResult) {
+        RealmResults<JpnWord> jpnWords = parentsResult.where()
+            .equalTo("origin", input)
+            .or()
+            .equalTo("kana", input)
+            .findAllAsync();
+//         .beginGroup()
+//            .like("origin", "*" + input + "*")
+//            .or()
+//            .like("kana", "*" + input + "*")
+//            .endGroup()
+//            .beginGroup()
+//            .notEqualTo("origin", input)
+//            .or()
+//            .notEqualTo("kana", input)
+//            .endGroup()
+//            .findAllAsync();
+        return jpnWords;
+    }
+
+    @Override
+    public RealmResults<JpnWord> chaningJpnQueryLike(String input,
+                                                     RealmResults<JpnWord> parentsResult) {
         RealmResults<JpnWord> jpnWords = parentsResult.where()
             .like("origin", "*" + input + "*")
             .or()
